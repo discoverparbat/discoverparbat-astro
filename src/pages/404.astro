@@ -2,7 +2,8 @@
 // Shown for any URL that doesn't exist (set in public/.htaccess: ErrorDocument 404).
 // noindex so Google never lists it.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { TREKS } from '../data/treks.js';
+import { getTrekCards } from '../lib/treks';
+const TREKS = await getTrekCards();
 const popular = TREKS.filter((t) => ['/kokhe-danda-trek', '/khopra-ridge-trek', '/api-himal-base-camp-trek', '/mardi-himal-trek'].includes(t.url));
 ---
 <BaseLayout

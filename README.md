@@ -8,12 +8,12 @@ That `dist/` folder is what goes on Hostinger.
 
 | You want to change… | Edit this |
 |---|---|
-| Menu links, email, WhatsApp, booking-form trek list | `src/data/site.js` |
+| Menu links, email, WhatsApp | `src/data/site.js` |
+| Treks, shop prints, departures, article cards | the CMS (see below) |
 | Header / footer | `src/components/Header.astro`, `Footer.astro` |
 | SEO head (canonical, og tags, favicons, robots) for **every** page | `src/layouts/BaseLayout.astro` |
-| A trek page's text, itinerary, FAQ, prices | `src/pages/<trek-url>.astro` |
+| A trek page's text, itinerary, FAQ, prices | CMS → Treks (`src/content/treks/<trek-url>.json`) |
 | Trek page structure (hero, gallery, sidebar, schema) | `src/layouts/TrekLayout.astro` |
-| Reviews | `src/data/reviews.js` |
 | Country list in forms | `src/data/countries.js` |
 | Site-wide styles | `src/styles/global.css` |
 | Trek page styles | `src/styles/trek-page.css`, `trek-extra.css` |
@@ -26,28 +26,29 @@ becomes `/article/…`.
 **Photos keep their URLs.** `public/kokhe.jpg` is served at `/kokhe.jpg`,
 `public/photo/treks/x.jpg` at `/photo/treks/x.jpg`.
 
-## Editing a trek page
+## Admin / CMS (no code needed)
 
-Open e.g. `src/pages/kokhe-danda-trek.astro`. The top part (between the `---`
-lines) holds the itinerary, FAQ and gallery lists. The settings on
-`<TrekLayout …>` hold the SEO title, description, prices and includes.
-Everything below is normal HTML for the left column.
+Log in at **https://app.pagescms.org** with the GitHub account, open
+`discoverparbat/discoverparbat-astro`. The forms come from `.pages.yml`:
 
-The FAQ and itinerary lists feed both the page **and** the Google schema,
-so you only ever change them in one place.
+- **Treks**: every trek page (SEO, banner, facts, gallery, prices, includes,
+  itinerary, FAQ, reviews, page sections). Each trek is one file in
+  `src/content/treks/` and its file name is its URL
+  (`kokhe-danda-trek.json` → `/kokhe-danda-trek`). Tick boxes decide where it
+  shows: **Treks page & lists** (the /treks page) and **Homepage**
+  ("Featured Treks"). New treks appear in every booking form automatically.
+  "Draft" hides a trek completely.
+- **Homepage – Fixed departures**: dates in the past hide automatically on
+  the next update.
+- **Shop – Photo prints**: add/remove/reorder prints, default prices for all
+  prints, optional price per print.
+- **Articles list**: the cards on /articles (newest first).
 
-## Adding a new trek page
+Every save is a commit → GitHub rebuilds the preview and the `deploy`
+branch within ~2 minutes → Hostinger publishes it (automatic if the Hostinger
+Git webhook is set up, otherwise press Deploy in Hostinger).
 
-1. Copy an existing trek page in `src/pages/` (e.g. `poonhill-trek.astro`) and
-   rename it to the new URL, e.g. `ghandruk-trek.astro` → `/ghandruk-trek`.
-2. Change the settings on `<TrekLayout …>` (title, description, prices…),
-   the `itinerary`, `faqs` and `gallery` lists at the top, and the text.
-3. Add the trek's name to `BOOKING_TREKS` in `src/data/site.js` so it shows
-   in every booking form.
-4. Put its photos in `public/photo/treks/`.
-
-Trek page building blocks (in `src/components/trek/`): `VideoEmbed`,
-`HighlightsBox`, `RightForYou`, `Itinerary`, `RouteMap`, `FaqList`, `Reviews`.
+Nothing is lost: every change is kept in GitHub history and can be undone.
 
 ## Articles
 
@@ -81,8 +82,8 @@ npm run build    # builds the final site into dist/
 Home, About, Contact, Custom Trek, Shop, Cancellation, Success and Thank-you
 are in `src/pages/` and keep their own design (styles at the top of each file).
 
-- `/treks`: cards, filter, comparison table and trek count come from
-  `src/data/treks.js` — add a trek there and it appears everywhere.
+- `/treks`, homepage "Featured Treks" and booking forms are built from the
+  trek files — add a trek in the CMS and it appears everywhere.
 - `sitemap.xml` is built automatically from every page (see
   `src/pages/sitemap.xml.js` for the few pages left out).
 - `src/pages/404.astro` is shown for any URL that doesn't exist.

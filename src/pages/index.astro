@@ -3,6 +3,16 @@
 // This page keeps its own design: its styles are in the <style> block
 // below and the page HTML follows. BaseLayout adds the head, header and footer.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getHomeTreks, DIFFICULTY_LABEL } from '../lib/treks';
+import departuresData from '../data/departures.json';
+// "Featured Treks" = treks ticked "Show on homepage" in the CMS (in their homepage order).
+const homeTreks = await getHomeTreks();
+// Fixed departures (CMS → Homepage → Fixed departures). Past dates hide automatically.
+const today = new Date().toISOString().slice(0, 10);
+const departures = (departuresData as Array<{ trek: string; date: string; duration: string; seats: number }>)
+  .filter((d) => d && d.trek && d.date && String(d.date).slice(0, 10) >= today)
+  .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+const fmtDate = (iso: string) => new Date(String(iso).slice(0, 10) + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 
 // Google schema (JSON-LD), kept from the old page
 const schema = [
@@ -1006,112 +1016,24 @@ const schema = [
 </div>
 
 <div class="cards-grid">
-  <a class="card" href="/kokhe-danda-trek">
-    <div class="card-img-wrap">
-      <img src="/kokhe.jpg" alt="Kokhe Danda Trek">
-      <div class="card-overlay"></div>
-      <span class="badge"><span class="badge-dot"></span>Easy · 5 Days</span>
-    </div>
-    <div class="card-content">
-      <h3>Kokhe Danda Trek</h3>
-      <p>Village culture + Himalayan views</p>
-      <span class="card-arrow">View Trek →</span>
-    </div>
-  </a>
-
-  <a class="card" href="/mardi-himal-trek">
-    <div class="card-img-wrap">
-      <img src="/mardi.jpg" alt="Mardi Himal Trek">
-      <div class="card-overlay"></div>
-      <span class="badge"><span class="badge-dot"></span>Easy · 5 Days</span>
-    </div>
-    <div class="card-content">
-      <h3>Mardi Himal Trek</h3>
-      <p>Ridge trek towards Fishtail</p>
-      <span class="card-arrow">View Trek →</span>
-    </div>
-  </a>
-
-  <a class="card" href="/khopra-ridge-trek">
-    <div class="card-img-wrap">
-      <img src="/khopra.jpg" alt="Khopra Ridge Trek">
-      <div class="card-overlay"></div>
-      <span class="badge moderate"><span class="badge-dot"></span>Moderate · 8 Days</span>
-    </div>
-    <div class="card-content">
-      <h3>Khopra Ridge Trek</h3>
-      <p>Beautiful offbeat ridge trek</p>
-      <span class="card-arrow">View Trek →</span>
-    </div>
-  </a>
-
-  <a class="card" href="/annapurna-base-camp-trek">
-    <div class="card-img-wrap">
-      <img src="/abc.jpg" alt="Annapurna Base Camp">
-      <div class="card-overlay"></div>
-      <span class="badge moderate"><span class="badge-dot"></span>Moderate · 10 Days</span>
-    </div>
-    <div class="card-content">
-      <h3>Annapurna Base Camp Trek</h3>
-      <p>Classic Himalayan journey</p>
-      <span class="card-arrow">View Trek →</span>
-    </div>
-  </a>
-
-  <a class="card" href="/short-kokhe-danda-trek">
-    <div class="card-img-wrap">
-      <img src="/kokhe.jpg" alt="Short Kokhe Danda Trek">
-      <div class="card-overlay"></div>
-      <span class="badge"><span class="badge-dot"></span>Easy · 3 Days</span>
-    </div>
-    <div class="card-content">
-      <h3>Short Kokhe Danda Trek</h3>
-      <p>Short and scenic trek</p>
-      <span class="card-arrow">View Trek →</span>
-    </div>
-  </a>
-
-  <a class="card" href="/multiple-viewpoints-trek">
-    <div class="card-img-wrap">
-      <img src="/mvp.jpg" alt="Multiple Viewpoints Trek">
-      <div class="card-overlay"></div>
-      <span class="badge moderate"><span class="badge-dot"></span>Moderate · 14 Days</span>
-    </div>
-    <div class="card-content">
-      <h3>Multiple Viewpoints Trek</h3>
-      <p>Best viewpoints in one trek</p>
-      <span class="card-arrow">View Trek →</span>
-    </div>
-  </a>
-
-  <a class="card" href="/muldai-viewpoint-trek">
-    <div class="card-img-wrap">
-      <img src="/shortmvp.jpg" alt="Muldai Viewpoint Poon Hill Trek">
-      <div class="card-overlay"></div>
-      <span class="badge"><span class="badge-dot"></span>Easy · 6 Days</span>
-    </div>
-    <div class="card-content">
-      <h3>Muldai Viewpoint Poon Hill Trek</h3>
-      <p>Muldai, Poon Hill &amp; Kokhe</p>
-      <span class="card-arrow">View Trek →</span>
-    </div>
-  </a>
-
-  <a class="card" href="/annapurna-circuit-trek">
-  <div class="card-img-wrap">
-    <img src="/act2.jpg" alt="Annapurna Circuit Trek">
-    <div class="card-overlay"></div>
-    <span class="badge"><span class="badge-dot"></span>Challenging · 12 Days</span>
-  </div>
-  <div class="card-content">
-    <h3>Annapurna Circuit Trek</h3>
-    <p>Classic Himalayan circuit over Thorong La</p>
-    <span class="card-arrow">View Trek →</span>
-  </div>
-</a>
+  {homeTreks.map((t) => (
+    <a class="card" href={t.url}>
+      <div class="card-img-wrap">
+        <img src={t.home?.image ?? t.image} alt={t.home?.imageAlt ?? t.name}>
+        <div class="card-overlay"></div>
+        <span class="badge"><span class="badge-dot"></span>{t.home?.badge ?? `${DIFFICULTY_LABEL[t.difficulty]} · ${t.days} Days`}</span>
+      </div>
+      <div class="card-content">
+        <h3>{t.name}</h3>
+        <p>{t.home?.blurb ?? t.blurb}</p>
+        <span class="card-arrow">View Trek →</span>
+      </div>
+    </a>
+  ))}
 </div>
 
 <!-- ─── FIXED DEPARTURES ───────────────────────────────── -->
+{departures.length > 0 && (
 <section class="departures-section">
   <div class="section-header">
     <div class="section-eyebrow">Limited Seats Available</div>
@@ -1119,42 +1041,28 @@ const schema = [
     <div class="title-divider"></div>
   </div>
   <div class="departures-grid">
-    <div class="departure-card">
-      <div class="dep-info">
-        <div class="dep-name">Khopra Ridge Trek</div>
-        <div class="dep-meta">
-          <div class="dep-meta-item">
-            <span class="dep-meta-label">Date</span>
-            <span class="dep-meta-value">26 Oct 2026</span>
+    {departures.map((d) => (
+      <div class="departure-card">
+        <div class="dep-info">
+          <div class="dep-name">{d.trek}</div>
+          <div class="dep-meta">
+            <div class="dep-meta-item">
+              <span class="dep-meta-label">Date</span>
+              <span class="dep-meta-value">{fmtDate(d.date)}</span>
+            </div>
+            <div class="dep-meta-item">
+              <span class="dep-meta-label">Duration</span>
+              <span class="dep-meta-value">{d.duration}</span>
+            </div>
           </div>
-          <div class="dep-meta-item">
-            <span class="dep-meta-label">Duration</span>
-            <span class="dep-meta-value">8 Days</span>
-          </div>
+          <span class="seats-pill">● {d.seats} {d.seats === 1 ? 'Seat' : 'Seats'} Left</span>
         </div>
-        <span class="seats-pill">● 3 Seats Left</span>
+        <a href={`/custom-trek?source=fixed&trek=${encodeURIComponent(d.trek)}&duration=${encodeURIComponent(d.duration)}`} class="book-btn">Book Now</a>
       </div>
-      <a href="/custom-trek?source=fixed&trek=Khopra%20Ridge%20Trek&duration=8%20Days" class="book-btn">Book Now</a>
-    </div>
-    <div class="departure-card">
-      <div class="dep-info">
-        <div class="dep-name">Kokhe Danda Trek</div>
-        <div class="dep-meta">
-          <div class="dep-meta-item">
-            <span class="dep-meta-label">Date</span>
-            <span class="dep-meta-value">27 Oct 2026</span>
-          </div>
-          <div class="dep-meta-item">
-            <span class="dep-meta-label">Duration</span>
-            <span class="dep-meta-value">5 Days</span>
-          </div>
-        </div>
-        <span class="seats-pill">● 5 Seats Left</span>
-      </div>
-      <a href="/custom-trek?source=fixed&trek=Kokhe%20Danda%20Trek&duration=5%20Days" class="book-btn">Book Now</a>
-    </div>
+    ))}
   </div>
 </section>
+)}
 <!-- ─── TREKKING SEASON CALENDAR ───────────────────────── -->
 <section class="season-section">
   <div class="section-header">

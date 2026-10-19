@@ -1,0 +1,182 @@
+{
+  "framedSize": "12×18 inch",
+  "framedPrice": "NPR 5,000",
+  "digitalNote": "Hi-res file",
+  "digitalPrice": "$35",
+  "prints": [
+    {
+      "code": "DP001",
+      "title": "A Dog with the Annapurna Range, Haljure",
+      "image": "/prints/a-dog-with-annapurna-range-view-haljure.jpg",
+      "alt": "A dog resting with the Annapurna range in view at Haljure"
+    },
+    {
+      "code": "DP002",
+      "title": "Annapurna I from Annapurna Base Camp",
+      "image": "/prints/annapurna-i-view-from-abc.jpg",
+      "alt": "Annapurna I seen from Annapurna Base Camp"
+    },
+    {
+      "code": "DP003",
+      "title": "Star Trails over the Annapurna Range, Kokhe Danda",
+      "image": "/prints/annapurna-range-and-startrail-from-kokhe.jpg",
+      "alt": "Star trails over the Annapurna range from Kokhe Danda"
+    },
+    {
+      "code": "DP004",
+      "title": "Annapurna Range from Jaljala, Myagdi",
+      "image": "/prints/annapurna-range-from-jaljala-myagdi.jpg",
+      "alt": "Annapurna range from Jaljala, Myagdi"
+    },
+    {
+      "code": "DP005",
+      "title": "Annapurna Range from Phalame Danda",
+      "image": "/prints/annapurna-range-from-phalame-danda.jpg",
+      "alt": "Annapurna range from Phalame Danda"
+    },
+    {
+      "code": "DP006",
+      "title": "Boudhanath Stupa, Kathmandu",
+      "image": "/prints/Boudhanath-stupa.jpg",
+      "alt": "Boudhanath Stupa above the rooftops of Kathmandu"
+    },
+    {
+      "code": "DP007",
+      "title": "Chulu West, Annapurna Circuit",
+      "image": "/prints/chulu-wesst-annapurna-circuit.jpg",
+      "alt": "Chulu West peak on the Annapurna Circuit"
+    },
+    {
+      "code": "DP008",
+      "title": "Community Homestay at Phalame Danda",
+      "image": "/prints/community-homestay-phalame-danda.jpg",
+      "alt": "Community homestay at Phalame Danda with Himalayan peaks behind"
+    },
+    {
+      "code": "DP009",
+      "title": "Dhaulagiri from the Khayer Trail",
+      "image": "/prints/dhaulagiri-view-from-khayertrail.jpg",
+      "alt": "Dhaulagiri seen from the Khayer trail"
+    },
+    {
+      "code": "DP010",
+      "title": "Durlung Kot Temple",
+      "image": "/prints/durlung-kot-temple.jpg",
+      "alt": "Durlung Kot Temple in Parbat"
+    },
+    {
+      "code": "DP011",
+      "title": "Mount Fishtail from Mardi High Camp",
+      "image": "/prints/fishtail-from-highcampmardi.jpg",
+      "alt": "Mount Fishtail (Machhapuchhre) from Mardi Himal High Camp"
+    },
+    {
+      "code": "DP012",
+      "title": "Mount Fishtail from Phalame Danda",
+      "image": "/prints/fishtail-view-pjalame-danda.jpg",
+      "alt": "Mount Fishtail from Phalame Danda"
+    },
+    {
+      "code": "DP013",
+      "title": "Mount Fishtail at Sunset, Kokhe Danda",
+      "image": "/prints/fishtail-with-sunset-colors-kokhedanda.jpg",
+      "alt": "Mount Fishtail in sunset colors from Kokhe Danda"
+    },
+    {
+      "code": "DP014",
+      "title": "Home Between Green Rice Terraces",
+      "image": "/prints/home-between-green-rice-terrace.jpg",
+      "alt": "A home between green rice terraces seen from above"
+    },
+    {
+      "code": "DP015",
+      "title": "Hut Among the Rice Terraces, Kurgha",
+      "image": "/prints/hut-in-between-rice-terrace-kurgha.jpg",
+      "alt": "A hut among rice terraces at Kurgha"
+    },
+    {
+      "code": "DP016",
+      "title": "Fall Colors at Jaljala with Annapurna",
+      "image": "/prints/jaljala-fall-color-with-annapurna.jpg",
+      "alt": "Autumn colors at Jaljala with Annapurna behind"
+    },
+    {
+      "code": "DP017",
+      "title": "Kokhe Danda Teahouse",
+      "image": "/prints/kokhe-danda-teahouse.jpg",
+      "alt": "Teahouse at Kokhe Danda with snow peaks"
+    },
+    {
+      "code": "DP018",
+      "title": "Kokhe Danda Teahouse with Annapurna",
+      "image": "/prints/kokhe-danda-teahouse-with-annapurna.jpg",
+      "alt": "Kokhe Danda teahouse with the Annapurna range"
+    },
+    {
+      "code": "DP019",
+      "title": "Paiyun Kot Temple",
+      "image": "/prints/paiyun-kot-temple.jpg",
+      "alt": "Paiyun Kot Temple in Parbat"
+    },
+    {
+      "code": "DP020",
+      "title": "Annapurna Reflected in Kali Daha",
+      "image": "/prints/reflection-of-annapurna-at-kali-daha.jpg",
+      "alt": "Annapurna reflected in the Kali Daha pond"
+    },
+    {
+      "code": "DP021",
+      "title": "Shiva Statue at Thuli Pokhari",
+      "image": "/prints/shiva-statue-thulipokhari.jpg",
+      "alt": "Shiva statue at Thuli Pokhari with Himalayan peaks"
+    },
+    {
+      "code": "DP022",
+      "title": "Star Trails over Annapurna, Haljure",
+      "image": "/prints/star-trail-over-annapurna-haljure.jpg",
+      "alt": "Star trails over Annapurna at Haljure"
+    },
+    {
+      "code": "DP023",
+      "title": "Teahouse at Thorong Phedi",
+      "image": "/prints/teahouse-at-thorang-phedi.jpg",
+      "alt": "Teahouse at Thorong Phedi on the Annapurna Circuit"
+    },
+    {
+      "code": "DP024",
+      "title": "Kokhe Danda Teahouse with Dhaulagiri",
+      "image": "/prints/teahouse-kokhe-danda-dhaulagiri.jpg",
+      "alt": "Kokhe Danda teahouse with Dhaulagiri in the distance"
+    },
+    {
+      "code": "DP025",
+      "title": "Traditional Homes at Arthar, Parbat",
+      "image": "/prints/traditional-homes-at-arthar-parbat.jpg",
+      "alt": "Traditional homes at Arthar, Parbat"
+    },
+    {
+      "code": "DP026",
+      "title": "View from Jaljala, Myagdi",
+      "image": "/prints/view-from-jaljalamyagdi.jpg",
+      "alt": "Himalayan view from Jaljala, Myagdi"
+    },
+    {
+      "code": "DP027",
+      "title": "Unnamed Peak from Api Base Camp",
+      "image": "/prints/view-of-an-unamed-peak-from-apibasecamp.jpg",
+      "alt": "An unnamed peak seen from Api Base Camp"
+    },
+    {
+      "code": "DP028",
+      "title": "Mount Fishtail from Muldai",
+      "image": "/prints/view-pf-fishtail-from-muldai.jpg",
+      "alt": "Mount Fishtail from Muldai Viewpoint"
+    },
+    {
+      "code": "DP029",
+      "title": "Mount Fishtail from Tadapani",
+      "image": "/prints/view-pf-fishtail-from-tadapani.jpg",
+      "alt": "Mount Fishtail from Tadapani"
+    }
+  ]
+}

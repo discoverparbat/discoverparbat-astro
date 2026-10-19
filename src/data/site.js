@@ -29,23 +29,6 @@ export const COMPANY_LINKS = [
   { label: 'Cancellation Policy', href: '/cancellation' },
 ];
 
-// "Trekking Name" dropdown in every booking form.
-// The name is exactly what arrives in the booking email / WhatsApp.
-export const BOOKING_TREKS = [
-  'Kokhe Danda Trek',
-  'Short Kokhe Danda Trek',
-  'Multiple Viewpoints Trek',
-  'Muldai Viewpoint Poon Hill Trek',
-  'Mardi Himal Trek',
-  'Mardi Himal and Poon Hill Trek',
-  '4 Days Poon Hill Trek',
-  'Khopra Ridge Trek',
-  'Api Himal Base Camp Trek',
-  'Pikey Peak Trek',
-  'Annapurna Base Camp Trek',
-  'Annapurna Circuit Trek',
-];
-
 /** Turn a path like "/kokhe.jpg" into "https://discoverparbat.com/kokhe.jpg" */
 export function absUrl(path = '/') {
   if (/^https?:\/\//.test(path)) return path;

@@ -1,0 +1,67 @@
+---
+// ─── ALL TREK PAGES ──────────────────────────────────────
+// Every trek page is built from its file in src/content/treks/ (edited in the
+// CMS). The file name is the URL: kokhe-danda-trek.json → /kokhe-danda-trek.
+// The page sections are drawn in the order they appear in "sections".
+import { getCollection } from 'astro:content';
+import TrekLayout from '../layouts/TrekLayout.astro';
+import VideoEmbed from '../components/trek/VideoEmbed.astro';
+import HighlightsBox from '../components/trek/HighlightsBox.astro';
+import RightForYou from '../components/trek/RightForYou.astro';
+import Itinerary from '../components/trek/Itinerary.astro';
+import RouteMap from '../components/trek/RouteMap.astro';
+import FaqList from '../components/trek/FaqList.astro';
+import Reviews from '../components/trek/Reviews.astro';
+
+export async function getStaticPaths() {
+  const treks = await getCollection('treks', (t) => !t.data.draft);
+  return treks.map((t) => ({ params: { trek: t.id }, props: { trek: t } }));
+}
+
+const { trek } = Astro.props;
+const t = trek.data;
+let extraSchema: object[] | undefined;
+if (t.extraSchema && t.extraSchema.trim()) {
+  const parsed = JSON.parse(t.extraSchema);
+  extraSchema = Array.isArray(parsed) ? parsed : [parsed];
+}
+---
+<TrekLayout
+  title={t.seo.title}
+  description={t.seo.description}
+  path={`/${trek.id}`}
+  keywords={t.seo.keywords}
+  image={t.seo.image}
+  imageAlt={t.seo.imageAlt}
+  ogDescription={t.seo.ogDescription}
+  twitterImage={t.seo.twitterImage}
+  name={t.name}
+  tripName={t.tripName}
+  tripDescription={t.tripDescription}
+  hero={t.hero}
+  stats={t.stats}
+  gallery={t.gallery}
+  pricing={t.pricing}
+  pricingNote={t.pricingNote}
+  pricingFootnote={t.pricingFootnote}
+  included={t.included}
+  notIncluded={t.notIncluded}
+  itinerary={t.itinerary}
+  faqs={t.faqs}
+  extraSchema={extraSchema}
+  bookingName={t.listing?.bookingName}
+>
+  {t.sections.map((s: any) => {
+    switch (s.type) {
+      case 'html': return <Fragment set:html={s.html} />;
+      case 'video': return <VideoEmbed id={s.id} title={s.title} heading={s.heading} caption={s.caption} />;
+      case 'highlights': return <HighlightsBox title={s.title} items={s.items ?? []} />;
+      case 'rightForYou': return <RightForYou title={s.title} yes={s.yes ?? []} no={s.no ?? []} />;
+      case 'itinerary': return <Itinerary days={t.itinerary} label={s.label || undefined} title={s.title || undefined} />;
+      case 'map': return <RouteMap src={s.src} alt={s.alt} caption={s.caption || undefined} width={s.width || undefined} height={s.height || undefined} />;
+      case 'faq': return <FaqList faqs={t.faqs} label={s.label || undefined} title={s.title || undefined} />;
+      case 'reviews': return t.reviews && t.reviews.length ? <Reviews place={s.place} reviews={t.reviews} /> : null;
+      default: return null;
+    }
+  })}
+</TrekLayout>

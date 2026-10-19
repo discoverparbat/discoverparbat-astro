@@ -3,9 +3,15 @@
 // This page keeps its own design: its styles are in the <style> block
 // below and the page HTML follows. BaseLayout adds the head, header and footer.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { TREKS, TREK_GROUPS, DIFFICULTY_LABEL } from '../data/treks.js';
-// Trek cards, the comparison table and the count all come from src/data/treks.js
+import { getListedTreks, DIFFICULTY_LABEL } from '../lib/treks';
+// Trek cards, the comparison table and the count all come from the trek files
+// (src/content/treks/*.json → "Listing" settings in the CMS).
+const TREKS = await getListedTreks();
 const byDays = [...TREKS].sort((a, b) => a.days - b.days);
+const TREK_GROUPS = [
+  { id: 'parbat', eyebrow: 'Our Own Routes', title: 'Parbat <span>Village Treks</span>', lead: 'Quiet trails we opened and guide ourselves, with homestays, local families and wide mountain views far from the busy routes.' },
+  { id: 'classic', eyebrow: 'Classic Himalaya', title: 'Annapurna <span>&amp; Beyond</span>', lead: "Nepal's best-known routes, led by our own local guides, from short viewpoint treks to the full Annapurna Circuit." },
+];
 
 // Google schema (JSON-LD), kept from the old page
 const schema = [
@@ -715,7 +721,7 @@ const schema = [
   </a>
 </div>
 
-<!-- ─── TREK GROUPS (from src/data/treks.js) ─── -->
+<!-- ─── TREK GROUPS (from the trek files) ─── -->
 {TREK_GROUPS.map((g) => (
 <section class="tk-group" data-group>
   <div class="section-header">

@@ -1,0 +1,286 @@
+# ═══════════════════════════════════════════════════════════════
+# Discover Parbat CMS (Pages CMS — https://app.pagescms.org)
+# This file defines the admin forms. Every save in the CMS is a commit to
+# GitHub, which rebuilds the site (preview + deploy branch) automatically.
+# ═══════════════════════════════════════════════════════════════
+
+media:
+  input: public
+  output: /
+  extensions: [jpg, jpeg, png, webp, gif, svg, pdf]
+
+content:
+  # ───────────────────────────── TREKS ─────────────────────────────
+  - name: treks
+    label: Treks
+    type: collection
+    path: src/content/treks
+    format: json
+    filename: "{primary}.json"
+    view:
+      fields: [name]
+      primary: name
+      sort: [name]
+    fields:
+      - name: name
+        label: Trek name
+        type: string
+        required: true
+        description: "Used in the breadcrumb, booking form and lists. For a NEW trek, the file name (= page URL) is made from this name, e.g. Ghandruk Trek → /ghandruk-trek."
+      - name: draft
+        label: Draft (hide this trek from the website)
+        type: boolean
+
+      - name: listing
+        label: Treks page & lists
+        type: object
+        description: How the trek appears on /treks, in booking forms and on the homepage.
+        fields:
+          - { name: showOnTreks, label: Show on the /treks page, type: boolean, default: true }
+          - name: group
+            label: Group on /treks
+            type: select
+            options:
+              values:
+                - { name: featured, label: "Featured (big signature card)" }
+                - { name: parbat, label: "Parbat Village Treks" }
+                - { name: classic, label: "Annapurna & Beyond" }
+          - { name: order, label: Order inside the group (1 = first), type: number }
+          - { name: cardName, label: "Card name (optional, if shorter than the trek name)", type: string }
+          - { name: region, label: Region, type: string }
+          - { name: days, label: Days, type: number }
+          - name: difficulty
+            label: Difficulty
+            type: select
+            options:
+              values:
+                - { name: easy, label: Easy }
+                - { name: moderate, label: Moderate }
+                - { name: hard, label: Challenging }
+          - { name: maxAlt, label: "Max altitude (e.g. 3,309 m)", type: string }
+          - { name: blurb, label: Short line on the card, type: string }
+          - { name: cardImage, label: Card photo, type: image, options: { path: photo/treks } }
+          - { name: cardImageAlt, label: Card photo description, type: string }
+          - { name: bookingName, label: "Name in booking form (optional)", type: string }
+
+      - name: home
+        label: Homepage
+        type: object
+        fields:
+          - { name: show, label: Show in "Featured Treks" on the homepage, type: boolean }
+          - { name: order, label: Order on the homepage (1 = first), type: number }
+          - { name: blurb, label: Line under the name, type: string }
+          - { name: image, label: Homepage card photo, type: image, options: { path: photo/treks } }
+          - { name: imageAlt, label: Photo description, type: string }
+          - { name: badge, label: "Badge text (optional — default: Difficulty · Days)", type: string }
+
+      - name: seo
+        label: SEO & social sharing
+        type: object
+        fields:
+          - { name: title, label: "Page title (shown in Google, ~60 characters + | Discover Parbat)", type: string, required: true }
+          - { name: description, label: "Meta description (~150 characters)", type: text, required: true }
+          - { name: keywords, label: Keywords (comma separated), type: text }
+          - { name: image, label: Social share photo, type: image, options: { path: photo/treks } }
+          - { name: imageAlt, label: "Share photo description (optional)", type: string }
+          - { name: ogDescription, label: "Facebook/WhatsApp description (optional)", type: text }
+          - { name: twitterImage, label: "Twitter/X photo (optional)", type: image }
+
+      - { name: tripName, label: "Schema trip name (e.g. Kokhe Danda Trek – 5 Days)", type: string }
+      - { name: tripDescription, label: Schema trip description, type: text }
+
+      - name: hero
+        label: Top banner
+        type: object
+        fields:
+          - { name: image, label: "Banner photo (optional — default: social share photo)", type: image, options: { path: photo/treks } }
+          - { name: alt, label: Banner photo description, type: string }
+          - { name: eyebrow, label: "Small line above the title (e.g. Parbat, Nepal · 5 Days)", type: string }
+          - { name: title, label: "Big title (H1) — use <br> for a line break", type: string }
+          - { name: subtitle, label: Line under the title, type: text }
+
+      - name: stats
+        label: Quick facts bar
+        type: object
+        list: true
+        fields:
+          - { name: value, label: Value (e.g. 5 Days), type: string }
+          - { name: label, label: Label (e.g. Duration), type: string }
+
+      - name: gallery
+        label: Photo gallery
+        type: object
+        list: true
+        fields:
+          - { name: src, label: Photo, type: image, options: { path: photo/treks } }
+          - { name: alt, label: Photo description, type: string }
+
+      - name: pricing
+        label: Price table
+        type: object
+        list: true
+        fields:
+          - { name: group, label: "Group size (e.g. 2 People)", type: string }
+          - { name: price, label: "Price per person (e.g. $380)", type: string }
+      - { name: pricingNote, label: "Line under 'Cost Details' (default: Per person · All inclusive)", type: string }
+      - { name: pricingFootnote, label: Small note under the price table, type: text }
+
+      - { name: included, label: What's included, type: string, list: true }
+      - { name: notIncluded, label: What's not included, type: string, list: true }
+
+      - name: itinerary
+        label: Day-by-day itinerary
+        type: object
+        list: true
+        fields:
+          - { name: title, label: "Day title (e.g. Pokhara → Banau → Haljure)", type: string }
+          - { name: text, label: Paragraphs (HTML allowed for links), type: text, list: true }
+          - { name: altitude, label: Altitude, type: string }
+          - { name: distance, label: Distance, type: string }
+          - { name: time, label: Walking time, type: string }
+          - { name: stay, label: Stay, type: string }
+          - name: more
+            label: Other chips (optional)
+            type: object
+            list: true
+            fields:
+              - { name: label, type: string }
+              - { name: value, type: string }
+          - { name: day, label: "Day badge (optional, if not 1, 2, 3…)", type: string }
+
+      - name: faqs
+        label: FAQ (also sent to Google)
+        type: object
+        list: true
+        fields:
+          - { name: q, label: Question, type: string }
+          - { name: a, label: Answer (HTML allowed for links), type: text }
+
+      - name: reviews
+        label: Reviews
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Name, type: string }
+          - { name: country, label: Country, type: string }
+          - { name: trek, label: Trek name, type: string }
+          - { name: text, label: Review (use <br> for a new line), type: text }
+          - { name: stars, label: "Stars (default 5)", type: number }
+
+      - name: sections
+        label: Page sections (left column, top to bottom)
+        description: Drag to reorder. "Itinerary", "FAQ" and "Reviews" show the lists above.
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+          - name: html
+            label: Text / HTML
+            fields:
+              - { name: html, label: HTML, type: code, options: { format: html } }
+          - name: video
+            label: YouTube video
+            fields:
+              - { name: id, label: "YouTube video ID (after watch?v=)", type: string }
+              - { name: title, label: Video title, type: string }
+              - { name: heading, label: "Heading above (optional)", type: string }
+              - { name: caption, label: "Caption below (optional)", type: string }
+          - name: highlights
+            label: Highlights box
+            fields:
+              - { name: title, label: Box title, type: string }
+              - { name: items, label: Points, type: string, list: true }
+          - name: rightForYou
+            label: "Right for you if… box"
+            fields:
+              - { name: title, label: Box title, type: string }
+              - { name: yes, label: "✓ points", type: string, list: true }
+              - { name: no, label: "✗ points", type: string, list: true }
+          - name: itinerary
+            label: Itinerary (shows the day-by-day list)
+            fields:
+              - { name: label, label: "Small label (default: Day by Day)", type: string }
+              - { name: title, label: "Title (default: Detailed Itinerary)", type: string }
+          - name: map
+            label: Route map
+            fields:
+              - { name: src, label: Map image, type: image }
+              - { name: alt, label: Map description, type: string }
+              - { name: caption, label: Caption, type: string }
+          - name: faq
+            label: FAQ (shows the FAQ list)
+            fields:
+              - { name: label, label: "Small label (default: Common Questions)", type: string }
+              - { name: title, label: "Title (default: Frequently Asked Questions)", type: string }
+          - name: reviews
+            label: Reviews (shows the reviews list)
+            fields:
+              - { name: place, label: "Name in the heading (e.g. Kokhe Danda)", type: string }
+
+      - name: extraSchema
+        label: Extra schema JSON (advanced, optional)
+        type: code
+        options: { format: json }
+
+  # ──────────────────────────── HOMEPAGE ───────────────────────────
+  - name: departures
+    label: Homepage – Fixed departures
+    type: file
+    path: src/data/departures.json
+    format: json
+    list: true
+    fields:
+      - { name: trek, label: Trek name, type: string }
+      - { name: date, label: Start date, type: date }
+      - { name: duration, label: "Duration (e.g. 8 Days)", type: string }
+      - { name: seats, label: Seats left, type: number }
+
+  # ────────────────────────────── SHOP ─────────────────────────────
+  - name: shop
+    label: Shop – Photo prints
+    type: file
+    path: src/data/shop.json
+    format: json
+    fields:
+      - { name: framedSize, label: Framed print size (all prints), type: string }
+      - { name: framedPrice, label: Framed price (all prints), type: string }
+      - { name: digitalNote, label: Digital copy note (all prints), type: string }
+      - { name: digitalPrice, label: Digital price (all prints), type: string }
+      - name: prints
+        label: Prints
+        type: object
+        list: true
+        fields:
+          - { name: code, label: "Photo code (e.g. DP030)", type: string }
+          - { name: title, label: Title, type: string }
+          - { name: image, label: Photo, type: image, options: { path: prints } }
+          - { name: alt, label: Photo description, type: string }
+          - { name: framedPrice, label: "Framed price (only if different)", type: string }
+          - { name: digitalPrice, label: "Digital price (only if different)", type: string }
+          - { name: hidden, label: Hide this print, type: boolean }
+
+  # ──────────────────────────── ARTICLES ───────────────────────────
+  - name: articles
+    label: Articles list (/articles cards)
+    type: file
+    path: src/data/articles.json
+    format: json
+    list: true
+    fields:
+      - { name: url, label: "Article URL (e.g. /article/khayer-lake-guide)", type: string }
+      - { name: title, label: Title, type: string }
+      - { name: image, label: Card photo, type: image, options: { path: article } }
+      - { name: imageAlt, label: "Photo description (optional)", type: string }
+      - { name: tag, label: "Tag on the photo (e.g. Trek Guide)", type: string }
+      - { name: date, label: "Date shown (e.g. Oct 2026)", type: string }
+      - name: category
+        label: Category
+        type: select
+        options:
+          values:
+            - { name: trek-guides, label: Trek Guides }
+            - { name: planning, label: Planning }
+            - { name: weather, label: Weather }
+            - { name: news, label: News }
+            - { name: nepali, label: नेपाली लेख }
+      - { name: hidden, label: Hide this card, type: boolean }

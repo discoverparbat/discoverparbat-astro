@@ -1,0 +1,227 @@
+---
+// ═══════════════════════════════════════════════════════════════
+// NEW ARTICLE STARTER — copy this file, don't edit it.
+//
+// 1. Copy to src/pages/article/your-slug.astro
+//    (files starting with "_" are never published, so this one stays hidden)
+//    → the article goes live at https://discoverparbat.com/article/your-slug
+// 2. Put the article's photos in public/article/ (max ~2400 px wide)
+//    → use them as /article/photo-name.jpg
+// 3. Fill in the settings on <ArticleLayout> and the schema below,
+//    then replace the example text in the HTML.
+// 4. Add the article's card to src/data/articles.jsonon (or in the CMS →
+//    Articles list) so it shows on /articles.
+//
+// Layout and styles come from src/styles/article-base.css (shared).
+// To change this article's look, use the <style is:global> block at the
+// bottom — e.g. change the colour variables, or restyle any "art-" class.
+// ═══════════════════════════════════════════════════════════════
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import '../../styles/article-base.css';
+
+// ── Article details (used in the head, schema and byline) ──
+const slug = 'your-slug';                       // must match the file name
+const title = 'Your Article Title';             // H1 and schema headline
+const metaTitle = 'Your Article Title | Discover Parbat';
+const description = 'One or two sentences, about 150 characters, for Google.';
+const image = '/article/your-hero-photo.jpg';   // hero + social share photo
+const imageAlt = 'Describe the hero photo';
+const published = '2026-10-20';                 // YYYY-MM-DD
+const publishedLabel = '20 October 2026';
+const readTime = '8 min read';
+const section = 'Trek Guide';                   // Trek Guide, Planning, Weather, News
+
+const url = `https://discoverparbat.com/article/${slug}`;
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    image: `https://discoverparbat.com${image}`,
+    datePublished: published,
+    dateModified: published,
+    author: { '@type': 'Organization', name: 'Discover Parbat', url: 'https://discoverparbat.com' },
+    publisher: { '@type': 'Organization', name: 'Discover Parbat', logo: { '@type': 'ImageObject', url: 'https://discoverparbat.com/logo.png' } },
+    mainEntityOfPage: url,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://discoverparbat.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Articles', item: 'https://discoverparbat.com/articles' },
+      { '@type': 'ListItem', position: 3, name: title, item: url },
+    ],
+  },
+  // Add a FAQPage block here if the article has an FAQ (copy the questions exactly).
+];
+---
+<ArticleLayout
+  title={metaTitle}
+  description={description}
+  path={`/article/${slug}`}
+  keywords="main keyword, second keyword, third keyword"
+  image={image}
+  imageAlt={imageAlt}
+  published={published}
+  section={section}
+  preload={image}
+  schema={schema}
+>
+<div class="art">
+<div class="art-progress" aria-hidden="true"><span id="artBar"></span></div>
+
+<!-- HERO -->
+<section class="art-hero">
+  <img src={image} alt={imageAlt} width="1600" height="900" fetchpriority="high">
+  <div class="art-hero-inner">
+    <div class="art-crumbs" role="navigation" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span><a href="/articles">Articles</a><span>/</span><span>Short name</span>
+    </div>
+    <div class="art-tag"><i aria-hidden="true"></i>TRAVEL GUIDE · PARBAT, NEPAL</div>
+    <h1>{title}</h1>
+    <p class="art-hero-sub">A one-paragraph summary under the title: what the reader will learn.</p>
+    <div class="art-byline">
+      <span>By <strong>Discover Parbat</strong></span>
+      <span>Published <strong>{publishedLabel}</strong></span>
+      <span>{readTime}</span>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<div class="art-wrap">
+  <div class="art-grid">
+    <!-- "On this page" menu: one link per <h2 id="…"> below -->
+    <aside class="art-rail" aria-label="On this page">
+      <p>On this page</p>
+      <ul id="artToc">
+        <li><a href="#art-first">First section</a></li>
+        <li><a href="#art-second">Second section</a></li>
+        <li><a href="#art-faq">FAQ</a></li>
+      </ul>
+    </aside>
+
+    <article class="art-main">
+      <p class="art-lead">The opening paragraph, slightly larger. Answer the reader's main question in the first two sentences.</p>
+      <p>Normal paragraph text. Link to a trek like this: <a href="/kokhe-danda-trek">Kokhe Danda Trek</a>.</p>
+
+      <!-- Quick facts box (delete if not needed) -->
+      <div class="art-facts">
+        <div><small>Altitude</small><strong>3,309 m</strong></div>
+        <div><small>Best time</small><strong>Oct–Dec, Mar–May</strong></div>
+        <div><small>Duration</small><strong>5 days</strong></div>
+        <div><small>Start</small><strong>Pokhara</strong></div>
+      </div>
+
+      <h2 id="art-first"><span class="art-num">Small label</span>First section heading</h2>
+      <p>Section text.</p>
+      <h3>A sub-heading</h3>
+      <p>More text.</p>
+
+      <!-- Photo with caption -->
+      <figure class="art-photo">
+        <img src="/article/your-photo.jpg" alt="Describe the photo" loading="lazy">
+        <figcaption>Caption under the photo.</figcaption>
+      </figure>
+
+      <!-- Highlighted note / warning -->
+      <p class="art-note">A highlighted tip or note.</p>
+      <p class="art-warn"><strong>Important:</strong> a safety warning.</p>
+
+      <h2 id="art-second"><span class="art-num">Small label</span>Second section heading</h2>
+      <!-- Bullet list -->
+      <ul class="art-list">
+        <li><strong>Point one:</strong> explanation.</li>
+        <li><strong>Point two:</strong> explanation.</li>
+      </ul>
+
+      <!-- Trek box: link to the main trek page -->
+      <div class="art-trek-box">
+        <em>Small label</em>
+        <h3>Want to do this trek?</h3>
+        <p>One line about the trek, then the link.</p>
+        <a class="art-trek-link" href="/kokhe-danda-trek">See the Kokhe Danda Trek →</a>
+      </div>
+
+      <h2 id="art-faq"><span class="art-num">FAQ</span>Frequently asked questions</h2>
+      <div class="art-faq">
+        <details>
+          <summary>A question readers ask?</summary>
+          <p>A short, direct answer.</p>
+        </details>
+        <details>
+          <summary>Another question?</summary>
+          <p>Another answer.</p>
+        </details>
+      </div>
+
+      <div class="art-tags">
+        <span>Keyword one</span><span>Keyword two</span><span>Keyword three</span>
+      </div>
+    </article>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="art-cta-wrap">
+  <section class="art-cta" aria-labelledby="artCtaTitle">
+    <div class="art-cta-text">
+      <span class="art-cta-eyebrow">Plan directly with the founders</span>
+      <h2 id="artCtaTitle">Trek it with a local team</h2>
+      <p>One or two sentences about trekking with Discover Parbat.</p>
+      <ul class="art-cta-facts">
+        <li>Local founders</li><li>Guides from the region</li><li>Family homestays</li>
+      </ul>
+      <div class="art-cta-btns">
+        <a class="art-btn solid" href="/kokhe-danda-trek">Kokhe Danda Trek</a>
+        <a class="art-btn line" href="mailto:info@discoverparbat.com?subject=Trek%20enquiry">Ask us</a>
+      </div>
+    </div>
+    <div class="art-cta-img">
+      <img src="/kokhe.jpg" alt="Kokhe Danda with Discover Parbat" loading="lazy">
+    </div>
+  </section>
+</div>
+
+<!-- KEEP READING: 3 related articles -->
+<section class="art-more">
+  <div class="art-more-inner">
+    <h2>Keep reading</h2>
+    <div class="art-more-grid">
+      <a class="art-card" href="/best-season-for-kokhe-danda-trek">
+        <img src="/kokhe2.jpg" alt="Best season for Kokhe Danda Trek" loading="lazy">
+        <div>
+          <h3>Best Season for Kokhe Danda Trek</h3>
+          <p>One line about the article.</p>
+        </div>
+      </a>
+      <a class="art-card" href="/article/parbat-district-travel-guide">
+        <img src="/article/magar-cultural-dance-at-phalame-danda.jpg" alt="Parbat District travel guide" loading="lazy">
+        <div>
+          <h3>Parbat District: A Local's Travel Guide</h3>
+          <p>One line about the article.</p>
+        </div>
+      </a>
+      <a class="art-card" href="/article/khayer-lake-guide">
+        <img src="/photo/treks/khayer-lake.jpg" alt="Khayer Lake guide" loading="lazy">
+        <div>
+          <h3>Khayer Lake: The Sacred Lake Above Khopra Ridge</h3>
+          <p>One line about the article.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+</div>
+
+<script src="/article-page.js" defer is:inline></script>
+
+<style is:global>
+/* This article's own look. Examples:
+.art { --art-forest: #1a3d2b; --art-green: #2d6a4f; --art-paper: #f5f8f6; }
+.art-hero { min-height: 70vh; }
+*/
+</style>
+</ArticleLayout>

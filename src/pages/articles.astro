@@ -1,10 +1,18 @@
 ---
 // URL: https://discoverparbat.com/articles
-// The cards, categories and schema all come from src/data/articles.js —
-// to add an article, add it there (this page doesn't need editing).
+// The cards and schema come from src/data/articles.jsonon (CMS → Articles list),
+// newest first — to add an article card, add it there.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/articles-list.css';
-import { ARTICLES, CATEGORIES } from '../data/articles.js';
+import articlesData from '../data/articles.json';
+const ARTICLES = articlesData as Array<{ url: string; title: string; image: string; imageAlt?: string; tag: string; date: string; category: string; hidden?: boolean }>;
+const CATEGORIES = [
+  {"id": "trek-guides", "title": "Trek Guides", "description": "Route guides and trek comparisons to help you choose the right Himalayan trail."},
+  {"id": "planning", "title": "Planning", "description": "Packing lists, permits, preparation and practical advice before you trek."},
+  {"id": "weather", "title": "Weather", "description": "Seasons, conditions and the best months to walk the trails of Parbat."},
+  {"id": "news", "title": "News", "description": "Trail updates and what is changing in Nepal's trekking regions."},
+  {"id": "nepali", "title": "नेपाली लेख", "description": "पर्वत र आसपासका घुम्ने ठाउँ, पदयात्रा, मौसम र स्थानीय जानकारी, नेपाली भाषामा।", "lang": "ne"}
+];
 import { SITE, absUrl } from '../data/site.js';
 
 const title = 'Articles | Discover Parbat';
@@ -19,7 +27,7 @@ const schema = {
   description: 'Trek guides, planning tips, weather advice and news from Parbat, Nepal.',
   mainEntity: {
     '@type': 'ItemList',
-    itemListElement: ARTICLES.map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: absUrl(a.url), name: a.title })),
+    itemListElement: ARTICLES.filter((a) => !a.hidden).map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: absUrl(a.url), name: a.title })),
   },
 };
 ---
@@ -64,7 +72,7 @@ const schema = {
 
   {CATEGORIES.map((c) => {
     const ne = c.lang === 'ne';
-    const list = ARTICLES.filter((a) => a.category === c.id);
+    const list = ARTICLES.filter((a) => a.category === c.id && !a.hidden);
     return (
       <div class="cat-section" id={c.id} lang={c.lang} data-cat
            data-count-one={ne ? 'लेख' : undefined} data-count-many={ne ? 'लेख' : undefined}
@@ -81,7 +89,7 @@ const schema = {
           {list.map((a) => (
             <a href={a.url} class="article-card">
               <div class="article-img-wrap">
-                <img src={a.image} alt={a.imageAlt ?? a.title} loading="lazy">
+                <img src={a.image} alt={a.imageAlt || a.title} loading="lazy">
                 <span class="article-tag">{a.tag}</span>
               </div>
               <div class="article-body">

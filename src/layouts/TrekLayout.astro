@@ -43,6 +43,7 @@ interface Props {
   itinerary: Day[];
   faqs?: Faq[];
   extraSchema?: object[];    // any extra JSON-LD blocks (e.g. a VideoObject)
+  bookingName?: string;      // name used in the booking form, if different from name
 }
 
 const p = Astro.props;
@@ -137,7 +138,7 @@ const schema = {
     <aside class="sidebar">
       <PricingCard rows={p.pricing} note={p.pricingNote} footnote={p.pricingFootnote} />
       <IncludesCard included={p.included} notIncluded={p.notIncluded} />
-      <BookingForm trek={p.name} />
+      <BookingForm trek={p.bookingName ?? p.name} />
     </aside>
   </div>
 </BaseLayout>
