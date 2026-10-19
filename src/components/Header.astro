@@ -1,0 +1,29 @@
+---
+// Site header + mobile menu. Menu links live in src/data/site.js (NAV).
+import { NAV, SITE } from '../data/site.js';
+interface Props { current?: string } // href of the active menu item, e.g. "/treks"
+const { current } = Astro.props;
+---
+<header id="main-header">
+  <div class="logo">
+    <a href="/"><img src={SITE.logo} alt="Discover Parbat"></a>
+  </div>
+  <nav>
+    <ul>
+      {NAV.map((item) => (
+        <li><a href={item.href} aria-current={item.href === current ? 'page' : undefined}>{item.label}</a></li>
+      ))}
+    </ul>
+  </nav>
+  <button class="nav-toggle" type="button" aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu">
+    <span class="nav-toggle-bars" aria-hidden="true"></span>
+  </button>
+</header>
+
+<div id="mobile-nav" class="mobile-nav" aria-hidden="true">
+  <ul>
+    {NAV.map((item) => (
+      <li><a href={item.href} aria-current={item.href === current ? 'page' : undefined}>{item.label}</a></li>
+    ))}
+  </ul>
+</div>

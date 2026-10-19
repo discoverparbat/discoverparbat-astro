@@ -1,0 +1,30 @@
+---
+// Sliding photo gallery. Just pass a list of { src, alt }.
+interface Props { photos: { src: string; alt: string }[] }
+const { photos } = Astro.props;
+---
+<div class="gallery-section">
+  <div class="gallery-carousel" id="trek-gallery" data-count={photos.length}>
+    {photos.map((p, i) => (
+      <div class={i === 0 ? 'gallery-slide active' : 'gallery-slide'} data-index={i}>
+        <img src={p.src} alt={p.alt} loading={i === 0 ? 'eager' : 'lazy'}>
+      </div>
+    ))}
+
+    <div class="gallery-ui">
+      <span class="gallery-counter" id="gallery-counter">1 / {photos.length}</span>
+      <button type="button" class="gallery-arrow gallery-arrow-prev" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 6 9 12 15 18"/></svg>
+      </button>
+      <button type="button" class="gallery-arrow gallery-arrow-next" aria-label="Next photo">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+      <div class="gallery-dots" id="gallery-dots">
+        {photos.map((_, i) => (
+          <button type="button" class={i === 0 ? 'gallery-dot active' : 'gallery-dot'} data-index={i} aria-label={`Go to photo ${i + 1}`}></button>
+        ))}
+      </div>
+      <span class="gallery-label">Photo Gallery</span>
+    </div>
+  </div>
+</div>

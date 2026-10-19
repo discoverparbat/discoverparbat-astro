@@ -1,0 +1,11 @@
+---
+// Box with a ✦ title and a bullet list (used for "At a Glance", "Highlights")
+interface Props { title: string; items: string[] }
+const { title, items } = Astro.props;
+---
+<div class="highlights-box">
+  <h3>✦ {title}</h3>
+  <ul class="highlights-list">
+    {items.map((item) => <li set:html={item} />)}
+  </ul>
+</div>

@@ -1,0 +1,74 @@
+---
+// "Book This Trek" form. Sends to /inquiry.php (falls back to WhatsApp).
+// The trek list comes from BOOKING_TREKS in src/data/site.js,
+// and the country list from src/data/countries.js.
+import { BOOKING_TREKS } from '../../data/site.js';
+import { COUNTRIES } from '../../data/countries.js';
+interface Props { trek: string } // this page's trek, pre-selected in the dropdown
+const { trek } = Astro.props;
+const trekOptions = [trek, 'Not sure yet', ...BOOKING_TREKS.filter((t) => t !== trek)];
+const paxOptions = ['2', '1', '3', '4', '5', '6', '7', '8', '9', '10+', 'Not sure yet'];
+---
+<div class="booking-card">
+  <div class="booking-card-header">
+    <h3>Book This Trek</h3>
+    <p>Share your details and we will send a tailored plan and confirmation options quickly.</p>
+  </div>
+  <form class="booking-form" id="booking-form" onsubmit="handleBookingSubmit(event)">
+    <div class="booking-grid">
+      <div class="booking-field full">
+        <label for="bk-name">Full Name *</label>
+        <input id="bk-name" name="name" type="text" placeholder="Your full name" required>
+      </div>
+
+      <div class="booking-field full">
+        <label for="bk-country">Country *</label>
+        <select id="bk-country" name="country" required>
+          <option value="" selected disabled>Select your country</option>
+          {COUNTRIES.map((c) => <option>{c}</option>)}
+        </select>
+      </div>
+
+      <div class="booking-field">
+        <label for="bk-email">Gmail (optional)</label>
+        <input id="bk-email" name="email" type="email" placeholder="you@gmail.com">
+      </div>
+
+      <div class="booking-field">
+        <label for="bk-whatsapp">WhatsApp (optional)</label>
+        <input id="bk-whatsapp" name="whatsapp" type="tel" placeholder="+977 98XXXXXXXX">
+      </div>
+
+      <div class="booking-field">
+        <label for="bk-trek">Trekking Name *</label>
+        <select id="bk-trek" name="trek" required>
+          {trekOptions.map((t, i) => <option value={t} selected={i === 0}>{t}</option>)}
+        </select>
+      </div>
+
+      <div class="booking-field">
+        <label for="bk-date">Start Date *</label>
+        <input id="bk-date" name="startDate" type="date" required>
+      </div>
+
+      <div class="booking-field">
+        <label for="bk-pax">No. of Pax *</label>
+        <select id="bk-pax" name="pax" required>
+          {paxOptions.map((p, i) => <option value={p} selected={i === 0}>{p}</option>)}
+        </select>
+      </div>
+
+      <div class="booking-field full">
+        <label for="bk-special">Special Requirement</label>
+        <textarea id="bk-special" name="special" placeholder="Dietary preference, altitude concerns, private trip request, room type, pickup details, etc."></textarea>
+      </div>
+    </div>
+
+    <p class="booking-note">Please provide at least one contact option (Gmail or WhatsApp). You can choose "Not sure yet" for trek or pax if you are still deciding.</p>
+
+    <div class="booking-actions">
+      <button type="submit" class="booking-submit">Send Booking Request</button>
+      <p class="booking-assist">Prefer direct contact? <a href="/contact">Use full contact form</a></p>
+    </div>
+  </form>
+</div>

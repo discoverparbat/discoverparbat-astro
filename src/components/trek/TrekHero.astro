@@ -1,0 +1,19 @@
+---
+// Big photo + title at the top of a trek page.
+interface Props {
+  image: string;      // e.g. "/kokhe.jpg"
+  alt: string;
+  eyebrow: string;    // small line above the title, e.g. "Parbat, Nepal · 5 Days"
+  title: string;      // H1 — may contain <br>
+  subtitle: string;
+}
+const { image, alt, eyebrow, title, subtitle } = Astro.props;
+---
+<section class="hero">
+  <img src={image} alt={alt} fetchpriority="high">
+  <div class="hero-content">
+    <div class="hero-eyebrow">{eyebrow}</div>
+    <h1 set:html={title} />
+    <p>{subtitle}</p>
+  </div>
+</section>

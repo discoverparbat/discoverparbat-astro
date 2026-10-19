@@ -1,0 +1,25 @@
+---
+// YouTube video (privacy-friendly youtube-nocookie). Pass the video id.
+interface Props { id: string; title: string; caption?: string }
+const { id, title, caption } = Astro.props;
+---
+<div class="video-embed">
+  <div class="video-embed-frame">
+    <iframe
+      src={`https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1`}
+      title={title}
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen>
+    </iframe>
+  </div>
+  {caption && <p class="video-embed-caption">{caption}</p>}
+</div>
+
+<style>
+  .video-embed { max-width: 900px; margin: 30px auto; padding: 0 16px; }
+  .video-embed-frame { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); background: #000; }
+  .video-embed-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  .video-embed-caption { text-align: center; font-size: 14px; color: #666; margin-top: 10px; }
+</style>

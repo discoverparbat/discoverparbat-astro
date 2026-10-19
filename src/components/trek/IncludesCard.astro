@@ -1,0 +1,16 @@
+---
+// What's Included / Not Included lists in the sidebar.
+interface Props { included: string[]; notIncluded: string[] }
+const { included, notIncluded } = Astro.props;
+---
+<div class="includes-card">
+  <h4>What's Included</h4>
+  <ul class="includes-list">
+    {included.map((i) => <li set:html={i} />)}
+  </ul>
+
+  <h4 class="not-included-title">What's Not Included</h4>
+  <ul class="includes-list not-included-list">
+    {notIncluded.map((i) => <li set:html={i} />)}
+  </ul>
+</div>

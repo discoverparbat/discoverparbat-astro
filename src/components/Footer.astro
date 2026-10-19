@@ -1,0 +1,38 @@
+---
+// Site footer. Links live in src/data/site.js.
+import { NAV, COMPANY_LINKS, SITE } from '../data/site.js';
+const year = new Date().getFullYear();
+---
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src={SITE.logo} alt="Discover Parbat" loading="lazy">
+      <p>Connecting travelers with authentic Himalayan experiences in Parbat, Nepal. Locally guided, responsibly run.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        {NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        {COMPANY_LINKS.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href={SITE.facebook} target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href={SITE.google} target="_blank" rel="noopener">Google</a></li>
+        <li><a href={`mailto:${SITE.email}`}>Email Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© Discover Parbat {year}. All rights reserved.</p>
+    <p class="footer-credit"><span class="footer-credit-label">Developed by</span> <a href="https://anc.com.np" target="_blank" rel="noopener">Aseem &amp; Consulting</a></p>
+    <p class="footer-tagline">Walk slow, go far.</p>
+  </div>
+</footer>

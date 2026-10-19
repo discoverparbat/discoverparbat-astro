@@ -1,0 +1,20 @@
+---
+// "Cost Details" table in the sidebar. rows: { group: "1 Person", price: 410 }
+export interface PriceRow { group: string; price: number }
+interface Props { rows: PriceRow[]; title?: string; note?: string; currency?: string }
+const { rows, title = 'Cost Details', note = 'Per person · All inclusive', currency = '$' } = Astro.props;
+---
+<div class="pricing-card">
+  <div class="pricing-card-header">
+    <h3>{title}</h3>
+    <p>{note}</p>
+  </div>
+  <table class="pricing-table">
+    <thead>
+      <tr><th>Group Size</th><th>Per Person</th></tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => <tr><td>{r.group}</td><td>{currency}{r.price}</td></tr>)}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,68 @@
+---
+// Trekker reviews block (dark green). Reviews live in src/data/reviews.js.
+// To add a review: add one entry to the list for that trek in reviews.js.
+import '../../styles/reviews.css';
+import { SITE } from '../../data/site.js';
+export interface Review { name: string; country: string; trek: string; text: string; initial?: string; stars?: number }
+interface Props { place: string; reviews: Review[] } // place = name shown in the heading, e.g. "Kokhe Danda"
+const { place, reviews } = Astro.props;
+---
+<section class="kd-reviews" id="reviews" aria-labelledby="kd-reviews-title">
+  <div class="kd-reviews-head">
+    <span class="kd-reviews-eyebrow">Trekker Reviews</span>
+    <h2 id="kd-reviews-title">What Trekkers Say About <span>{place}</span></h2>
+    <div class="kd-reviews-divider"></div>
+  </div>
+
+  <div class="kd-reviews-grid">
+    {reviews.map((r) => {
+      const stars = r.stars ?? 5;
+      return (
+        <article class="kd-review-card">
+          <div class="kd-stars" aria-label={`${stars} out of 5 stars`}>{'★'.repeat(stars)}</div>
+          <p class="kd-review-text" set:html={r.text} />
+          <button type="button" class="kd-read-more" hidden>Read more</button>
+          <div class="kd-review-author">
+            <div class="kd-avatar">{r.initial ?? r.name.charAt(0)}</div>
+            <div class="kd-author-info">
+              <strong>{r.name}</strong>
+              <span>{r.country}</span>
+              <span class="kd-source">{r.trek}</span>
+            </div>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+
+  <div class="kd-review-links">
+    <a class="kd-review-btn kd-google" href={SITE.google} target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.5 12.3c0-.8-.1-1.5-.2-2.3H12v4.3h5.9a5 5 0 0 1-2.2 3.3v2.8h3.6c2-1.9 3.2-4.7 3.2-8.1z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.6-2.8c-1 .7-2.3 1.1-3.7 1.1-2.9 0-5.3-1.9-6.2-4.5H2.1v2.9A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.8 14.1a6.6 6.6 0 0 1 0-4.2V7H2.1a11 11 0 0 0 0 10l3.7-2.9z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.2-3.2A11 11 0 0 0 2.1 7l3.7 2.9C6.7 7.3 9.1 5.4 12 5.4z"/></svg>
+      Read our Google reviews
+    </a>
+    <a class="kd-review-btn kd-fb" href="https://www.facebook.com/discoverparbat/reviews" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12a12 12 0 1 0-13.9 11.9v-8.4h-3V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12z"/></svg>
+      Read our Facebook reviews
+    </a>
+  </div>
+  <p class="kd-review-note">Trekked with us? We would love to hear about your {place} experience.</p>
+</section>
+
+<script is:inline>
+  // Show "Read more" only when a review is actually cut off
+  document.querySelectorAll('.kd-reviews .kd-review-card').forEach(function (card) {
+    var text = card.querySelector('.kd-review-text');
+    var btn = card.querySelector('.kd-read-more');
+    if (!text || !btn) return;
+    text.classList.add('kd-clamped');
+    if (text.scrollHeight > text.clientHeight + 2) {
+      btn.hidden = false;
+      btn.addEventListener('click', function () {
+        var open = text.classList.toggle('kd-clamped');
+        btn.textContent = open ? 'Read more' : 'Read less';
+      });
+    } else {
+      text.classList.remove('kd-clamped');
+    }
+  });
+</script>

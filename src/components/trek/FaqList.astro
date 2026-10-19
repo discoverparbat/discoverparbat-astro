@@ -1,0 +1,27 @@
+---
+// FAQ accordion. Each item: { q, a } — a may contain HTML.
+// The same list also feeds the FAQPage schema (see TrekLayout), so the
+// questions Google reads always match the ones on the page.
+export interface Faq { q: string; a: string }
+interface Props { faqs: Faq[]; label?: string; title?: string }
+const { faqs, label = 'Common Questions', title = 'Frequently Asked Questions' } = Astro.props;
+---
+<div class="trek-faq">
+  <span class="section-label">{label}</span>
+  <h2 class="content-title">{title}</h2>
+  <div class="title-divider"></div>
+
+  <div class="faq-list">
+    {faqs.map((f) => (
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          {f.q}
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p set:html={f.a} />
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

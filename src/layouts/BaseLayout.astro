@@ -1,0 +1,106 @@
+---
+// ─── BASE LAYOUT ─────────────────────────────────────────
+// Every page uses this. It writes the whole <head> (SEO, social cards,
+// favicons, schema) plus the header and footer, so pages only hold content.
+//
+// SEO rules built in:
+//   • non-www https://discoverparbat.com in canonical, og:url, images, schema
+//   • no trailing slash (except the homepage)
+//   • robots max-image-preview:large on every page
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE, absUrl } from '../data/site.js';
+
+interface Props {
+  title: string;            // full <title>, e.g. "Kokhe Danda Trek 5 Days: … | Discover Parbat"
+  description: string;
+  path?: string;            // page URL path, e.g. "/kokhe-danda-trek" (defaults to the current page)
+  image?: string;           // social image path, e.g. "/kokhe.jpg"
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  keywords?: string;
+  ogType?: 'website' | 'article';
+  schema?: object | object[]; // JSON-LD; pass an object or a list of objects
+  nav?: string;             // which menu item is active, e.g. "/treks"
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/',
+  image = SITE.defaultImage,
+  imageAlt = title,
+  imageWidth = 1200,
+  imageHeight = 630,
+  keywords,
+  ogType = 'website',
+  schema,
+  nav,
+  noindex = false,
+} = Astro.props;
+
+const canonical = absUrl(path);
+const imageUrl = absUrl(image);
+const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}</title>
+<link rel="canonical" href={canonical}>
+
+<!-- Favicon -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+
+<!-- SEO -->
+<meta name="description" content={description}>
+<meta name="robots" content={noindex ? 'noindex, follow' : 'max-image-preview:large'}>
+{keywords && <meta name="keywords" content={keywords}>}
+
+<!-- Social sharing -->
+<meta property="og:type" content={ogType}>
+<meta property="og:site_name" content={SITE.name}>
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={canonical}>
+<meta property="og:image" content={imageUrl}>
+<meta property="og:image:secure_url" content={imageUrl}>
+<meta property="og:image:width" content={String(imageWidth)}>
+<meta property="og:image:height" content={String(imageHeight)}>
+<meta property="og:image:alt" content={imageAlt}>
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content={imageUrl}>
+<meta name="twitter:image:alt" content={imageAlt}>
+<meta name="theme-color" content={SITE.themeColor}>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+
+<script src="/main.js" defer is:inline></script>
+<slot name="head" />
+
+{schemas.map((s) => (
+  <script type="application/ld+json" set:html={JSON.stringify(s, null, 2)} />
+))}
+</head>
+<body>
+
+<Header current={nav} />
+
+<slot />
+
+<Footer />
+
+</body>
+</html>

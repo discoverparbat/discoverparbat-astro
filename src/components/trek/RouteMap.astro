@@ -1,0 +1,17 @@
+---
+// Route map image that opens full size when tapped.
+interface Props { src: string; alt: string; caption?: string; width?: number; height?: number }
+const { src, alt, caption = 'Route map. Tap to view full size.', width = 1200, height = 800 } = Astro.props;
+---
+<figure class="route-map">
+  <a href={src} target="_blank" rel="noopener">
+    <img src={src} alt={alt} loading="lazy" width={width} height={height}>
+  </a>
+  <figcaption>{caption}</figcaption>
+</figure>
+
+<style>
+  .route-map { margin: 0 0 32px; text-align: center; }
+  .route-map img { width: 100%; max-width: 900px; height: auto; border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+  .route-map figcaption { font-size: 14px; color: #1a3d2b; margin-top: 10px; }
+</style>

@@ -1,0 +1,8 @@
+---
+// Small green label + big title + divider line, used at the start of sections.
+interface Props { label: string; title: string }
+const { label, title } = Astro.props;
+---
+<span class="section-label">{label}</span>
+<h2 class="content-title" set:html={title} />
+<div class="title-divider"></div>

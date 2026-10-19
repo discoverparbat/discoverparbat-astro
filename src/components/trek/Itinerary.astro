@@ -1,0 +1,42 @@
+---
+// Day-by-day accordion. Each day: { title, text: [paragraphs], altitude, distance, time, stay }
+// text paragraphs may contain HTML (links, <strong>, …).
+export interface Day {
+  title: string;
+  text: string[];
+  altitude?: string;
+  distance?: string;
+  time?: string;
+  stay?: string;
+}
+interface Props { days: Day[]; label?: string; title?: string }
+const { days, label = 'Day by Day', title = 'Detailed Itinerary' } = Astro.props;
+const chip = (name: string, v?: string) => (v ? { name, v } : null);
+---
+<div class="itinerary-section">
+  <span class="section-label">{label}</span>
+  <h2 class="content-title">{title}</h2>
+  <div class="title-divider"></div>
+
+  {days.map((d, i) => {
+    const id = `acc${i + 1}`;
+    const chips = [chip('Altitude', d.altitude), chip('Distance', d.distance), chip('Time', d.time), chip('Stay', d.stay)].filter(Boolean);
+    return (
+      <div class="accordion-item" id={id}>
+        <button class="accordion-btn" onclick={`toggleAcc('${id}')`}>
+          <div class="acc-day-badge">Day<br>{i + 1}</div>
+          <span class="acc-title">{d.title}</span>
+          <div class="acc-chevron"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
+        </button>
+        <div class="accordion-content" id={`${id}-content`}>
+          {d.text.map((p) => <p class="acc-body-text" set:html={p} />)}
+          {chips.length > 0 && (
+            <div class="acc-meta">
+              {chips.map((c) => <span class="acc-meta-chip"><strong>{c!.name}:</strong> {c!.v}</span>)}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  })}
+</div>

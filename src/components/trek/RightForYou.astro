@@ -1,0 +1,16 @@
+---
+// "Is Right for You If…" box: ✓ list and ✗ list
+interface Props { title: string; yes: string[]; no?: string[] }
+const { title, yes, no = [] } = Astro.props;
+---
+<div class="right-for-you">
+  <h3>✦ {title}</h3>
+  <div class="rfy-grid">
+    {yes.map((t) => (
+      <div class="rfy-item rfy-yes"><span class="rfy-icon">✓</span><p set:html={t} /></div>
+    ))}
+    {no.map((t) => (
+      <div class="rfy-item rfy-no"><span class="rfy-icon">✗</span><p set:html={t} /></div>
+    ))}
+  </div>
+</div>
