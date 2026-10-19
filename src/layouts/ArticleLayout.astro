@@ -1,0 +1,52 @@
+---
+// ─── ARTICLE LAYOUT ──────────────────────────────────────
+// Used by every article. Adds the article date/section tags for Google
+// and Facebook on top of the normal page head, header and footer.
+// The article itself (hero, text, its own styles) goes inside.
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;              // e.g. "/article/khayer-lake-guide"
+  image: string;             // social photo, e.g. "/photo/treks/khayer-lake.jpg"
+  imageAlt?: string;
+  twitterImage?: string;
+  ogDescription?: string;
+  ogTitle?: string;
+  keywords?: string;
+  schema?: object[];         // JSON-LD blocks (Article, FAQ, Breadcrumb…)
+  published?: string;        // e.g. "2026-10-12" or full ISO time
+  modified?: string;
+  section?: string;          // e.g. "Trek Guide"
+  robots?: string;
+  lang?: string;             // 'ne' for Nepali articles
+  preload?: string;          // hero photo to load first, e.g. "/photo/treks/khayer-lake.jpg"
+  ogType?: 'article' | 'website';
+}
+const p = Astro.props;
+---
+<BaseLayout
+  title={p.title}
+  description={p.description}
+  path={p.path}
+  image={p.image}
+  imageAlt={p.imageAlt}
+  twitterImage={p.twitterImage}
+  ogDescription={p.ogDescription}
+  ogTitle={p.ogTitle}
+  keywords={p.keywords}
+  ogType={p.ogType ?? 'article'}
+  schema={p.schema}
+  robots={p.robots}
+  lang={p.lang}
+  nav="/articles"
+>
+  <Fragment slot="head">
+    {p.preload && <link rel="preload" as="image" href={p.preload} fetchpriority="high" />}
+    {p.published && <meta property="article:published_time" content={p.published} />}
+    {p.modified && <meta property="article:modified_time" content={p.modified} />}
+    {p.section && <meta property="article:section" content={p.section} />}
+  </Fragment>
+  <slot />
+</BaseLayout>

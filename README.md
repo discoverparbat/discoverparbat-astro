@@ -49,6 +49,25 @@ so you only ever change them in one place.
 Trek page building blocks (in `src/components/trek/`): `VideoEmbed`,
 `HighlightsBox`, `RightForYou`, `Itinerary`, `RouteMap`, `FaqList`, `Reviews`.
 
+## Articles
+
+- New articles (from Oct 2026) live in `src/pages/article/` → URL `/article/your-slug`,
+  with their photos in `public/article/`.
+- Older articles stay where they were (`src/pages/<slug>.astro` → `/<slug>`),
+  so their Google rankings and links keep working.
+- Each article keeps its own design: its styles are in the `<style is:global>`
+  block at the top of the file, followed by the article HTML.
+- `src/layouts/ArticleLayout.astro` adds the head (SEO, social cards, article
+  dates), header and footer.
+
+**Adding an article**
+1. Copy a recent article (e.g. `src/pages/article/khayer-lake-guide.astro`)
+   to `src/pages/article/new-slug.astro` and replace the settings on
+   `<ArticleLayout …>`, the schema and the article HTML.
+2. Add its card to the top of `src/data/articles.js` (pick the category;
+   Nepali articles use `category: 'nepali'`). The /articles page, its counts,
+   "View all" buttons and its schema update automatically.
+
 ## Running it on your computer (optional)
 
 ```

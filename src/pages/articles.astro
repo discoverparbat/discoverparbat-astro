@@ -1,0 +1,153 @@
+---
+// URL: https://discoverparbat.com/articles
+// The cards, categories and schema all come from src/data/articles.js —
+// to add an article, add it there (this page doesn't need editing).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/articles-list.css';
+import { ARTICLES, CATEGORIES } from '../data/articles.js';
+import { SITE, absUrl } from '../data/site.js';
+
+const title = 'Articles | Discover Parbat';
+const socialTitle = 'Trek Guides & Stories | Discover Parbat';
+const description = 'Trek guides, planning tips, weather advice and news from Parbat, Nepal — written by the people who live and guide on these Himalayan trails.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: socialTitle,
+  url: SITE.url + '/articles',
+  description: 'Trek guides, planning tips, weather advice and news from Parbat, Nepal.',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: ARTICLES.map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: absUrl(a.url), name: a.title })),
+  },
+};
+---
+<BaseLayout
+  title={title}
+  ogTitle={socialTitle}
+  description={description}
+  path="/articles"
+  keywords="Parbat trekking, Nepal trek, trek guides Nepal, trek packing list, Kokhe Danda trek, Mardi Himal, Khopra Ridge, Annapurna trek, Himalayan trekking, local guides Nepal, पर्वत घुम्ने ठाउँ, नेपाली लेख"
+  image="/og-share.jpg"
+  imageAlt={socialTitle}
+  robots="index, follow, max-image-preview:large"
+  schema={schema}
+  nav="/articles"
+>
+<meta slot="head" property="og:locale:alternate" content="ne_NP">
+
+<section class="hero-small">
+  <img src="/kokhe.jpg" alt="Articles">
+  <div class="hero-small-content">
+    <div class="hero-eyebrow">Discover Parbat</div>
+    <h1>Articles &amp; Stories</h1>
+  </div>
+</section>
+
+<div class="intro-strip">
+  <div class="intro-line"></div>
+  <p>Trek guides, local stories, and insider tips from the Himalayan Trails — written to help you plan better and travel deeper.</p>
+</div>
+
+<section class="articles-section">
+
+  <div class="section-header">
+    <div class="section-eyebrow">Latest Reads</div>
+    <h2 class="section-title">All <span>Articles</span></h2>
+    <div class="title-divider"></div>
+  </div>
+
+  <nav class="cat-nav" aria-label="Article categories">
+    {CATEGORIES.map((c) => <a href={`#${c.id}`} lang={c.lang}>{c.title}</a>)}
+  </nav>
+
+  {CATEGORIES.map((c) => {
+    const ne = c.lang === 'ne';
+    const list = ARTICLES.filter((a) => a.category === c.id);
+    return (
+      <div class="cat-section" id={c.id} lang={c.lang} data-cat
+           data-count-one={ne ? 'लेख' : undefined} data-count-many={ne ? 'लेख' : undefined}
+           data-count-empty={ne ? 'चाँडै आउँदै' : undefined}
+           data-view-all={ne ? 'सबै {n} लेख हेर्नुहोस्' : undefined}
+           data-show-fewer={ne ? 'कम देखाउनुहोस्' : undefined}>
+        <div class="cat-head">
+          <h2 class="cat-title">{c.title}</h2>
+          <span class="cat-count" data-count></span>
+        </div>
+        <p class="cat-desc">{c.description}</p>
+
+        <div class="articles-grid">
+          {list.map((a) => (
+            <a href={a.url} class="article-card">
+              <div class="article-img-wrap">
+                <img src={a.image} alt={a.imageAlt ?? a.title} loading="lazy">
+                <span class="article-tag">{a.tag}</span>
+              </div>
+              <div class="article-body">
+                <p class="article-meta">Discover Parbat &nbsp;·&nbsp; {a.date}</p>
+                <h3>{a.title}</h3>
+                <span class="article-read-more">{ne ? 'पूरा पढ्नुहोस् →' : 'Read Article →'}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    );
+  })}
+
+</section>
+
+<script is:inline>
+(function () {
+  var LIMIT = 3; /* articles shown before "View all" */
+  var NE_DIGITS = '०१२३४५६७८९';
+
+  document.querySelectorAll('[data-cat]').forEach(function (sec) {
+    var grid  = sec.querySelector('.articles-grid');
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.article-card'));
+    var badge = sec.querySelector('[data-count]');
+    var isNe  = sec.getAttribute('lang') === 'ne';
+    var d     = sec.dataset;
+
+    function num(n) {
+      return isNe ? String(n).replace(/\d/g, function (x) { return NE_DIGITS[x]; }) : String(n);
+    }
+    var one     = d.countOne   || 'article';
+    var many    = d.countMany  || 'articles';
+    var empty   = d.countEmpty || 'Coming soon';
+    var viewAll = d.viewAll    || 'View all {n} articles';
+    var fewer   = d.showFewer  || 'Show fewer';
+
+    if (badge) {
+      badge.textContent = cards.length
+        ? num(cards.length) + ' ' + (cards.length === 1 ? one : many)
+        : empty;
+    }
+
+    if (cards.length <= LIMIT) return;
+
+    var allLabel = viewAll.replace('{n}', num(cards.length));
+    var extra = cards.slice(LIMIT);
+    extra.forEach(function (c) { c.hidden = true; });
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'show-all';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = '<span class="lbl"></span><span class="chev" aria-hidden="true"></span>';
+    btn.querySelector('.lbl').textContent = allLabel;
+    grid.parentNode.insertBefore(btn, grid.nextSibling);
+
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      extra.forEach(function (c) { c.hidden = open; });
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      btn.querySelector('.lbl').textContent = open ? allLabel : fewer;
+      if (open) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>
+
+</BaseLayout>
