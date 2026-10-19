@@ -217,6 +217,11 @@ content:
             fields:
               - { name: place, label: "Name in the heading (e.g. Kokhe Danda)", type: string }
 
+      - name: related
+        label: "More treks you may like (optional: trek file names, e.g. khopra-ridge-trek — leave empty for automatic)"
+        type: string
+        list: true
+
       - name: extraSchema
         label: Extra schema JSON (advanced, optional)
         type: code

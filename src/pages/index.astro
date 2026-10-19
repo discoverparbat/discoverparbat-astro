@@ -21,6 +21,9 @@ const departures = (departuresData as Array<{ trek: string; date: string; durati
 const fmtDate = (iso: string) => new Date(String(iso).slice(0, 10) + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 
 // Google schema (JSON-LD), kept from the old page
+// Company schema: tells Google who Discover Parbat is (shown with your brand
+// name in search, linked to your Google profile and social pages).
+// Facts come from the About and Contact pages — update here if they change.
 const schema = [
   {
     "@context": "https://schema.org",
@@ -31,25 +34,47 @@ const schema = [
         "name": "Discover Parbat",
         "alternateName": "DiscoverParbat",
         "url": "https://discoverparbat.com/",
-        "publisher": {
-          "@id": "https://discoverparbat.com/#organization"
-        }
+        "inLanguage": "en",
+        "publisher": { "@id": "https://discoverparbat.com/#organization" }
       },
       {
         "@type": "TravelAgency",
         "@id": "https://discoverparbat.com/#organization",
         "name": "Discover Parbat",
+        "alternateName": "DiscoverParbat",
         "url": "https://discoverparbat.com/",
-        "logo": "https://discoverparbat.com/logo.png",
+        "logo": { "@type": "ImageObject", "url": "https://discoverparbat.com/logo.png" },
         "image": "https://discoverparbat.com/og-share.jpg",
+        "description": "Locally founded trekking company from Parbat District, Nepal. Village homestay treks such as the Kokhe Danda Trek, plus Annapurna, Everest-region and far-west Nepal treks, led by licensed local guides.",
+        "foundingDate": "2020",
+        "founder": { "@type": "Person", "name": "Sameer Regmi", "jobTitle": "Founder & Lead Guide" },
         "email": "info@discoverparbat.com",
+        "telephone": "+977-9867649780",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "telephone": "+977-9867649780",
+          "email": "info@discoverparbat.com",
+          "availableLanguage": ["English", "Nepali"]
+        },
         "address": {
           "@type": "PostalAddress",
+          "addressLocality": "Kusma",
           "addressRegion": "Gandaki Province",
           "addressCountry": "NP"
         },
+        "areaServed": [
+          { "@type": "AdministrativeArea", "name": "Parbat District, Nepal" },
+          { "@type": "Place", "name": "Annapurna region, Nepal" },
+          { "@type": "Country", "name": "Nepal" }
+        ],
+        "knowsAbout": ["Trekking in Nepal", "Kokhe Danda Trek", "Khopra Ridge Trek", "Annapurna region treks", "Homestay treks", "Parbat District"],
+        "priceRange": "$$",
+        "hasMap": "https://maps.app.goo.gl/wJ8wzmghg8FJQt8T8",
         "sameAs": [
           "https://www.facebook.com/discoverparbat",
+          "https://www.instagram.com/discoverparbat",
+          "https://kokhedandatrek.com",
           "https://maps.app.goo.gl/wJ8wzmghg8FJQt8T8"
         ]
       }

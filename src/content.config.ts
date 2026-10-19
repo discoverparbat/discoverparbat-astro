@@ -62,6 +62,7 @@ const treks = defineCollection({
     })).optional(),
     sections: z.array(section),
     extraSchema: text.optional(),
+    related: z.array(text).optional(),
     listing: z.object({
       showOnTreks: z.boolean().default(true),
       group: z.enum(['featured', 'parbat', 'classic']).default('classic'),

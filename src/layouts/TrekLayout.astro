@@ -10,6 +10,7 @@ import Gallery from '../components/trek/Gallery.astro';
 import PricingCard from '../components/trek/PricingCard.astro';
 import IncludesCard from '../components/trek/IncludesCard.astro';
 import BookingForm from '../components/trek/BookingForm.astro';
+import RelatedTreks from '../components/trek/RelatedTreks.astro';
 import '../styles/trek-page.css';
 import '../styles/trek-extra.css';
 import { SITE, absUrl } from '../data/site.js';
@@ -44,6 +45,7 @@ interface Props {
   faqs?: Faq[];
   extraSchema?: object[];    // any extra JSON-LD blocks (e.g. a VideoObject)
   bookingName?: string;      // name used in the booking form, if different from name
+  related?: string[];        // slugs of treks to show under "More treks you may like"
 }
 
 const p = Astro.props;
@@ -73,6 +75,7 @@ const schema = {
       touristType: 'Trekkers',
       provider: {
         '@type': 'TravelAgency',
+        '@id': SITE.url + '/#organization',
         name: SITE.name,
         url: SITE.url,
         logo: absUrl(SITE.logo),
@@ -141,4 +144,6 @@ const schema = {
       <BookingForm trek={p.bookingName ?? p.name} />
     </aside>
   </div>
+
+  <RelatedTreks current={p.path.replace(/^\//, '')} related={p.related} />
 </BaseLayout>

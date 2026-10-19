@@ -50,6 +50,7 @@ if (t.extraSchema && t.extraSchema.trim()) {
   faqs={t.faqs}
   extraSchema={extraSchema}
   bookingName={t.listing?.bookingName}
+  related={t.related}
 >
   {t.sections.map((s: any) => {
     switch (s.type) {

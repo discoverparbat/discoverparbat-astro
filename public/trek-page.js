@@ -35,7 +35,7 @@ async function handleBookingSubmit(event) {
   const special = document.getElementById('bk-special').value.trim();
 
   if (!email && !whatsapp) {
-    alert('Please provide at least one contact option: Gmail or WhatsApp.');
+    alert('Please provide at least one contact option: Gmail / Outlook or WhatsApp.');
     return;
   }
 

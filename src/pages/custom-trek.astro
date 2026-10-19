@@ -213,7 +213,7 @@ body { line-height: 1.7; }
           <input id="ct-name" required placeholder="Your full name">
         </div>
         <div class="field">
-          <label for="ct-email">Gmail (optional)</label>
+          <label for="ct-email">Gmail / Outlook (optional)</label>
           <input id="ct-email" type="email" placeholder="you@gmail.com">
         </div>
         <div class="field">
@@ -266,7 +266,7 @@ body { line-height: 1.7; }
           <button class="btn-submit" type="submit">Send Custom Trek Request</button>
         </div>
       </div>
-      <p class="small-note">Please provide at least one contact option: Gmail or WhatsApp.</p>
+      <p class="small-note">Please provide at least one contact option: Gmail / Outlook or WhatsApp.</p>
       <p id="prefill-banner" class="prefill-banner" style="display:none;"></p>
     </form>
   </section>
@@ -287,7 +287,7 @@ async function handleCustomSubmit(event) {
   const note = document.getElementById('ct-note').value.trim();
 
   if (!email && !whatsapp) {
-    alert('Please provide at least one contact option: Gmail or WhatsApp.');
+    alert('Please provide at least one contact option: Gmail / Outlook or WhatsApp.');
     return;
   }
 

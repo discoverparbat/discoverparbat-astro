@@ -1,0 +1,63 @@
+---
+// "More treks you may like" — 3 cards at the bottom of every trek page.
+// Picks treks from the same group first, then the closest in length.
+// A trek file can choose its own with "related": ["slug", "slug", "slug"].
+import { getListedTreks, DIFFICULTY_LABEL } from '../../lib/treks';
+interface Props { current: string; related?: string[] } // current = this trek's slug
+const { current, related } = Astro.props;
+const all = await getListedTreks();
+const me = all.find((t) => t.slug === current);
+const fam = (g: string) => (g === 'featured' ? 'parbat' : g); // the signature trek is a Parbat route too
+let picks = (related ?? []).map((s) => all.find((t) => t.slug === s)).filter(Boolean) as typeof all;
+if (picks.length < 3 && me) {
+  const rest = all
+    .filter((t) => t.slug !== current && !picks.includes(t))
+    .sort((a, b) =>
+      (Number(fam(b.group) === fam(me.group)) - Number(fam(a.group) === fam(me.group))) ||
+      (Math.abs(a.days - me.days) - Math.abs(b.days - me.days)) ||
+      (a.order - b.order));
+  picks = [...picks, ...rest].slice(0, 3);
+}
+---
+{picks.length > 0 && (
+<section class="rel-treks" aria-labelledby="rel-treks-title">
+  <div class="rel-head">
+    <span class="section-label">Keep Exploring</span>
+    <h2 id="rel-treks-title" class="content-title">More Treks You May Like</h2>
+    <div class="title-divider"></div>
+  </div>
+  <div class="rel-grid">
+    {picks.map((t) => (
+      <a class="rel-card" href={t.url}>
+        <div class="rel-img"><img src={t.image} alt={t.imageAlt} loading="lazy"></div>
+        <div class="rel-body">
+          <span class="rel-meta">{t.days} Days · {DIFFICULTY_LABEL[t.difficulty]} · {t.region}</span>
+          <h3>{t.name}</h3>
+          {t.blurb && <p>{t.blurb}</p>}
+          <span class="rel-link">View Trek →</span>
+        </div>
+      </a>
+    ))}
+  </div>
+  <p class="rel-all"><a href="/treks">See all treks →</a></p>
+</section>
+)}
+
+<style>
+  .rel-treks { max-width: 1240px; margin: 0 auto; padding: 10px 7% 70px; }
+  .rel-head { margin-bottom: 26px; }
+  .rel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .rel-card { display: flex; flex-direction: column; background: var(--white, #fff); border-radius: var(--radius, 14px); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.05); text-decoration: none; color: inherit; transition: transform 0.3s, box-shadow 0.3s; }
+  .rel-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .rel-img { aspect-ratio: 16 / 10; overflow: hidden; }
+  .rel-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .rel-body { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 6px; }
+  .rel-meta { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--green-mid, #2d6a4f); }
+  .rel-body h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--text-dark); margin: 2px 0 0; }
+  .rel-body p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.5; margin: 0; }
+  .rel-link { margin-top: 6px; font-size: 0.88rem; font-weight: 600; color: var(--green-mid, #2d6a4f); }
+  .rel-all { margin-top: 22px; }
+  .rel-all a { color: var(--green-mid, #2d6a4f); font-weight: 600; text-decoration: none; }
+  .rel-all a:hover { text-decoration: underline; }
+  @media (max-width: 900px) { .rel-grid { grid-template-columns: 1fr; gap: 16px; } .rel-card { flex-direction: row; } .rel-img { width: 38%; aspect-ratio: auto; flex-shrink: 0; } .rel-treks { padding: 0 5% 50px; } }
+</style>
