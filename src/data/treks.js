@@ -23,7 +23,7 @@ export const TREKS = [
     region: "Parbat",
     days: 5,
     difficulty: "easy",
-    maxAlt: "3,310 m",
+    maxAlt: "3,309 m",
     group: "featured",
   },
   {
@@ -34,7 +34,7 @@ export const TREKS = [
     region: "Parbat",
     days: 4,
     difficulty: "easy",
-    maxAlt: "3,310 m",
+    maxAlt: "3,309 m",
     blurb: "Short and scenic trek",
     group: "parbat",
   },
