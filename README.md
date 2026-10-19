@@ -42,7 +42,9 @@ Log in at **https://app.pagescms.org** with the GitHub account, open
   the next update.
 - **Shop – Photo prints**: add/remove/reorder prints, default prices for all
   prints, optional price per print.
-- **Articles list**: the cards on /articles (newest first).
+- **Articles list**: the cards on /articles (newest first). The 5 newest
+  English articles (by **Publish date**) also show on the homepage, with their
+  **Short summary**.
 
 Every save is a commit → GitHub rebuilds the preview and the `deploy`
 branch within ~2 minutes → Hostinger publishes it (automatic if the Hostinger
@@ -82,8 +84,9 @@ npm run build    # builds the final site into dist/
 Home, About, Contact, Custom Trek, Shop, Cancellation, Success and Thank-you
 are in `src/pages/` and keep their own design (styles at the top of each file).
 
-- `/treks`, homepage "Featured Treks" and booking forms are built from the
-  trek files — add a trek in the CMS and it appears everywhere.
+- `/treks`, homepage "Featured Treks", the contact page trek list and quick
+  enquiry cards, and all booking forms are built from the trek files — add a
+  trek in the CMS and it appears everywhere.
 - `sitemap.xml` is built automatically from every page (see
   `src/pages/sitemap.xml.js` for the few pages left out).
 - `src/pages/404.astro` is shown for any URL that doesn't exist.

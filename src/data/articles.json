@@ -5,7 +5,9 @@
     "image": "/photo/treks/khayer-lake.jpg",
     "tag": "Trek Guide",
     "date": "Oct 2026",
-    "category": "trek-guides"
+    "published": "2026-10-18",
+    "category": "trek-guides",
+    "excerpt": "Khayer Lake (4,653 m) above Khopra Ridge: the 8.2 km hike, trail and teashop at Khayer Khola, the Janai Purnima pilgrimage, views and the best time to go."
   },
   {
     "url": "/article/ghorepani-village-guide",
@@ -13,7 +15,9 @@
     "image": "/article/ghorepani-village.jpg",
     "tag": "Trek Guide",
     "date": "Oct 2026",
-    "category": "trek-guides"
+    "published": "2026-10-17",
+    "category": "trek-guides",
+    "excerpt": "Ghorepani's altitude and history, the Poon Hill sunrise, routes from Nayapul and Banthati, lodges and the best time to visit."
   },
   {
     "url": "/article/kokhe-danda-vs-mardi-himal-trek",
@@ -21,7 +25,9 @@
     "image": "/article/kokhe-danda-vs-mardi-himal.png",
     "tag": "Trek Guide",
     "date": "Oct 2026",
-    "category": "trek-guides"
+    "published": "2026-10-12",
+    "category": "trek-guides",
+    "excerpt": "Kokhe Danda vs Mardi Himal: compare crowds, mountain views, village life, homestays, altitude and cost to choose the right 5-day trek from Pokhara."
   },
   {
     "url": "/khopra-ridge-vs-annapurna-base-camp",
@@ -29,7 +35,9 @@
     "image": "/khopra-ridge-trek.jpg",
     "tag": "Trek Guide",
     "date": "Oct 2026",
-    "category": "trek-guides"
+    "published": "2026-10-10",
+    "category": "trek-guides",
+    "excerpt": "A panoramic ridge or a Himalayan sanctuary? We compare views, crowds, villages, lodges and altitude so you can pick the right Annapurna trek for you."
   },
   {
     "url": "/multiple-viewpoints-trek-alternative-to-annapurna-circuit",
@@ -38,7 +46,9 @@
     "imageAlt": "Multiple Viewpoints Trek, an alternative to the Annapurna Circuit",
     "tag": "Trek Guide",
     "date": "Oct 2026",
-    "category": "trek-guides"
+    "published": "2026-10-05",
+    "category": "trek-guides",
+    "excerpt": "Looking for an alternative to the Annapurna Circuit Trek? The 14-day Multiple Viewpoints Trek in Parbat has Poon Hill, Khopra Ridge, Khayer Lake and no crowds."
   },
   {
     "url": "/article/why-kokhe-danda-trek",
@@ -47,7 +57,9 @@
     "imageAlt": "Kokhe Danda Trek",
     "tag": "Trek Guide",
     "date": "2026",
-    "category": "trek-guides"
+    "published": "2026-01-15",
+    "category": "trek-guides",
+    "excerpt": "How a trek born during lockdown became one of Nepal's best-kept trekking secrets — and why the people who built it are the best to guide it."
   },
   {
     "url": "/annapurna-circuit-trail-condition-update",
@@ -56,7 +68,9 @@
     "imageAlt": "Annapurna Circuit Update Trek",
     "tag": "Planning",
     "date": "Sep 2026",
-    "category": "planning"
+    "published": "2026-10-06",
+    "category": "planning",
+    "excerpt": "Annapurna Circuit update, 6 Oct 2026: jeeps reach Chame, Chame bridge submerged, detour to Talekhu, jeeps Bhratang–Manang, Thorong La being crossed again."
   },
   {
     "url": "/kokhe-danda-trek-alternative-to-poon-hill",
@@ -65,7 +79,9 @@
     "imageAlt": "Kokhe Danda Trek",
     "tag": "Planning",
     "date": "Sep 2026",
-    "category": "planning"
+    "published": "2026-10-05",
+    "category": "planning",
+    "excerpt": "Why Kokhe Danda Trek is a better alternative to Poon Hill: fewer crowds, wider Himalayan views, family-run homestays and an untouched trail in Parbat."
   },
   {
     "url": "/what-to-pack-for-khopra-ridge-trek",
@@ -74,7 +90,9 @@
     "imageAlt": "Khopra Ridge Trek packing list",
     "tag": "Planning",
     "date": "Sep 2026",
-    "category": "planning"
+    "published": "2026-09-19",
+    "category": "planning",
+    "excerpt": "Khopra Ridge Trek packing list: layers, boots, sleeping bag, rain gear and what to leave at home, with season-by-season advice and a checklist you can print."
   },
   {
     "url": "/best-season-for-kokhe-danda-trek",
@@ -83,7 +101,9 @@
     "imageAlt": "Kokhe Danda Trek",
     "tag": "Planning",
     "date": "Sep 2026",
-    "category": "planning"
+    "published": "2026-10-05",
+    "category": "planning",
+    "excerpt": "Plan your Kokhe Danda Trek with a month-by-month guide: rhododendron spring, green monsoon trails, crystal-clear October views and quiet winter days."
   },
   {
     "url": "/article/parbat-district-travel-guide",
@@ -92,7 +112,9 @@
     "imageAlt": "Parbat District Travel Guide",
     "tag": "Planning",
     "date": "Oct 2026",
-    "category": "planning"
+    "published": "2026-10-17",
+    "category": "planning",
+    "excerpt": "A local's guide to Parbat District in Nepal: where it is, Kushma's suspension bridges, Gupteshwar Cave, Magar village homestays, treks and how to get there."
   },
   {
     "url": "/article/nepal-monsoon-officially-exits-2026",
@@ -101,7 +123,9 @@
     "imageAlt": "Dhaulagiri range from Kokhe Danda after Nepal's monsoon withdrawal, October 2026",
     "tag": "Weather",
     "date": "Oct 2026",
-    "category": "weather"
+    "published": "2026-10-14",
+    "category": "weather",
+    "excerpt": "The monsoon withdrew on 14 October, 12 days late. Here's the weather outlook to December, when the mountains are clearest, and where to trek now."
   },
   {
     "url": "/nepal-weather-update-october-2026",
@@ -110,7 +134,9 @@
     "imageAlt": "Nepal weather update October 2026, monsoon exit and autumn trekking outlook",
     "tag": "Weather",
     "date": "Oct 2026",
-    "category": "weather"
+    "published": "2026-10-07",
+    "category": "weather",
+    "excerpt": "October has arrived but rain continues in Nepal. Why, where showers are likely this week, when the monsoon exits, and what it means for autumn trekking."
   },
   {
     "url": "/article/manaslu-trek-update-alternatives",
@@ -118,7 +144,9 @@
     "image": "/mulde-view-point.jpg",
     "tag": "News",
     "date": "Oct 2026",
-    "category": "news"
+    "published": "2026-10-12",
+    "category": "news",
+    "excerpt": "Manaslu Circuit and Tsum Valley closed from the south after a flash flood (update 12 Oct 2026). Latest situation plus 3 alternatives: Annapurna Circuit, Multiple Viewpoints Trek, Api Himal."
   },
   {
     "url": "/khopra-ridge-trek-alternative-to-langtang-trek",
@@ -127,7 +155,9 @@
     "imageAlt": "Khopra Ridge Trek, an alternative to Langtang after the 2026 flood",
     "tag": "News",
     "date": "Sep 2026",
-    "category": "news"
+    "published": "2026-09-20",
+    "category": "news",
+    "excerpt": "Looking for a Langtang Trek alternative after the 2026 Rasuwa floods? Discover why Khopra Ridge Trek offers Himalayan views, quiet trails, mountain villages and Dhaulagiri panoramas."
   },
   {
     "url": "/parbat-dashain-travel-destinations",
@@ -136,6 +166,8 @@
     "imageAlt": "दशैंमा घुम्न सकिने पर्वतका ५ ठाउँ, कोखे डाँडा",
     "tag": "घुमफिर",
     "date": "असोज २०८३",
-    "category": "nepali"
+    "published": "2026-10-09",
+    "category": "nepali",
+    "excerpt": "दशैंको बिदामा पर्वत घुम्ने योजना छ? कोखे डाँडा, हल्जुरे, पञ्चासे, फलामे डाँडा र डहरे देउरालीको उचाइ, हिमाल दृश्य, बास, पुग्ने बाटो र सम्पर्क।"
   }
 ]

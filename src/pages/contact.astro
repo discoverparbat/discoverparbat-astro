@@ -3,6 +3,13 @@
 // This page keeps its own design: its styles are in the <style> block
 // below and the page HTML follows. BaseLayout adds the head, header and footer.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getTrekCards, getHomeTreks, DIFFICULTY_LABEL } from '../lib/treks';
+// Trek dropdown = every published trek; quick enquiry cards = the homepage "Featured Treks".
+const allTreks = await getTrekCards();
+const homeTreks = await getHomeTreks();
+const enquiryMail = (name: string, days: number) =>
+  'mailto:discoverparbat@gmail.com?subject=' + encodeURIComponent(`Enquiry - ${name}`) +
+  '&body=' + encodeURIComponent(`Hi,\n\nI’m interested in the ${name} (${days} Days). Could you share more details?\n\nThank you.`);
 ---
 <BaseLayout
   title="Contact Us – Discover Parbat"
@@ -687,13 +694,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <label for="trek">Trek of Interest</label>
         <select id="trek">
           <option value="" disabled selected>Choose a trek…</option>
-          <option>Kokhe Danda Trek (5 Days)</option>
-          <option>Short Kokhe Danda Trek (4 Days)</option>
-          <option>Mardi Himal Trek (5 Days)</option>
-          <option>Khopra Ridge Trek (8 Days)</option>
-          <option>Annapurna Base Camp Trek (10 Days)</option>
-          <option>Muldai Viewpoint Poon Hill Trek (6 Days)</option>
-          <option>Multiple Viewpoints Trek (14 Days)</option>
+          {allTreks.map((t) => <option>{/\d+ Days/i.test(t.bookingName) ? t.bookingName : `${t.bookingName} (${t.days} Days)`}</option>)}
           <option>Not sure yet — help me choose</option>
         </select>
       </div>
@@ -815,54 +816,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <div class="trek-quick-cards">
 
-      <a class="trek-quick-card" href="mailto:discoverparbat@gmail.com?subject=Enquiry%20-%20Kokhe%20Danda%20Trek&body=Hi%2C%0A%0AI%E2%80%99m%20interested%20in%20the%20Kokhe%20Danda%20Trek%20(5%20Days).%20Could%20you%20share%20more%20details%3F%0A%0AThank%20you.">
-        <span class="trek-days">5 Days · Easy</span>
-        <h4>Kokhe Danda Trek</h4>
-        <p>Village culture + Himalayan views</p>
-        <span class="enquire-link">Enquire →</span>
-      </a>
-
-      <a class="trek-quick-card" href="mailto:discoverparbat@gmail.com?subject=Enquiry%20-%20Mardi%20Himal%20Trek&body=Hi%2C%0A%0AI%E2%80%99m%20interested%20in%20the%20Mardi%20Himal%20Trek%20(5%20Days).%20Could%20you%20share%20more%20details%3F%0A%0AThank%20you.">
-        <span class="trek-days">5 Days · Easy</span>
-        <h4>Mardi Himal Trek</h4>
-        <p>Ridge trek towards Fishtail</p>
-        <span class="enquire-link">Enquire →</span>
-      </a>
-
-      <a class="trek-quick-card" href="mailto:discoverparbat@gmail.com?subject=Enquiry%20-%20Khopra%20Ridge%20Trek&body=Hi%2C%0A%0AI%E2%80%99m%20interested%20in%20the%20Khopra%20Ridge%20Trek%20(8%20Days).%20Could%20you%20share%20more%20details%3F%0A%0AThank%20you.">
-        <span class="trek-days">8 Days · Moderate</span>
-        <h4>Khopra Ridge Trek</h4>
-        <p>Beautiful offbeat ridge trek</p>
-        <span class="enquire-link">Enquire →</span>
-      </a>
-
-      <a class="trek-quick-card" href="mailto:discoverparbat@gmail.com?subject=Enquiry%20-%20Annapurna%20Base%20Camp%20Trek&body=Hi%2C%0A%0AI%E2%80%99m%20interested%20in%20the%20Annapurna%20Base%20Camp%20Trek%20(10%20Days).%20Could%20you%20share%20more%20details%3F%0A%0AThank%20you.">
-        <span class="trek-days">10 Days · Moderate</span>
-        <h4>Annapurna Base Camp</h4>
-        <p>Classic Himalayan journey</p>
-        <span class="enquire-link">Enquire →</span>
-      </a>
-
-      <a class="trek-quick-card" href="mailto:discoverparbat@gmail.com?subject=Enquiry%20-%20Short%20Kokhe%20Danda%20Trek&body=Hi%2C%0A%0AI%E2%80%99m%20interested%20in%20the%20Short%20Kokhe%20Danda%20Trek%20(4%20Days).%20Could%20you%20share%20more%20details%3F%0A%0AThank%20you.">
-        <span class="trek-days">4 Days · Easy</span>
-        <h4>Short Kokhe Danda</h4>
-        <p>Short and scenic trek</p>
-        <span class="enquire-link">Enquire →</span>
-      </a>
-
-      <a class="trek-quick-card" href="mailto:discoverparbat@gmail.com?subject=Enquiry%20-%20Multiple%20Viewpoints%20Trek&body=Hi%2C%0A%0AI%E2%80%99m%20interested%20in%20the%20Multiple%20Viewpoints%20Trek%20(14%20Days).%20Could%20you%20share%20more%20details%3F%0A%0AThank%20you.">
-        <span class="trek-days">14 Days · Moderate</span>
-        <h4>Multiple Viewpoints Trek</h4>
-        <p>Best viewpoints in one trek</p>
-        <span class="enquire-link">Enquire →</span>
-      </a>
-
-      <a class="trek-quick-card" href="mailto:discoverparbat@gmail.com?subject=Enquiry%20-%20Muldai%20Viewpoint%20Poon%20Hill%20Trek&body=Hi%2C%0A%0AI%E2%80%99m%20interested%20in%20the%20Muldai%20Viewpoint%20Poon%20Hill%20Trek%20(6%20Days).%20Could%20you%20share%20more%20details%3F%0A%0AThank%20you.">
-        <span class="trek-days">6 Days · Easy</span>
-        <h4>Muldai Viewpoint Poon Hill</h4>
-        <p>Muldai, Poon Hill &amp; Kokhe</p>
-        <span class="enquire-link">Enquire →</span>
-      </a>
+      {homeTreks.map((t) => (
+        <a class="trek-quick-card" href={enquiryMail(t.bookingName, t.days)}>
+          <span class="trek-days">{t.days} Days · {DIFFICULTY_LABEL[t.difficulty]}</span>
+          <h4>{t.name}</h4>
+          <p>{t.home?.blurb ?? t.blurb}</p>
+          <span class="enquire-link">Enquire →</span>
+        </a>
+      ))}
 
       <a class="trek-quick-card" href="mailto:discoverparbat@gmail.com?subject=Trek%20Recommendation%20Request&body=Hi%2C%0A%0AI%E2%80%99m%20not%20sure%20which%20trek%20to%20choose.%20Could%20you%20help%20me%20find%20the%20right%20one%3F%0A%0AThank%20you.">
         <span class="trek-days" style="background:rgba(26,111,168,0.1); color:var(--blue-mid);">Not sure?</span>

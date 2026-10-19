@@ -273,6 +273,8 @@ content:
       - { name: imageAlt, label: "Photo description (optional)", type: string }
       - { name: tag, label: "Tag on the photo (e.g. Trek Guide)", type: string }
       - { name: date, label: "Date shown (e.g. Oct 2026)", type: string }
+      - { name: published, label: "Publish date (newest 5 show on the homepage)", type: date }
+      - { name: excerpt, label: "Short summary (shown on the homepage card)", type: text }
       - name: category
         label: Category
         type: select
