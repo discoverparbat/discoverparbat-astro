@@ -3,6 +3,9 @@
 // This page keeps its own design: its styles are in the <style> block
 // below and the page HTML follows. BaseLayout adds the head, header and footer.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getListedTreks } from '../lib/treks';
+// "Trek Routes" count = number of treks shown on /treks (updates automatically).
+const trekCount = (await getListedTreks()).length;
 ---
 <BaseLayout
   title="About Discover Parbat: Local Trekking Company in Parbat, Nepal"
@@ -811,7 +814,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span>Countries</span>
       </div>
       <div class="hero-stat-pill">
-        <strong>7</strong>
+        <strong>{trekCount}</strong>
         <span>Trek Routes</span>
       </div>
       <div class="hero-stat-pill">
