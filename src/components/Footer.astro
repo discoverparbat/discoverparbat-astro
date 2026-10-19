@@ -1,6 +1,8 @@
 ---
 // Site footer. Links live in src/data/site.js.
 import { NAV, COMPANY_LINKS, SITE } from '../data/site.js';
+interface Props { tagline?: string }
+const { tagline = 'Walk slow, go far.' } = Astro.props;
 const year = new Date().getFullYear();
 ---
 <footer>
@@ -33,6 +35,6 @@ const year = new Date().getFullYear();
   <div class="footer-bottom">
     <p>© Discover Parbat {year}. All rights reserved.</p>
     <p class="footer-credit"><span class="footer-credit-label">Developed by</span> <a href="https://anc.com.np" target="_blank" rel="noopener">Aseem &amp; Consulting</a></p>
-    <p class="footer-tagline">Walk slow, go far.</p>
+    <p class="footer-tagline">{tagline}</p>
   </div>
 </footer>

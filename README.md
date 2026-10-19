@@ -76,6 +76,27 @@ npm run dev      # live preview at http://localhost:4321/kokhe-danda-trek
 npm run build    # builds the final site into dist/
 ```
 
+## Other pages
+
+Home, About, Contact, Custom Trek, Shop, Cancellation, Success and Thank-you
+are in `src/pages/` and keep their own design (styles at the top of each file).
+
+- `/treks`: cards, filter, comparison table and trek count come from
+  `src/data/treks.js` — add a trek there and it appears everywhere.
+- `sitemap.xml` is built automatically from every page (see
+  `src/pages/sitemap.xml.js` for the few pages left out).
+- `src/pages/404.astro` is shown for any URL that doesn't exist.
+
+## Publishing
+
+Every push to `main` runs two GitHub Actions:
+- **Preview on GitHub Pages** → https://discoverparbat.github.io/discoverparbat-astro/
+  (marked noindex, never competes with the real site)
+- **Build deploy branch** → puts the finished site on the `deploy` branch.
+  Hostinger's Git deployment should pull the `deploy` branch (not `main`).
+
+Photos: keep them under ~2400 px wide before adding them to `public/`.
+
 ## Email form
 
 `public/inquiry.php` sends booking emails. It reads the SMTP password from

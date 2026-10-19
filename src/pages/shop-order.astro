@@ -1,0 +1,198 @@
+---
+// URL: https://discoverparbat.com/shop-order
+// This page keeps its own design: its styles are in the <style> block
+// below and the page HTML follows. BaseLayout adds the head, header and footer.
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Order Request | Discover Parbat Shop"
+  description="Send a shop order request for Discover Parbat photo prints and digital copies."
+  path="/shop-order"
+  nav="/shop"
+  footer={false}
+>
+
+<style is:global>
+body { line-height: 1.7; }
+.order-wrap {
+  min-height: calc(100vh - 72px);
+  padding: 110px 7% 60px;
+  display: grid;
+  place-items: start center;
+  background: linear-gradient(180deg, #f7f4ef 0%, #eef6f2 100%);
+}
+.order-card {
+  width: min(760px, 100%);
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px;
+  box-shadow: 0 14px 42px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+.order-head {
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #1a3d2b, #1a6fa8);
+  color: #fff;
+}
+.order-head h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+.order-head p { margin-top: 8px; color: rgba(255,255,255,0.84); font-size: 0.9rem; }
+.order-form { padding: 20px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; color: #667; }
+.field input, .field select, .field textarea {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.93rem;
+  font-family: 'DM Sans', sans-serif;
+}
+.field textarea { min-height: 96px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none;
+  border-color: #2d6a4f;
+  box-shadow: 0 0 0 3px rgba(45,106,79,0.12);
+}
+.submit {
+  width: 100%;
+  min-height: 48px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2d6a4f, #1a6fa8);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.note { margin-top: 10px; font-size: 0.79rem; color: #6b7280; }
+.success-msg {
+  display: none;
+  margin-top: 12px;
+  border: 1px solid rgba(45,106,79,0.24);
+  background: rgba(82,183,136,0.12);
+  color: #1f4f3b;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 0.9rem;
+}
+@media (max-width: 640px) {
+  .order-wrap { padding: 96px 4% 44px; }
+  .order-head { padding: 18px 16px; }
+  .order-form { padding: 16px 14px 18px; }
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<main class="order-wrap">
+  <section class="order-card">
+    <div class="order-head">
+      <h1>Photo Order Request</h1>
+      <p>Send your interest and we will confirm availability and share account/payment details.</p>
+    </div>
+    <form class="order-form" id="shop-order-form" onsubmit="handleShopOrder(event)">
+      <div class="grid">
+        <div class="field full">
+          <label for="so-name">Full Name *</label>
+          <input id="so-name" required placeholder="Your full name">
+        </div>
+        <div class="field">
+          <label for="so-email">Email (optional)</label>
+          <input id="so-email" type="email" placeholder="you@gmail.com">
+        </div>
+        <div class="field">
+          <label for="so-whatsapp">WhatsApp (optional)</label>
+          <input id="so-whatsapp" placeholder="+977 98XXXXXXXX">
+        </div>
+        <div class="field">
+          <label for="so-country">Country *</label>
+          <input id="so-country" required placeholder="Your country">
+        </div>
+        <div class="field">
+          <label for="so-item">Photo Code *</label>
+          <input id="so-item" required placeholder="DP001">
+        </div>
+        <div class="field">
+          <label for="so-format">Format *</label>
+          <select id="so-format" required>
+            <option>Framed Print</option>
+            <option>Digital Copy</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="so-qty">Quantity *</label>
+          <input id="so-qty" type="number" min="1" value="1" required>
+        </div>
+        <div class="field full">
+          <label for="so-note">I am interested in</label>
+          <textarea id="so-note" placeholder="Tell us what you are interested in (gift wrap, frame color, shipping location, deadline, etc.)"></textarea>
+        </div>
+        <div class="field full">
+          <button class="submit" type="submit">Send Order Request</button>
+        </div>
+      </div>
+      <p class="note">Please provide at least one contact option (Email or WhatsApp).</p>
+      <p id="order-success" class="success-msg">Thank you. Discover Parbat will share account/payment details shortly.</p>
+    </form>
+  </section>
+</main>
+
+<script is:inline>
+const params = new URLSearchParams(window.location.search);
+const item = params.get('item');
+const format = params.get('format');
+if (item) document.getElementById('so-item').value = item;
+if (format && ['Framed Print', 'Digital Copy'].includes(format)) {
+  document.getElementById('so-format').value = format;
+}
+
+async function handleShopOrder(event) {
+  event.preventDefault();
+  const name = document.getElementById('so-name').value.trim();
+  const email = document.getElementById('so-email').value.trim();
+  const whatsapp = document.getElementById('so-whatsapp').value.trim();
+  const country = document.getElementById('so-country').value.trim();
+  const itemCode = document.getElementById('so-item').value.trim();
+  const formatVal = document.getElementById('so-format').value;
+  const qty = document.getElementById('so-qty').value.trim();
+  const note = document.getElementById('so-note').value.trim();
+
+  if (!email && !whatsapp) {
+    alert('Please provide at least one contact option: Email or WhatsApp.');
+    return;
+  }
+
+  const payload = new URLSearchParams({
+    type: 'shop',
+    name,
+    email,
+    whatsapp,
+    country,
+    itemCode,
+    format: formatVal,
+    qty,
+    special: note
+  });
+
+  await DiscoverParbat.submitInquiry(payload, {
+    successUrl: null,
+    whatsappMessage: DiscoverParbat.formatShopMessage({
+      name, email, whatsapp, country, itemCode, format: formatVal, qty, note
+    }),
+    onSuccess: () => {
+      document.getElementById('shop-order-form').reset();
+      if (item) document.getElementById('so-item').value = item;
+      if (format) document.getElementById('so-format').value = format;
+      document.getElementById('order-success').style.display = 'block';
+    }
+  });
+}
+</script>
+
+</BaseLayout>

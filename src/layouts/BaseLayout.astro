@@ -29,6 +29,8 @@ interface Props {
   noindex?: boolean;
   robots?: string;          // full robots value, if it should differ from the default
   lang?: string;            // page language: 'en' (default) or 'ne' for Nepali
+  footer?: boolean;         // false hides the footer (small pages like /success)
+  footerTagline?: string;   // footer's last line, if different from "Walk slow, go far."
 }
 
 const {
@@ -47,6 +49,8 @@ const {
   noindex = false,
   robots,
   lang = 'en',
+  footer = true,
+  footerTagline,
 } = Astro.props;
 
 const canonical = absUrl(path);
@@ -111,7 +115,7 @@ const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 
 <slot />
 
-<Footer />
+{footer && <Footer tagline={footerTagline} />}
 
 </body>
 </html>
