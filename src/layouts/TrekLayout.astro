@@ -13,6 +13,7 @@ import BookingForm from '../components/trek/BookingForm.astro';
 import '../styles/trek-page.css';
 import '../styles/trek-extra.css';
 import { SITE, absUrl } from '../data/site.js';
+import { getImageSize } from '../lib/image-size.js';
 import type { Day } from '../components/trek/Itinerary.astro';
 import type { Faq } from '../components/trek/FaqList.astro';
 import type { PriceRow } from '../components/trek/PricingCard.astro';
@@ -23,25 +24,32 @@ interface Props {
   description: string;
   path: string;              // e.g. "/kokhe-danda-trek"
   keywords?: string;
-  image: string;             // main photo, also used for social cards
+  image: string;             // social-card photo (og:image), e.g. "/kokhe.jpg"
+  imageAlt?: string;         // og:image:alt (defaults to the title)
+  twitterImage?: string;     // only if different from image
+  ogDescription?: string;    // only if social cards need a different description
   // trek facts
   name: string;              // e.g. "Kokhe Danda Trek" (booking form + breadcrumb)
   tripName?: string;         // schema TouristTrip name, e.g. "Kokhe Danda Trek – 5 Days"
   tripDescription?: string;  // schema TouristTrip description
-  hero: { alt: string; eyebrow: string; title: string; subtitle: string };
+  hero: { image?: string; alt: string; eyebrow: string; title: string; subtitle: string }; // hero.image defaults to image
   stats: { value: string; label: string }[];
   gallery: { src: string; alt: string }[];
   pricing: PriceRow[];
+  pricingNote?: string;      // line under "Cost Details", default "Per person · All inclusive"
+  pricingFootnote?: string;  // small note under the price table
   included: string[];
   notIncluded: string[];
   itinerary: Day[];
   faqs?: Faq[];
+  extraSchema?: object[];    // any extra JSON-LD blocks (e.g. a VideoObject)
 }
 
 const p = Astro.props;
 const url = absUrl(p.path);
 const imageUrl = absUrl(p.image);
-const prices = p.pricing.map((r) => r.price);
+const imgSize = getImageSize(p.image);
+const prices = p.pricing.map((r) => Number(r.price.replace(/[^0-9.]/g, ''))).filter((n) => n > 0);
 const strip = (html: string) => html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 const pageName = p.title.replace(/\s*\|\s*Discover Parbat\s*$/, '');
 
@@ -53,7 +61,7 @@ const schema = {
       '@id': url,
       url,
       name: pageName,
-      primaryImageOfPage: { '@type': 'ImageObject', url: imageUrl, width: 1200, height: 630 },
+      primaryImageOfPage: { '@type': 'ImageObject', url: imageUrl, ...(imgSize ?? {}) },
       thumbnailUrl: imageUrl,
     },
     {
@@ -109,12 +117,15 @@ const schema = {
   path={p.path}
   keywords={p.keywords}
   image={p.image}
-  schema={schema}
+  imageAlt={p.imageAlt}
+  twitterImage={p.twitterImage}
+  ogDescription={p.ogDescription}
+  schema={[schema, ...(p.extraSchema ?? [])]}
   nav="/treks"
 >
   <script slot="head" src="/trek-page.js" defer is:inline></script>
 
-  <TrekHero image={p.image} {...p.hero} />
+  <TrekHero {...p.hero} image={p.hero.image ?? p.image} />
   <StatsBar stats={p.stats} />
   <Gallery photos={p.gallery} />
 
@@ -124,7 +135,7 @@ const schema = {
     </div>
 
     <aside class="sidebar">
-      <PricingCard rows={p.pricing} />
+      <PricingCard rows={p.pricing} note={p.pricingNote} footnote={p.pricingFootnote} />
       <IncludesCard included={p.included} notIncluded={p.notIncluded} />
       <BookingForm trek={p.name} />
     </aside>

@@ -1,5 +1,6 @@
 ---
-// FAQ accordion. Each item: { q, a } — a may contain HTML.
+// FAQ accordion. Each item: { q, a } — a may contain HTML
+// (one paragraph as plain text, or several as <p>…</p><p>…</p>).
 // The same list also feeds the FAQPage schema (see TrekLayout), so the
 // questions Google reads always match the ones on the page.
 export interface Faq { q: string; a: string }
@@ -19,7 +20,7 @@ const { faqs, label = 'Common Questions', title = 'Frequently Asked Questions' }
           <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-answer">
-          <p set:html={f.a} />
+          {/<(p|ul|ol|div)[\s>]/.test(f.a) ? <Fragment set:html={f.a} /> : <p set:html={f.a} />}
         </div>
       </div>
     ))}

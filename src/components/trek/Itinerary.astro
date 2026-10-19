@@ -8,10 +8,17 @@ export interface Day {
   distance?: string;
   time?: string;
   stay?: string;
+  more?: { label: string; value: string }[]; // any other chips, e.g. { label: 'Meals', value: 'B/L/D' }
+  day?: string;                               // badge number if not simply 1, 2, 3…
 }
 interface Props { days: Day[]; label?: string; title?: string }
 const { days, label = 'Day by Day', title = 'Detailed Itinerary' } = Astro.props;
-const chip = (name: string, v?: string) => (v ? { name, v } : null);
+const LABELS: Record<string, string> = { altitude: 'Altitude', distance: 'Distance', time: 'Time', stay: 'Stay' };
+// chips appear in the order they're written in the day's data
+const chipsOf = (d: Day) =>
+  Object.entries(d).flatMap(([k, v]) =>
+    k === 'more' ? (v as { label: string; value: string }[]).map((m) => ({ name: m.label, v: m.value }))
+    : LABELS[k] && v ? [{ name: LABELS[k], v: v as string }] : []);
 ---
 <div class="itinerary-section">
   <span class="section-label">{label}</span>
@@ -20,11 +27,11 @@ const chip = (name: string, v?: string) => (v ? { name, v } : null);
 
   {days.map((d, i) => {
     const id = `acc${i + 1}`;
-    const chips = [chip('Altitude', d.altitude), chip('Distance', d.distance), chip('Time', d.time), chip('Stay', d.stay)].filter(Boolean);
+    const chips = chipsOf(d);
     return (
       <div class="accordion-item" id={id}>
         <button class="accordion-btn" onclick={`toggleAcc('${id}')`}>
-          <div class="acc-day-badge">Day<br>{i + 1}</div>
+          <div class="acc-day-badge">Day<br>{d.day ?? i + 1}</div>
           <span class="acc-title">{d.title}</span>
           <div class="acc-chevron"><svg viewBox="0 0 12 12"><polyline points="2 4 6 8 10 4"/></svg></div>
         </button>
@@ -32,7 +39,7 @@ const chip = (name: string, v?: string) => (v ? { name, v } : null);
           {d.text.map((p) => <p class="acc-body-text" set:html={p} />)}
           {chips.length > 0 && (
             <div class="acc-meta">
-              {chips.map((c) => <span class="acc-meta-chip"><strong>{c!.name}:</strong> {c!.v}</span>)}
+              {chips.map((c) => <span class="acc-meta-chip"><strong>{c.name}:</strong> {c.v}</span>)}
             </div>
           )}
         </div>

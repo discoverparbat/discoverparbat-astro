@@ -1,25 +1,27 @@
 ---
-// YouTube video (privacy-friendly youtube-nocookie). Pass the video id.
-interface Props { id: string; title: string; caption?: string }
-const { id, title, caption } = Astro.props;
+// YouTube video. Shows the video's thumbnail with a play button and only
+// loads YouTube when the visitor clicks — keeps the page fast.
+// Pass the YouTube video id (the part after "watch?v=").
+interface Props {
+  id: string;
+  title: string;      // describes the video (for screen readers / YouTube)
+  heading?: string;   // optional title above the video, e.g. "Watch the Mardi Himal Trek"
+  caption?: string;   // optional line under the video
+}
+const { id, title, heading, caption } = Astro.props;
+const boxId = `video-${id}`;
 ---
-<div class="video-embed">
-  <div class="video-embed-frame">
-    <iframe
-      src={`https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1`}
-      title={title}
-      loading="lazy"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allowfullscreen>
-    </iframe>
+<div class="trek-video">
+  {heading && <h3>✦ {heading}</h3>}
+  <div class="video-frame" id={boxId}>
+    <button type="button" class="video-poster" aria-label={`Play: ${title}`}
+            data-video-id={id} data-video-title={title}>
+      <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt={title} loading="lazy" width="480" height="360">
+      <span class="video-play"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 4 20 12 6 20"/></svg></span>
+    </button>
   </div>
-  {caption && <p class="video-embed-caption">{caption}</p>}
+  {caption && <p class="video-caption">{caption}</p>}
+  <noscript>
+    <p><a href={`https://www.youtube.com/watch?v=${id}`} target="_blank" rel="noopener">Watch “{title}” on YouTube</a></p>
+  </noscript>
 </div>
-
-<style>
-  .video-embed { max-width: 900px; margin: 30px auto; padding: 0 16px; }
-  .video-embed-frame { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); background: #000; }
-  .video-embed-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-  .video-embed-caption { text-align: center; font-size: 14px; color: #666; margin-top: 10px; }
-</style>

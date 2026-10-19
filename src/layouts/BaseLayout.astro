@@ -11,15 +11,16 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE, absUrl } from '../data/site.js';
+import { getImageSize } from '../lib/image-size.js';
 
 interface Props {
   title: string;            // full <title>, e.g. "Kokhe Danda Trek 5 Days: … | Discover Parbat"
   description: string;
   path?: string;            // page URL path, e.g. "/kokhe-danda-trek" (defaults to the current page)
-  image?: string;           // social image path, e.g. "/kokhe.jpg"
+  image?: string;           // social image path, e.g. "/kokhe.jpg" (its real size is read automatically)
   imageAlt?: string;
-  imageWidth?: number;
-  imageHeight?: number;
+  twitterImage?: string;    // only if Twitter/X should show a different photo
+  ogDescription?: string;   // only if social cards need a different description
   keywords?: string;
   ogType?: 'website' | 'article';
   schema?: object | object[]; // JSON-LD; pass an object or a list of objects
@@ -33,8 +34,8 @@ const {
   path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/',
   image = SITE.defaultImage,
   imageAlt = title,
-  imageWidth = 1200,
-  imageHeight = 630,
+  twitterImage,
+  ogDescription,
   keywords,
   ogType = 'website',
   schema,
@@ -44,6 +45,8 @@ const {
 
 const canonical = absUrl(path);
 const imageUrl = absUrl(image);
+const imgSize = getImageSize(image);
+const socialDesc = ogDescription ?? description;
 const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 <!DOCTYPE html>
@@ -68,18 +71,18 @@ const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 <meta property="og:type" content={ogType}>
 <meta property="og:site_name" content={SITE.name}>
 <meta property="og:title" content={title}>
-<meta property="og:description" content={description}>
+<meta property="og:description" content={socialDesc}>
 <meta property="og:url" content={canonical}>
 <meta property="og:image" content={imageUrl}>
 <meta property="og:image:secure_url" content={imageUrl}>
-<meta property="og:image:width" content={String(imageWidth)}>
-<meta property="og:image:height" content={String(imageHeight)}>
+{imgSize && <meta property="og:image:width" content={String(imgSize.width)}>}
+{imgSize && <meta property="og:image:height" content={String(imgSize.height)}>}
 <meta property="og:image:alt" content={imageAlt}>
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content={title}>
-<meta name="twitter:description" content={description}>
-<meta name="twitter:image" content={imageUrl}>
+<meta name="twitter:description" content={socialDesc}>
+<meta name="twitter:image" content={twitterImage ? absUrl(twitterImage) : imageUrl}>
 <meta name="twitter:image:alt" content={imageAlt}>
 <meta name="theme-color" content={SITE.themeColor}>
 

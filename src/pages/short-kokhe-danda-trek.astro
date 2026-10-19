@@ -1,0 +1,289 @@
+---
+// ─── SHORT KOKHE DANDA TREK ────────────────────────────
+// URL: https://discoverparbat.com/short-kokhe-danda-trek
+// The layout builds the hero, stats, gallery, sidebar and schema from the
+// settings on <TrekLayout>. Everything inside it is the left column.
+import TrekLayout from '../layouts/TrekLayout.astro';
+import HighlightsBox from '../components/trek/HighlightsBox.astro';
+import RightForYou from '../components/trek/RightForYou.astro';
+import Itinerary from '../components/trek/Itinerary.astro';
+import FaqList from '../components/trek/FaqList.astro';
+import Reviews from '../components/trek/Reviews.astro';
+import { REVIEWS } from '../data/reviews.js';
+
+// ── Day-by-day itinerary (also used in the schema) ──
+const itinerary = [
+  {
+    "title": "Drive Pokhara → Banthati → Trek to Kokhe Danda",
+    "text": [
+      "On the first day, we start driving from Pokhara, as early as 7 AM in the morning. Initially, it is one and a half hour drive to Birethanti on a perfectly blacktopped road. From here, its an offroad drive for the next half. We start hiking from Banthati (2300m). We hike for one and a half hour to Taprang, where we stop for lunch. From here, we gain another 600m to reach Aapa Cottage, our accommodation at Kokhe Danda. The trail is mostly through Rhododendron and Oak forest and through the ridgeline after Taprang."
+    ],
+    "altitude": "3,310m",
+    "distance": "5.7 KM",
+    "time": "4.5 Hrs",
+    "stay": "Teahouse"
+  },
+  {
+    "title": "Kokhe Danda → Jaljala → Lespar",
+    "text": [
+      "We wake up early in the morning for the sunrise view. During clear weather, we can see from Dhaulagiri, Annapurna, Mansiri, Ganesh to Langtang range peaks.",
+      "After breakfast, we start our hike. We initially pass Mohare Danda and from there it is mostly flat or gradual downhill till Dhima Danda, where there is a small lunch place. From here, we have a steep downhill for 30 minutes and flat for the next 30 minutes to reach Jaljala. From here on, we go down on stone steps reaching all the way down to Lespar.",
+      "After lunch at Lespar, we go on a small circuit hike to explore the village. Later in the evening, we can have a Momo making session with the host at the Homestay."
+    ],
+    "altitude": "2,150m",
+    "distance": "9.4 KM",
+    "time": "5 Hrs",
+    "stay": "Homestay"
+  },
+  {
+    "title": "Lespar → Banau → Drive to Pokhara",
+    "text": [
+      "We have local breakfast at Lespar. The first part of the hike is steep for an hour, going up on stone steps. After that we go mostly flat for an hour to reach Haljure. From here, we start descending down to Banau. At Banau, we end the hike and take a car back to Pokhara with a stop at Kushma. At Kushma, you can do Bungee or Zipline if you are interested."
+    ],
+    "altitude": "800m",
+    "distance": "7.6 KM",
+    "time": "3 Hrs"
+  }
+];
+
+// ── FAQ (also used in the FAQPage schema) ──
+const faqs = [
+  {
+    "q": "Do I need prior trekking experience for Kokhe Danda?",
+    "a": "No prior trekking experience is needed. Kokhe Danda is rated Easy and is suitable for first-time trekkers. The longest day (Day 2) involves around 5 hours of walking with some elevation gain, so a basic level of fitness helps — but you don't need to be an athlete. If you can walk comfortably for a few hours, you'll be fine."
+  },
+  {
+    "q": "How do we get from Pokhara to the trek start?",
+    "a": "We arrange private transport from Pokhara to Banthati (approximately 2 hours including the road to Birethanti). The drive is scenic — you pass through the hills leading into Parbat district. No public buses or connections to worry about; it's all handled by us."
+  },
+  {
+    "q": "What are the homestays like? Will I have a private room?",
+    "a": "The homestays are simple, clean, and genuinely family-run — this is one of the things that makes Kokhe Danda special. You'll typically have a private or semi-private room with basic bedding. Bathrooms are usually shared and facilities are basic. Think warm hospitality over luxury. Meals are home-cooked by the host family, which is honestly one of the highlights of the trip."
+  },
+  {
+    "q": "What is the food like on the trek?",
+    "a": "You'll eat what the local families eat — mostly dal bhat (lentils and rice), fresh vegetables, local honey, eggs, and seasonal produce. On Day 2, there's a hands-on momo making session with your host family. It's wholesome, filling, and genuinely delicious. If you have dietary restrictions or allergies, let us know in advance and we'll make sure the hosts are prepared."
+  },
+  {
+    "q": "Is there mobile network and Wi-Fi on the trail?",
+    "a": "Mobile signal (NCell or NTC) is available in most villages along the route, though it can be patchy on the higher ridgelines. Wi-Fi is not reliably available at the homestays — this is a remote trail and part of its charm. We'd recommend downloading offline maps and letting family know you may be out of contact for stretches. A local SIM card from Pokhara is a good idea if you need connectivity."
+  },
+  {
+    "q": "What is the best time of year to do this trek?",
+    "a": "The two peak windows are March–May (spring) and October–November (autumn). Spring brings rhododendrons in full bloom along the forest trails, while autumn delivers the clearest mountain views after the monsoon clears the air. December is quieter than most people expect — fewer trekkers and crisp visibility make it a genuinely underrated option. June–September is the monsoon season; trails are lush but wetter underfoot. See our <a href=\"/best-season-for-kokhe-danda-trek\">month-by-month guide</a>."
+  },
+  {
+    "q": "Do I need a trekking permit for Kokhe Danda?",
+    "a": "For our normal <a href=\"/kokhe-danda-trek\">five-day Kokhe Danda Trek</a>, no permit is needed. However, for the three-day option we need an ACAP permit as we pass via Nayapul. This is included in your trek cost and arranged by us before departure."
+  },
+  {
+    "q": "Short Kokhe Danda Trek or Poon Hill: which should I choose?",
+    "a": "Both can be done in about three days from Pokhara. Choose Poon Hill for a well-established route with more facilities. Choose the Short Kokhe Danda Trek for far fewer trekkers, family-run homestays and wider views that reach Manaslu and Langtang on clear days. Read our <a href=\"/kokhe-danda-trek-alternative-to-poon-hill\">full Kokhe Danda vs Poon Hill comparison</a>."
+  },
+  {
+    "q": "Can I do this trek solo or do I need a group?",
+    "a": "Absolutely — solo trekkers are very welcome and actually quite common on this route. You'll have a private guide for the full trek, and the solo experience on these quiet trails is genuinely special. You can also join one of our fixed group departures if you'd prefer company. Either way, the pricing is transparent and listed above. Here's <a href=\"/article/why-kokhe-danda-trek\">why trekkers choose Discover Parbat for Kokhe Danda</a>."
+  },
+  {
+    "q": "What should I pack for this trek?",
+    "a": "For a 3-day easy trek, you don't need to overpack. Essentials include: sturdy walking shoes or light trekking boots, layers for cool evenings at altitude (3,300m nights can be cold), a rain jacket, a good daypack, a reusable water bottle, sunscreen, and a headlamp. A sleeping bag liner is useful for homestay nights. We'll send you a full packing list after booking."
+  },
+  {
+    "q": "What happens if I need to leave the trek early?",
+    "a": "If you need to return early for any reason, there is no refund on the remaining trek cost. However, we will arrange comfortable accommodation for you in Pokhara for the number of nights that remain on your itinerary — at no extra charge. Please also see our full <a href=\"/cancellation\">Cancellation Policy</a> for details."
+  }
+];
+
+// ── Photo gallery ──
+const gallery = [
+  {
+    "src": "/kokhe.jpg",
+    "alt": "Kokhe Danda viewpoint, highest point of Parbat district"
+  },
+  {
+    "src": "/kokhe1.jpg",
+    "alt": "Trail on the Short Kokhe Danda Trek"
+  },
+  {
+    "src": "/kokhe3.jpg",
+    "alt": "Himalayan panorama from Kokhe Danda"
+  },
+  {
+    "src": "/kokhe4.jpg",
+    "alt": "Forest section on the Kokhe Danda trail"
+  },
+  {
+    "src": "/kokhe5.jpg",
+    "alt": "Lespar village on the Short Kokhe Danda Trek"
+  },
+  {
+    "src": "/kokhe6.jpg",
+    "alt": "Sunrise over the Annapurna and Dhaulagiri ranges from Kokhe Danda"
+  },
+  {
+    "src": "/kokhe10.jpg",
+    "alt": "View from the top of Kokhe Danda in Parbat, Nepal"
+  }
+];
+---
+<TrekLayout
+  title="Short Kokhe Danda Trek 3 Days: Itinerary, Cost & Guide | Discover Parbat"
+  description="Nepal's most authentic short trek. Kokhe Danda delivers Himalayan views, real village life & zero crowds in just 3 days. The offbeat alternative to Poon Hill."
+  path="/short-kokhe-danda-trek"
+  keywords="Kokhe Danda Trek, Poon Hill alternative Nepal, offbeat trek Nepal, short trek Nepal, Parbat trekking, authentic Nepal trek, 3 day trek Nepal, best short trek Annapurna, village trek Nepal, Discover Parbat Kokhe Danda,Best Company for Kokhe Danda, local guide Nepal"
+  image="/kokhe.jpg"
+  name="Short Kokhe Danda Trek"
+  hero={{
+    "alt": "Kokhe Danda viewpoint in Parbat, Nepal on the Short Kokhe Danda Trek",
+    "eyebrow": "Parbat, Nepal · 3 Days",
+    "title": "Short Kokhe<br>Danda Trek",
+    "subtitle": "Hidden Himalayan trail above Parbat with panoramic mountain views"
+  }}
+  stats={[
+    {
+      "value": "3 Days",
+      "label": "Duration"
+    },
+    {
+      "value": "Easy",
+      "label": "Difficulty"
+    },
+    {
+      "value": "3,310m",
+      "label": "Max Altitude"
+    },
+    {
+      "value": "Homestay",
+      "label": "Accommodation"
+    }
+  ]}
+  gallery={gallery}
+  pricing={[
+    {
+      "group": "1 Person",
+      "price": "$299"
+    },
+    {
+      "group": "2 People",
+      "price": "$270"
+    },
+    {
+      "group": "3–4 People",
+      "price": "$260"
+    },
+    {
+      "group": "5+ People",
+      "price": "$240"
+    }
+  ]}
+  included={[
+    "Two-way private transport",
+    "3 meals and drinks during trek",
+    "Accommodation during trek",
+    "Guide and Porter salary",
+    "Meals and accommodation of Guide and Porter",
+    "ACAP permit"
+  ]}
+  notIncluded={[
+    "International flights and Nepal visa",
+    "Travel insurance (strongly recommended)",
+    "Personal trekking gear and equipment",
+    "Tips for guide and porter",
+    "Any costs due to early return or emergency evacuation"
+  ]}
+  itinerary={itinerary}
+  faqs={faqs}
+>
+
+      <!-- About -->
+
+      <span class="section-label">Overview</span>
+      <h2 class="content-title">About Short Kokhe Danda Trek</h2>
+
+
+  <div class="title-divider"></div>
+
+  <div class="about-text">
+        <p>The Short Kokhe Danda Trek is designed for travelers who don't have a week to spare but refuse to compromise on the experience. In just 3 days, you reach the same panoramic ridgeline, see the same Dhaulagiri and Annapurna range views, and walk the same quiet trails that make the <a href="/kokhe-danda-trek">5-day Kokhe Danda Trek</a> one of our most loved routes. The only difference is the pace — and for the right traveler, that's not a difference at all.</p>
+
+        <p>The approach is direct. A drive from Pokhara to Banthati cuts out the first day of gradual ascent, placing you at the base of the climb on Day 1 itself. From there, you trek straight up to Kokhe Danda in a single push — arriving at the ridgeline with the full reward already waiting: sweeping 180-degree views of the Annapurna range, Dhaulagiri, and the rolling hills of Parbat stretching out below you. Sunrises and sunsets here are unhurried and genuinely stunning.</p>
+
+        <p>Day 2 brings one of the most enjoyable parts of any Kokhe Danda journey — the descent to Lespar village. This is where the trek slows down in the best possible way. You explore the village on foot, meet the families who live here, and sit down for a momo-making session with your host. It's the kind of afternoon that reminds you why slow travel matters. A home-cooked meal and a night in a genuine family homestay round out the day.</p>
+
+        <p>On the final morning, a gentle hike down to Banau and a scenic drive back via Kushma brings the trip to a natural close. The whole journey fits inside a long weekend, yet it carries the same silence, the same mountain views, and the same warmth of local hospitality that the longer route delivers. That's about the same time most trekkers spend on Poon Hill — here's <a href="/kokhe-danda-trek-alternative-to-poon-hill">why Kokhe Danda is a better alternative to Poon Hill</a>.</p>
+
+        <p>One practical note worth knowing: if the weather at Kokhe Danda isn't clear on the evening of Day 1, you have the option to spend an extra morning there and wait for the views — then return via the same route on Day 3. It's a built-in flexibility that means poor weather doesn't have to mean a missed experience.</p>
+      </div>
+
+      <!-- Highlights -->
+
+  <HighlightsBox title="Trek Highlights" items={[
+    "Panoramic Annapurna and Dhaulagiri views",
+    "Sunrise from Kokhe Danda",
+    "Experience of local culture and lifestyle",
+    "Authentic Homestays",
+    "Less touristy trails",
+    "Rhododendron forests"
+  ]} />
+
+      <!-- Right for you -->
+
+  <RightForYou
+    title="This Trek Is Right for You If…"
+    yes={[
+    "You want a genuine off-the-beaten-path experience away from tourist crowds",
+    "You're a first-time trekker or someone looking for something quieter and more personal",
+    "You love authentic village life, home-cooked food, and local culture",
+    "You have a few days and want panoramic Himalayan views without a demanding climb (have 5 days? Choose the <a href=\"/kokhe-danda-trek\">full Kokhe Danda Trek</a>)"
+  ]}
+    no={[
+    "You're looking for high-altitude acclimatisation above 4,000m",
+    "You prefer well-equipped teahouses with hot showers and Wi-Fi every night"
+  ]}
+  />
+
+      <!-- Plan your trek -->
+
+  <div class="about-text" style="margin-top:52px">
+        <span class="section-label">Plan Your Trek</span>
+        <h2 class="content-title">3 Days or 5 Days? And Why Not Poon Hill?</h2>
+        <div class="title-divider"></div>
+        <p><strong>Short vs Classic:</strong> the 3-day trek reaches the same 3,310 m viewpoint and includes the Lespar homestay and momo session. The <a href="/kokhe-danda-trek">5-day Kokhe Danda Trek</a> adds the sunrise homestay at Haljure, a night at Sarga in the forest and a longer descent via Phalame Danda — and needs no trekking permit.</p>
+        <p><strong>Kokhe Danda or Poon Hill?</strong> Both fit a short trip from Pokhara, but Kokhe Danda trades crowded viewpoints and road sections for quiet ridgelines and family-run homestays. Read our <a href="/kokhe-danda-trek-alternative-to-poon-hill">Kokhe Danda vs Poon Hill comparison</a>.</p>
+        <p><strong>Best time:</strong> October and November give the clearest views, and March to May brings rhododendron blooms. See our <a href="/best-season-for-kokhe-danda-trek">month-by-month guide to the best time for Kokhe Danda</a>.</p>
+        <p><strong>Want more?</strong> Extend your trip with the <a href="/multiple-viewpoints-trek">Multiple Viewpoints Trek</a>.</p>
+      </div>
+
+      <!-- Itinerary -->
+
+  <Itinerary days={itinerary} />
+
+  <!-- /itinerary -->
+
+      <!-- FAQ -->
+
+  <FaqList faqs={faqs} />
+
+  <!-- /faq -->
+
+      <!-- ═══ MULTIPLE VIEWPOINTS TREK REVIEWS ═══════════════════════════════
+           To add more reviews, copy one <article class="kd-review-card"> block
+           and change the text, initial, name, country and trek tag.
+      ═══════════════════════════════════════════════════════════════════════ -->
+
+  <Reviews place="Short Kokhe Danda Trek" reviews={REVIEWS["short-kokhe-danda-trek"]} />
+
+      <!-- Related guides -->
+
+  <div class="about-text" style="margin-top:52px">
+        <span class="section-label">Related Guides</span>
+        <h2 class="content-title">Plan Your Kokhe Danda Trek</h2>
+        <div class="title-divider"></div>
+        <p><a href="/kokhe-danda-trek">Kokhe Danda Trek – 5 days: itinerary, cost and guide</a><br>
+        <a href="/kokhe-danda-trek-alternative-to-poon-hill">Why Kokhe Danda is a better alternative to Poon Hill</a><br>
+        <a href="/best-season-for-kokhe-danda-trek">Best time to trek Kokhe Danda: month by month</a><br>
+        <a href="/article/why-kokhe-danda-trek">Why choose Discover Parbat for Kokhe Danda</a><br>
+        <a href="/multiple-viewpoints-trek">Multiple Viewpoints Trek</a></p>
+      </div>
+
+</TrekLayout>

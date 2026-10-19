@@ -1,0 +1,385 @@
+---
+// ─── MARDI HIMAL AND POON HILL TREK ────────────────────
+// URL: https://discoverparbat.com/mardi-himal-and-poonhill-trek
+// The layout builds the hero, stats, gallery, sidebar and schema from the
+// settings on <TrekLayout>. Everything inside it is the left column.
+import TrekLayout from '../layouts/TrekLayout.astro';
+import HighlightsBox from '../components/trek/HighlightsBox.astro';
+import RightForYou from '../components/trek/RightForYou.astro';
+import Itinerary from '../components/trek/Itinerary.astro';
+import FaqList from '../components/trek/FaqList.astro';
+import Reviews from '../components/trek/Reviews.astro';
+import { REVIEWS } from '../data/reviews.js';
+
+// ── Day-by-day itinerary (also used in the schema) ──
+const itinerary = [
+  {
+    "title": "Drive Pokhara → Kande → Trek to Suire Danda",
+    "text": [
+      "We start with a morning drive from Pokhara to Kande, about 34 KM and an hour away. From Kande we begin our trek through the forest, passing Australian Base Camp, a lovely viewpoint on the way. From here the trail climbs steadily to Suire Danda, where we stay overnight."
+    ],
+    "altitude": "2,438m",
+    "distance": "7.3 KM",
+    "time": "4 Hrs (+1 Hr drive)",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Suire Danda → Forest Camp → Low Camp",
+    "text": [
+      "Today we continue up the ridge through thick rhododendron and oak forest to Forest Camp, where we stop for lunch. The trail keeps climbing gently through the trees, and views open up whenever the forest thins. We reach Low Camp in the afternoon and spend the night here."
+    ],
+    "altitude": "3,004m",
+    "distance": "9.6 KM",
+    "time": "6–6.5 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Low Camp → Badal Danda → High Camp",
+    "text": [
+      "This is a shorter but steady uphill day. We climb via Badal Danda, where the forest gives way to open ridge and the Himalayan views become much closer. We reach High Camp early enough to rest and adjust to the altitude before the big day tomorrow. With clear weather, the sunset and evening views of Machhapuchhre and the Annapurna range are superb."
+    ],
+    "altitude": "3,553m",
+    "distance": "5 KM",
+    "time": "3.5–4 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "High Camp → Upper Viewpoint / Mardi Base Camp → Rest Camp",
+    "text": [
+      "This is the main day of the trek. We leave very early in the morning for the Upper Viewpoint and Mardi Base Camp, a two to three hour climb along the narrow ridge. If the sky is clear, we reach the top in time to watch the sunrise over the Annapurna range.",
+      "After spending time at the top, we return to High Camp for breakfast and then start the long descent. We follow the ridge down via Badal Danda and continue to Rest Camp, where we stay overnight. Expect around four hours of downhill walking after the climb, so this is a long day on the legs."
+    ],
+    "altitude": "2,600m (Rest Camp)",
+    "distance": "12.5 KM",
+    "time": "2–3 Hrs up, 4 Hrs down",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Rest Camp → Landruk → Ghandruk",
+    "text": [
+      "We leave the ridge behind and descend for about three hours to Landruk, a Gurung village beside the Modi Khola. After a break here, we cross the river and climb for around two hours to Ghandruk, one of the biggest and most beautiful Gurung villages in Nepal. We spend the night here."
+    ],
+    "altitude": "2,000m",
+    "distance": "8.2 KM",
+    "time": "3 Hrs down + 2 Hrs up",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Ghandruk → Bhaisikharka → Tadapani",
+    "text": [
+      "We enjoy a restful morning in Ghandruk with early views of Annapurna South and Machhapuchhre, and time to wander through the village lanes. Later, we trek uphill via Bhaisikharka to Tadapani, a walk of around three and a half hours through forest. Tadapani sits on a ridge with a close view of Annapurna South and Hiunchuli."
+    ],
+    "altitude": "2,705m",
+    "distance": "6.2 KM",
+    "time": "3.5 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Tadapani → Banthati → Deurali → Ghorepani",
+    "text": [
+      "A day of mixed uphill and downhill walking through beautiful rhododendron and oak forest. We drop to Banthati for lunch, then climb steadily to Deurali, where the trail reaches its highest point of the day at around 3,100m, before the final stretch into Ghorepani. It is about six hours of walking in total."
+    ],
+    "altitude": "2,880m",
+    "distance": "8.4 KM",
+    "time": "6 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Ghorepani → Poon Hill → Kokhe Danda",
+    "text": [
+      "We start the morning with an hour of steep climbing to Poon Hill (3,210m), one of the most celebrated sunrise viewpoints in Nepal. In clear weather, Dhaulagiri, Annapurna and Machhapuchhre glow in the first light. After returning to Ghorepani for breakfast, we leave the busy trail and follow the ridge for about three hours to Kokhe Danda, a quiet viewpoint with wide Himalayan views."
+    ],
+    "altitude": "3,309m",
+    "distance": "6 KM",
+    "time": "1 Hr up, 3 Hrs to Kokhe Danda",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Kokhe Danda → Jaljala → Lespar",
+    "text": [
+      "After sunrise views from Kokhe Danda, we begin a long downhill day of about five and a half hours. The trail passes through Jaljala, where the snow peaks remain in view, and continues down through forest and farmland to the village of Lespar, where we stay overnight."
+    ],
+    "distance": "9.5 KM",
+    "time": "5.5 Hrs",
+    "stay": "Village Homestay"
+  },
+  {
+    "title": "Lespar → Haljure → Banau → Drive to Pokhara",
+    "text": [
+      "We trek down via Haljure to Banau, a walk of around three hours, where our vehicle is waiting. From Banau it is a two and a half hour drive back to Pokhara, where our 10-day trek ends."
+    ],
+    "altitude": "2,100m (Banau)",
+    "distance": "7.1 KM",
+    "time": "3 Hrs hike + 2.5 Hrs drive"
+  }
+];
+
+// ── FAQ (also used in the FAQPage schema) ──
+const faqs = [
+  {
+    "q": "How much does the Mardi Himal and Poon Hill Trek cost?",
+    "a": "The price is $680 to $850 per person depending on group size: $850 for one person, $750 for two, $700 for three to four and $680 for five or more. It includes private transport from Pokhara, meals, tea house accommodation and the guide. ACAP and TIMS permits are not included."
+  },
+  {
+    "q": "How difficult is the Mardi Himal and Poon Hill trek?",
+    "a": "It is rated Moderate, with a challenging Day 4. You walk 3 to 7 hours most days, with steady climbs on the Mardi Himal ridge and a long stone-step descent towards Landruk. The hardest day is Day 4, with an early climb to the Upper Viewpoint or Mardi Base Camp followed by about four hours of descent to Rest Camp. Regular walking or cardio training for a few weeks before departure is recommended."
+  },
+  {
+    "q": "How high does the Mardi Himal and Poon Hill Trek go?",
+    "a": "The highest overnight stop is High Camp at 3,553m. On Day 4 you climb to the Upper Viewpoint and Mardi Base Camp, at around 4,500m, before descending the same day. Poon Hill is 3,210m and Kokhe Danda is 3,309m."
+  },
+  {
+    "q": "Should I worry about altitude sickness?",
+    "a": "Yes, take it seriously. You sleep at High Camp (3,553m) and hike above 4,000m on Day 4. Acute Mountain Sickness can begin above 3,000m, with symptoms such as headache, nausea, fatigue and dizziness. The itinerary gains height gradually and your guide monitors the group. If you feel unwell, descending is always the right decision. Travel insurance that covers mountain evacuation is strongly recommended."
+  },
+  {
+    "q": "What is the best time of year for this trek?",
+    "a": "March to May and October to November are the best months, with stable weather and clear mountain views. Rhododendrons bloom in spring. December to February is possible but cold, and High Camp nights are well below freezing. June to September is monsoon season, with heavy cloud and rain, and is not recommended."
+  },
+  {
+    "q": "Do I need permits for this trek?",
+    "a": "Yes. The trek passes through the Annapurna Conservation Area, so an ACAP permit and a TIMS card are required. Permits are not included in the trek price, but we can help you arrange both in Pokhara before departure."
+  },
+  {
+    "q": "How do we get to the start and back to Pokhara?",
+    "a": "A private vehicle takes you from Pokhara to Kande in about an hour on Day 1. On Day 10 a private vehicle picks you up at Banau for the two and a half hour drive back to Pokhara. Both transfers are included."
+  },
+  {
+    "q": "Why does the route finish through Lespar and Banau?",
+    "a": "After Poon Hill the trek leaves the standard circuit and follows the ridge to Kokhe Danda, then descends through Jaljala to Lespar and Haljure, quiet villages in Parbat. From Banau our private vehicle takes you back to Pokhara in about two and a half hours, so you finish without retracing your steps."
+  },
+  {
+    "q": "What is the accommodation like?",
+    "a": "Along the Mardi Himal ridge and at Ghandruk, Tadapani and Ghorepani you stay in simple tea houses with twin rooms and shared bathrooms. At higher camps facilities are basic and rooms are unheated. On the final night in the Parbat village of Lespar, accommodation is simple and village-style, with home-cooked food."
+  },
+  {
+    "q": "What should I pack?",
+    "a": "Sturdy trekking boots, a sleeping bag rated to around -10°C, a down jacket, a waterproof shell, warm base layers, trekking poles, a headlamp, a reusable water bottle with purification tablets, sunscreen, sunglasses and a comfortable daypack. We send a full packing list after booking."
+  },
+  {
+    "q": "Mardi Himal Trek or Mardi Himal and Poon Hill: which should I choose?",
+    "a": "Choose the 5-day <a href=\"/mardi-himal-trek\">Mardi Himal Trek</a> if you have limited time and mainly want close views of Fishtail and Annapurna South. Choose the 10-day Mardi Himal and Poon Hill Trek if you want to add Mardi Base Camp, Gurung villages like Ghandruk, the Poon Hill sunrise and the quiet Kokhe Danda ridge in one trip."
+  },
+  {
+    "q": "What happens if I need to leave the trek early?",
+    "a": "If you need to descend early for any reason, such as altitude sickness, injury or personal circumstances, your guide will help you get down safely. Costs from an early return or emergency evacuation are not included in the trek price. Please see our full <a href=\"/cancellation\">Cancellation Policy</a> for details."
+  }
+];
+
+// ── Photo gallery ──
+const gallery = [
+  {
+    "src": "/mardi.jpg",
+    "alt": "Machhapuchhre (Fishtail) from the Mardi Himal ridge"
+  },
+  {
+    "src": "/mardi1.jpg",
+    "alt": "Trail through rhododendron and oak forest on the Mardi Himal ridge"
+  },
+  {
+    "src": "/mardi2.jpg",
+    "alt": "Open ridgeline above the tree line on the way to Mardi Himal High Camp"
+  },
+  {
+    "src": "/mardi3.jpg",
+    "alt": "Annapurna South and Hiunchuli seen from the Mardi Himal ridge"
+  },
+  {
+    "src": "/mardi4.jpg",
+    "alt": "Tea house at a camp on the Mardi Himal ridge"
+  },
+  {
+    "src": "/mardi5.jpg",
+    "alt": "Sunrise light on Fishtail Mountain from the Mardi Himal ridge"
+  },
+  {
+    "src": "/shortmvp6.jpg",
+    "alt": "Annapurna range views along the Mardi Himal and Poon Hill Trek route"
+  },
+  {
+    "src": "/shortmvp7.jpg",
+    "alt": "Himalayan panorama on the Mardi Himal and Poon Hill Trek"
+  },
+  {
+    "src": "/kokhe1.jpg",
+    "alt": "Kokhe Danda viewpoint on the Mardi Himal and Poon Hill Trek in Parbat"
+  }
+];
+---
+<TrekLayout
+  title="Mardi Himal and Poon Hill Trek 2026: 10-Day Itinerary, Cost & Guide | Discover Parbat"
+  description="Mardi Himal and Poon Hill Trek 2026: 10 days from Pokhara via Mardi Base Camp, Ghandruk, Poon Hill sunrise and Kokhe Danda. From $680 per person."
+  path="/mardi-himal-and-poonhill-trek"
+  keywords="Mardi Himal and Poon Hill Trek, Mardi Himal Poon Hill Trek 2026, Mardi Himal Poon Hill combined trek, Mardi Himal and Poon Hill 10 days, Mardi Himal Poon Hill itinerary, Mardi Himal Poon Hill cost, Mardi Himal Base Camp trek, Poon Hill sunrise trek, Ghandruk Ghorepani trek, Kokhe Danda trek, Annapurna 10 day trek, 10 day trek from Pokhara, Parbat trekking, Discover Parbat Mardi Himal Poon Hill"
+  image="/mardi.jpg"
+  imageAlt="Mardi Himal ridge with Machhapuchhre (Fishtail) on the Mardi Himal and Poon Hill Trek"
+  name="Mardi Himal and Poon Hill Trek"
+  tripName="Mardi Himal and Poon Hill Trek – 10 Days"
+  tripDescription="10-day moderate trek from Pokhara combining the Mardi Himal ridge, the Upper Viewpoint and Mardi Base Camp, the Gurung village of Ghandruk, Poon Hill sunrise and the quiet Kokhe Danda ridge, finishing through Parbat villages to Banau."
+  hero={{
+    "alt": "Machhapuchhre (Fishtail) from the Mardi Himal ridge on the Mardi Himal and Poon Hill Trek, Nepal",
+    "eyebrow": "Annapurna Region · 10 Days",
+    "title": "Mardi Himal &amp;<br>Poon Hill Trek",
+    "subtitle": "Climb the Mardi Himal ridge to Base Camp, watch sunrise from Poon Hill and finish through the quiet village trails of Parbat"
+  }}
+  stats={[
+    {
+      "value": "10 Days",
+      "label": "Duration"
+    },
+    {
+      "value": "Moderate",
+      "label": "Difficulty"
+    },
+    {
+      "value": "~4,500m",
+      "label": "Max Altitude"
+    },
+    {
+      "value": "Tea House & Homestay",
+      "label": "Accommodation"
+    }
+  ]}
+  gallery={gallery}
+  pricing={[
+    {
+      "group": "1 Person",
+      "price": "$850"
+    },
+    {
+      "group": "2 People",
+      "price": "$750"
+    },
+    {
+      "group": "3–4 People",
+      "price": "$700"
+    },
+    {
+      "group": "5+ People",
+      "price": "$680"
+    }
+  ]}
+  pricingNote="Per person · By group size"
+  included={[
+    "Two-way private transport (Pokhara to Kande, Banau to Pokhara)",
+    "3 meals per day and 3 tea/coffee per day during the trek",
+    "Accommodation during the trek",
+    "Guide salary",
+    "Meals and accommodation of the guide"
+  ]}
+  notIncluded={[
+    "International flights and Nepal visa",
+    "Travel insurance (strongly recommended)",
+    "Trekking permits (ACAP and TIMS)",
+    "Personal trekking gear and equipment",
+    "Tips for guide",
+    "Any costs due to early return or emergency evacuation"
+  ]}
+  itinerary={itinerary}
+  faqs={faqs}
+>
+
+      <!-- Overview -->
+
+      <span class="section-label">Overview</span>
+      <h2 class="content-title">About Mardi Himal and Poon Hill Trek</h2>
+
+
+  <div class="title-divider"></div>
+
+  <div class="about-text">
+        <p><strong>The Mardi Himal and Poon Hill Trek is a 10-day, moderate trek from Pokhara</strong> that joins two of the Annapurna region's finest walks in one journey. You climb the Mardi Himal ridge to the Upper Viewpoint and Mardi Base Camp, cross to Ghandruk, Tadapani and Ghorepani for the famous Poon Hill sunrise, then finish along the quiet Kokhe Danda ridge and down through the villages of Parbat.</p>
+        <p>The Mardi Himal section is a narrow, open ridge that rises steadily above the rhododendron and oak forest. After a drive from Pokhara to Kande, you climb through Australian Base Camp to Suire Danda, then on to Low Camp and High Camp at 3,553m. Above the treeline, Machhapuchhre (Fishtail), Annapurna South, Hiunchuli and Mardi Himal stand almost within reach, and the ridge is far quieter than the more crowded routes in the region.</p>
+        <p>The highlight of this section is the early morning hike from High Camp to the Upper Viewpoint and Mardi Base Camp. Starting before dawn, you climb for two to three hours to watch the first light touch the peaks, with a wide sweep of the Annapurna range behind you. It is a demanding morning, but the reward is one of the closest mountain panoramas you can reach without technical climbing.</p>
+        <p>After descending to Rest Camp and Landruk, the trek moves into Gurung country. Ghandruk is one of the largest Gurung villages in Nepal, with stone-paved lanes, traditional houses and close views of Annapurna South and Machhapuchhre. A restful morning here gives your legs a break before you continue to Tadapani through Bhaisikharka, and then to Ghorepani through rhododendron and oak forest via Banthati and Deurali.</p>
+        <p>Poon Hill (3,210m) is the second highlight. A short, steep climb before breakfast puts you on one of the best sunrise viewpoints in Nepal, with Dhaulagiri and the Annapurna range turning gold in the first light. From here the route leaves the standard circuit and follows the ridge to Kokhe Danda (3,309m), a quiet viewpoint that most trekkers never visit.</p>
+        <p>The final two days show a side of the region that few visitors see. You descend through Jaljala to Lespar, then walk down via Haljure to Banau, traditional villages in the Parbat district where life still follows the rhythm of farming and the seasons. From Banau, a private vehicle takes you back to Pokhara in about two and a half hours.</p>
+      </div>
+
+      <!-- At a glance -->
+
+  <HighlightsBox title="Mardi Himal and Poon Hill Trek at a Glance" items={[
+    "10 days from Pokhara to Pokhara",
+    "Moderate grade, highest point about 4,500 m at Mardi Base Camp",
+    "$680 to $850 per person, by group size",
+    "Best months: October to November, March to May",
+    "About 80 km of walking, 3 to 7 hours a day",
+    "Tea houses, with a village-style final night in Lespar",
+    "Private transport from Pokhara and back from Banau",
+    "ACAP and TIMS permits required (not included)"
+  ]} />
+
+      <!-- Highlights -->
+
+  <HighlightsBox title="Trek Highlights" items={[
+    "Mardi Himal ridge with High Camp at 3,553m",
+    "Dawn hike to the Upper Viewpoint and Mardi Base Camp",
+    "Close views of Machhapuchhre, Annapurna South and Hiunchuli",
+    "Gurung culture and stone-paved lanes in Ghandruk",
+    "Sunrise from Poon Hill (3,210m)",
+    "Quiet ridge walk to Kokhe Danda (3,309m)",
+    "Village trails through Lespar and Haljure in Parbat",
+    "No backtracking: a full traverse from Kande to Banau"
+  ]} />
+
+      <!-- Right for you -->
+
+  <RightForYou
+    title="This Trek Is Right for You If…"
+    yes={[
+    "You want to see both Mardi Himal and Poon Hill in one trip, without doing two separate treks",
+    "You prefer quieter ridges and village trails over the busiest routes in the Annapurna region",
+    "You are comfortable walking 3 to 7 hours a day for 10 days, including steady climbs and long descents",
+    "You want to finish through quiet Parbat villages instead of retracing your steps"
+  ]}
+    no={[
+    "You have fewer than 10 days. Try the 5-day <a href=\"/mardi-himal-trek\" style=\"color:var(--green-mid);font-weight:600\">Mardi Himal Trek</a> instead",
+    "You have never trekked at altitude or are prone to altitude sickness. High Camp is at 3,553m and Day 4 goes higher still"
+  ]}
+  />
+
+      <!-- Plan your trek -->
+
+  <div class="about-text plan-section">
+        <span class="section-label">Plan Your Trek</span>
+        <h2 class="content-title">Best Time, Cost and Getting There</h2>
+        <div class="title-divider"></div>
+        <p><strong>Best time:</strong> October and November give the clearest views and dry trails, and March to May brings rhododendron blooms along the ridge and through the forest between Tadapani and Ghorepani. December to February is possible for well-prepared trekkers, but High Camp nights are well below freezing. June to September is monsoon, when the high ridge gets slippery and views are unpredictable.</p>
+        <p><strong>Cost:</strong> the trek costs $680 to $850 per person depending on group size. It includes private transport, three meals a day with tea or coffee, tea house accommodation and your guide. ACAP and TIMS permits are extra, and we help you arrange them in Pokhara. See the cost table.</p>
+        <p><strong>Getting there:</strong> we drive from Pokhara to Kande in about an hour and start walking from there. The trek ends at Banau in Parbat, where our vehicle takes you back to Pokhara in about two and a half hours.</p>
+        <p><strong>Short on time?</strong> The 5-day <a href="/mardi-himal-trek">Mardi Himal Trek</a> covers the ridge and viewpoint only. For an easier homestay trek in Parbat, see the <a href="/kokhe-danda-trek">Kokhe Danda Trek</a>, or combine more viewpoints with the <a href="/multiple-viewpoints-trek">Multiple Viewpoints Trek</a>.</p>
+      </div>
+
+      <!-- Itinerary -->
+
+  <Itinerary days={itinerary} />
+
+  <!-- /itinerary -->
+
+      <!-- FAQ -->
+
+  <FaqList faqs={faqs} />
+
+  <!-- /faq -->
+
+      <!-- ═══ MARDI HIMAL & POON HILL REVIEWS ═══════════════════════════════
+           To add more reviews, copy one <article class="kd-review-card"> block
+           and change the text, initial, name, country and trek tag.
+      ═══════════════════════════════════════════════════════════════════════ -->
+
+  <Reviews place="Mardi Himal & Poon Hill" reviews={REVIEWS["mardi-himal-and-poonhill-trek"]} />
+
+      <!-- Related guides -->
+
+  <div class="about-text" style="margin-top:52px">
+        <span class="section-label">Related Guides</span>
+        <h2 class="content-title">Plan Your Mardi Himal and Poon Hill Trek</h2>
+        <div class="title-divider"></div>
+        <p><a href="/mardi-himal-trek">Mardi Himal Trek: the 5-day ridge and viewpoint trek</a><br>
+        <a href="/kokhe-danda-trek">Kokhe Danda Trek: an easier homestay trek in Parbat</a><br>
+        <a href="/multiple-viewpoints-trek">Multiple Viewpoints Trek</a><br>
+        <a href="/what-to-pack-for-khopra-ridge-trek">What to pack: layering and gear guide</a><br>
+        <a href="/cancellation">Cancellation policy</a></p>
+      </div>
+
+</TrekLayout>

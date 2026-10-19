@@ -1,0 +1,471 @@
+---
+// ─── API HIMAL BASE CAMP TREK ──────────────────────────
+// URL: https://discoverparbat.com/api-himal-base-camp-trek
+// The layout builds the hero, stats, gallery, sidebar and schema from the
+// settings on <TrekLayout>. Everything inside it is the left column.
+import TrekLayout from '../layouts/TrekLayout.astro';
+import HighlightsBox from '../components/trek/HighlightsBox.astro';
+import RightForYou from '../components/trek/RightForYou.astro';
+import Itinerary from '../components/trek/Itinerary.astro';
+import FaqList from '../components/trek/FaqList.astro';
+
+// ── Day-by-day itinerary (also used in the schema) ──
+const itinerary = [
+  {
+    "title": "Fly Kathmandu → Nepalgunj, Drive to Bardiya",
+    "text": [
+      "We take a morning flight from Kathmandu to Nepalgunj, about an hour over the hills, with mountain views to the north on a clear day. From the warm, flat Terai we drive west for around three hours to Thakurdwara, the village at the edge of Bardiya National Park. After settling into our jungle lodge, we take an easy afternoon walk through the nearby Tharu village and down to the riverbank for sunset."
+    ],
+    "more": [
+      {
+        "label": "Flight",
+        "value": "1 Hr"
+      },
+      {
+        "label": "Drive",
+        "value": "3 Hrs"
+      }
+    ],
+    "stay": "Jungle Lodge"
+  },
+  {
+    "title": "Bardiya National Park: Jeep Safari",
+    "text": [
+      "An early start takes us into the park on a full-day jeep safari with a local naturalist. Bardiya is one of the best places in Nepal to look for the Bengal tiger, and its grasslands, sal forest and riverbanks are also home to one-horned rhinos, wild elephants, several kinds of deer and over 400 species of birds. We stop with a packed lunch by the Karnali River, where gharial and mugger crocodiles often bask on the sandbanks."
+    ],
+    "more": [
+      {
+        "label": "Activity",
+        "value": "Full-day Safari"
+      }
+    ],
+    "stay": "Jungle Lodge"
+  },
+  {
+    "title": "Bardiya National Park: Jungle Walk and Tharu Village",
+    "text": [
+      "This morning we explore the jungle on foot with our naturalist guides, learning to read tracks and listen for alarm calls, a very different and more intimate way to experience the park. In the afternoon we visit a Tharu village to see their traditional mud-walled houses and learn about the culture of the people who have lived in these forests for generations. We rest early ahead of a long drive tomorrow."
+    ],
+    "more": [
+      {
+        "label": "Activity",
+        "value": "Jungle Walk"
+      }
+    ],
+    "stay": "Jungle Lodge"
+  },
+  {
+    "title": "Drive Bardiya → Makarigad",
+    "text": [
+      "This is the longest day on the road, around 12 hours. We head west across the Terai, then turn north into the hills through Dadeldhura and Baitadi, winding up and down ridges dotted with villages and temples before dropping into Darchula district. We pass Gokuleshwor and continue up the Chameliya valley to Makarigad, the roadhead where our trek begins."
+    ],
+    "altitude": "1,470m",
+    "more": [
+      {
+        "label": "Drive",
+        "value": "12 Hrs"
+      }
+    ],
+    "stay": "Local Lodge"
+  },
+  {
+    "title": "Makarigad → Ghusa → Siti",
+    "text": [
+      "The trek begins with a gradual uphill walk past a small settlement. After a couple of hours we cross a bridge over the Chameliya River, and from there it is a steady climb of 1.5 to 2 hours to Ghusa, where we stop for lunch. The afternoon is mostly gradual uphill with a mix of short ups and downs. After passing through Arukhod village we reach Siti, where we spend the night in a family homestay."
+    ],
+    "altitude": "2,280m",
+    "distance": "14 km",
+    "time": "7 Hrs",
+    "stay": "Homestay"
+  },
+  {
+    "title": "Siti → Chhirchhire → Shimar",
+    "text": [
+      "We start with a downhill walk to Khaikot. From there the trail climbs, gradually at first and then steeply, to Chhirchhire, where we stop for lunch. Another 1.5 to 2 hours of walking brings us to Shimar. For much of the day we walk with the Chameliya below us, its sound and the cool breeze rising from the river keeping us company. Tonight's lodge is a simple stone hut rather than a proper teahouse."
+    ],
+    "altitude": "2,870m",
+    "distance": "12 km",
+    "time": "6 Hrs",
+    "stay": "Basic Lodge"
+  },
+  {
+    "title": "Shimar → Dhauli Odhar → Api Base Camp",
+    "text": [
+      "The trail leaves Shimar gently, then just before Bhalle Khola it turns into a steep climb of about two hours. Above it, the effort pays off: we walk for around an hour across open pastures, mostly flat, to Dhauli Odhar (3,470 m), where we stop for lunch. From Dhauli Odhar it is a gradual 1.5-hour climb to Api Base Camp, where the face of Api rises at the head of the valley."
+    ],
+    "altitude": "3,820m",
+    "distance": "8 km",
+    "time": "5 Hrs",
+    "stay": "Teahouse / Tent"
+  },
+  {
+    "title": "Explore Api Base Camp and Kalidhunga Lake → Dhauli Odhar",
+    "text": [
+      "Today we explore the upper valley. We first walk up to the source of the Chameliya River, known locally as the Chaulani, where the stream begins below the glaciers and moraine of Api. From there we continue to Ringdepani Lake, a small, still lake tucked among the ridges.",
+      "Returning past base camp, we climb to Kalidhunga Lake at 4,160 m, the highest point of the trek. Around us the landscape is stark and beautiful: grey moraine ridges, boulder fields and patches of alpine grass, with Api, Nampa and Bobaye standing above the valley. After time to take it all in, we descend to Dhauli Odhar for the night, sleeping lower to help our bodies recover."
+    ],
+    "more": [
+      {
+        "label": "Max Altitude",
+        "value": "4,160m"
+      },
+      {
+        "label": "Sleep",
+        "value": "3,470m"
+      }
+    ],
+    "time": "6–7 Hrs",
+    "stay": "Teahouse / Tent"
+  },
+  {
+    "title": "Dhauli Odhar → Siti",
+    "text": [
+      "We retrace our steps down the valley, across the pastures, down the steep section to Bhalle Khola and on past Shimar and Chhirchhire. It is a long day, but mostly downhill, and the views look different walking in this direction. We arrive back in Siti for a second night with our homestay family."
+    ],
+    "altitude": "2,280m",
+    "time": "7–8 Hrs",
+    "stay": "Homestay"
+  },
+  {
+    "title": "Siti → Makarigad, Drive to Gokuleshwor",
+    "text": [
+      "Our last day on foot takes us back through Arukhod and Ghusa, across the Chameliya bridge and down to Makarigad, where the trek ends. After lunch we drive down the valley to Gokuleshwor for the night, a good place to celebrate with the team."
+    ],
+    "distance": "14 km",
+    "more": [
+      {
+        "label": "Trek",
+        "value": "5–6 Hrs"
+      },
+      {
+        "label": "Drive",
+        "value": "1–2 Hrs"
+      }
+    ],
+    "stay": "Guesthouse"
+  },
+  {
+    "title": "Drive Gokuleshwor → Dhangadhi",
+    "text": [
+      "We leave the mountains behind and drive back through the hills of Baitadi and Dadeldhura, then down to the plains at Dhangadhi, the largest city in far-western Nepal. It is a long day in the vehicle, with tea and lunch stops along the way, and a comfortable hotel and hot shower at the end."
+    ],
+    "more": [
+      {
+        "label": "Drive",
+        "value": "9–10 Hrs"
+      }
+    ],
+    "stay": "Hotel"
+  },
+  {
+    "title": "Drive Dhangadhi → Lumbini",
+    "text": [
+      "We drive east along the East-West Highway across the Terai, passing farmland, rivers and the edges of Bardiya and Banke, to Lumbini. We arrive in the evening and check in to our hotel near the sacred site."
+    ],
+    "more": [
+      {
+        "label": "Drive",
+        "value": "9–10 Hrs"
+      }
+    ],
+    "stay": "Hotel"
+  },
+  {
+    "title": "Explore Lumbini",
+    "text": [
+      "A slower day in Lumbini, the birthplace of the Buddha and a UNESCO World Heritage Site. We visit the Maya Devi Temple, built over the spot where the Buddha is believed to have been born, the Ashoka Pillar and the sacred pond, then explore the Monastic Zone, where countries from around the world have built monasteries in their own architectural styles. Many visitors enjoy getting around by bicycle or e-rickshaw."
+    ],
+    "more": [
+      {
+        "label": "Activity",
+        "value": "Sightseeing"
+      }
+    ],
+    "stay": "Hotel"
+  },
+  {
+    "title": "Drive Lumbini → Pokhara",
+    "text": [
+      "Our final drive climbs north from Butwal along the Siddhartha Highway, through the hills around Tansen and down to the Kali Gandaki before rising again to Pokhara. The trip ends here, with the lakeside and the Annapurna range waiting after two weeks in the far west."
+    ],
+    "more": [
+      {
+        "label": "Drive",
+        "value": "6–7 Hrs"
+      }
+    ]
+  }
+];
+
+// ── FAQ (also used in the FAQPage schema) ──
+const faqs = [
+  {
+    "q": "Where is Api Himal?",
+    "a": "Api Himal (7,132 m) is the highest mountain in far-western Nepal. It stands in Darchula district inside the Api Nampa Conservation Area, near the borders with India and Tibet. The trek follows the Chameliya River valley up to its base camp."
+  },
+  {
+    "q": "How difficult is the Api Himal Base Camp Trek?",
+    "a": "It is moderate to challenging. Most trekking days are 6 to 7 hours on remote trails with steady climbs, the highest sleeping point is Api Base Camp at 3,820 m, and the exploration day reaches Kalidhunga Lake at 4,160 m. Some previous trekking experience and good fitness are recommended."
+  },
+  {
+    "q": "What is the accommodation like on the trek?",
+    "a": "Basic. Far-western Nepal has little trekking infrastructure, so there is no chain of teahouses. At Siti you stay in a family homestay, at Shimar in a simple stone-hut lodge rather than a proper teahouse, and at Api Base Camp in a simple teahouse or tents. Before and after the trek you stay in a jungle lodge in Bardiya and hotels in Gokuleshwor, Dhangadhi and Lumbini."
+  },
+  {
+    "q": "How much does the Api Himal Base Camp Trek cost?",
+    "a": "The trek runs with a minimum of two people. The price is $1,399 per person for two people, $1,240 per person for three to four, and $1,200 per person for five or more."
+  },
+  {
+    "q": "Can I travel from Kathmandu by road instead of flying?",
+    "a": "Yes. You can skip the flight and travel from Kathmandu by road. This reduces the price by $110 per person, but adds one extra day to the trip because the drive is long, making it a 15-day journey."
+  },
+  {
+    "q": "Can I do the Api Himal Base Camp Trek solo?",
+    "a": "The trek runs with a minimum of two people. If you are travelling alone, <a href=\"/contact\">contact us</a> and we will let you know about other trekkers planning the same dates or suggest a custom option."
+  },
+  {
+    "q": "What is the best time for the Api Himal Base Camp Trek?",
+    "a": "October to November gives the clearest mountain views and stable weather, and March to May brings warmer days and flowering forests. Winter brings snow and very cold nights at base camp, and the June to September monsoon makes trails slippery and roads unreliable."
+  },
+  {
+    "q": "What permits do I need?",
+    "a": "You need an Api Nampa Conservation Area entry permit for the trek, and Bardiya National Park entry fees apply for the safari days. We arrange both for you."
+  },
+  {
+    "q": "Is there a risk of altitude sickness?",
+    "a": "The risk is moderate. The highest sleeping point is 3,820 m and the ascent is gradual over three trekking days, and on the exploration day you sleep lower again at Dhauli Odhar. Our guides watch for symptoms and will adjust the pace or descend if needed."
+  },
+  {
+    "q": "Is there mobile network on the trail?",
+    "a": "Signal is limited and patchy, and above the villages it disappears for long stretches. There is no Wi-Fi on the trail. Let your family know you may be out of contact for several days."
+  },
+  {
+    "q": "Why does the itinerary include Bardiya and Lumbini?",
+    "a": "Reaching Darchula involves long drives, so we break the journey with two days of wildlife in Bardiya National Park on the way in and a day at Lumbini, the birthplace of the Buddha, on the way back to Pokhara."
+  }
+];
+
+// ── Photo gallery ──
+const gallery = [
+  {
+    "src": "/photo/treks/api-base-camp-trek.jpg",
+    "alt": "Api Himal towering above Api Base Camp, far-western Nepal"
+  },
+  {
+    "src": "/photo/treks/siti-village-api-himal-trek.jpg",
+    "alt": "Siti village on the Api Himal Base Camp Trek, Darchula"
+  },
+  {
+    "src": "/photo/treks/traditional-house-api-himal-trek.jpg",
+    "alt": "Traditional village house along the Api Himal trek"
+  },
+  {
+    "src": "/photo/treks/kalidhunga-tal-api-base-camp-trek.jpg",
+    "alt": "Kalidhunga Lake (4,160 m) near Api Base Camp"
+  },
+  {
+    "src": "/photo/treks/kalidhunga-tal-aerial.jpg",
+    "alt": "Aerial view of Kalidhunga Lake in the Api Nampa Conservation Area"
+  },
+  {
+    "src": "/photo/treks/lake-with-mountain-view-api-himal.jpg",
+    "alt": "High-altitude lake with mountain views in the Api Himal region"
+  },
+  {
+    "src": "/photo/treks/nampa-himal-view-api-base-camp.jpg",
+    "alt": "Nampa Himal seen from the Api Base Camp area"
+  },
+  {
+    "src": "/photo/treks/sunset-bobaye-peak-api-base-camp.jpg",
+    "alt": "Sunset light on Bobaye peak from Api Base Camp"
+  },
+  {
+    "src": "/photo/treks/unnamed-peak-from-api-base-camp.jpg",
+    "alt": "Unnamed snow peak seen from Api Base Camp"
+  },
+  {
+    "src": "/photo/treks/moonrisel-view-api-base-camp.jpg",
+    "alt": "Moonrise over the mountains at Api Base Camp"
+  },
+  {
+    "src": "/photo/treks/api-base-camp-at-night.jpg",
+    "alt": "Api Base Camp under a starry night sky"
+  }
+];
+---
+<TrekLayout
+  title="Api Himal Base Camp Trek 14 Days: Itinerary, Cost & Guide | Discover Parbat"
+  description="Api Himal Base Camp Trek: 14 days to the foot of Api (7,132 m) in far-western Nepal, with Bardiya safari, Kalidhunga Lake and Lumbini. From $1,200 per person."
+  path="/api-himal-base-camp-trek"
+  keywords="Api Himal Base Camp Trek, Api Base Camp Trek, Api Himal Trek, Api Base Camp Trek itinerary, Api Base Camp Trek cost, Api Nampa Conservation Area, Darchula trek, far western Nepal trek, Kalidhunga Lake, Chameliya valley trek, remote trek Nepal, off the beaten path trek Nepal, Bardiya and Api Base Camp, Lumbini tour, Discover Parbat Api Himal"
+  image="/photo/treks/api-base-camp-trek.jpg"
+  imageAlt="Api Himal seen from Api Base Camp in Darchula, far-western Nepal"
+  ogDescription="14 days to the foot of Api Himal (7,132 m) in far-western Nepal, with Bardiya safari, Kalidhunga Lake and Lumbini. From $1,200 per person."
+  name="Api Himal Base Camp Trek"
+  tripName="Api Himal Base Camp Trek – 14 Days"
+  tripDescription="14-day journey to Api Himal Base Camp (3,820 m) and Kalidhunga Lake (4,160 m) in Darchula, far-western Nepal, with two days in Bardiya National Park and a day in Lumbini."
+  hero={{
+    "alt": "Api Himal seen from Api Base Camp in Darchula, far-western Nepal",
+    "eyebrow": "Darchula, Far-West Nepal · 14 Days",
+    "title": "Api Himal<br>Base Camp Trek",
+    "subtitle": "A remote 14-day journey to the foot of Api (7,132 m), with Bardiya's jungle on the way in and Lumbini on the way out"
+  }}
+  stats={[
+    {
+      "value": "14 Days",
+      "label": "Duration"
+    },
+    {
+      "value": "Moderate–Hard",
+      "label": "Difficulty"
+    },
+    {
+      "value": "4,160m",
+      "label": "Max Altitude"
+    },
+    {
+      "value": "Homestay & Camp",
+      "label": "Accommodation"
+    }
+  ]}
+  gallery={gallery}
+  pricing={[
+    {
+      "group": "2 People",
+      "price": "$1,399"
+    },
+    {
+      "group": "3–4 People",
+      "price": "$1,240"
+    },
+    {
+      "group": "5+ People",
+      "price": "$1,200"
+    }
+  ]}
+  pricingNote="Per person · Minimum 2 people"
+  pricingFootnote="Prefer to travel from Kathmandu by road instead of flying? Subtract $110 per person. The trip becomes 15 days."
+  included={[
+    "Kathmandu to Nepalgunj flight",
+    "All ground transport by private vehicle",
+    "Jeep safari and jungle walk in Bardiya with a naturalist",
+    "Accommodation throughout the trip",
+    "3 meals a day during the trek",
+    "Api Nampa Conservation Area permit and Bardiya park fees",
+    "Guide and porter salary, meals and accommodation",
+    "Portrait pictures captured during the trip"
+  ]}
+  notIncluded={[
+    "International flights and Nepal visa",
+    "Travel insurance with helicopter evacuation (required)",
+    "Personal trekking gear and equipment",
+    "Tips for guide and porter",
+    "Any costs due to early return, delays or emergency evacuation"
+  ]}
+  itinerary={itinerary}
+  faqs={faqs}
+>
+
+      <!-- Overview -->
+
+      <span class="section-label">Overview</span>
+      <h2 class="content-title">About Api Himal Base Camp Trek</h2>
+
+
+  <div class="title-divider"></div>
+
+  <div class="about-text">
+        <p><strong>The Api Himal Base Camp Trek takes you to the foot of Api (7,132 m), the highest mountain in far-western Nepal</strong>, following the Chameliya River through Darchula district and into the Api Nampa Conservation Area. Our 14-day journey begins with a morning flight from Kathmandu to Nepalgunj and two days in Bardiya National Park, climbs through the villages of Ghusa and Siti to the high pastures of Dhauli Odhar and Api Base Camp (3,820 m), and returns by road through Lumbini, the birthplace of the Buddha, to Pokhara.</p>
+        <p>This is one of the least visited corners of the Nepal Himalaya. Far-western Nepal has seen very little trekking development, and there is no chain of lodges with printed menus waiting at the end of each day. You sleep in a family homestay at Siti, in a simple stone-hut lodge at Shimar, and in a basic teahouse or tents at base camp. For the right traveller, that is exactly the appeal: on most days the only people you meet on the trail are villagers, herders and porters carrying supplies up the valley.</p>
+        <p>The first two trekking days pass through farming villages where life still follows the seasons. Stone-and-timber houses sit above terraced fields, and the evening at Siti is spent with a host family, sharing dal bhat cooked over the fire and learning a little about life this far from the nearest road. From Siti the trail follows the Chameliya upstream, and for much of the next day the sound of the river rising from the gorge below stays with you.</p>
+        <p>Above Shimar the forest opens into wide pastures, and at Dhauli Odhar the valley widens into a broad, grassy shelf below the mountains. A short, gentle climb leads on to Api Base Camp, where the great wall of Api fills the head of the valley and the neighbouring peaks of Nampa and Bobaye catch the last light of the evening. With no towns for days in any direction, the night sky here is extraordinary.</p>
+        <p>We spend a full day exploring the base camp area: walking up to where the Chameliya, known locally as the Chaulani, begins below the glaciers, visiting the small lake of Ringdepani and climbing to Kalidhunga Lake at 4,160 m, the highest point of the trek. It is a landscape of moraine ridges, boulder fields and cold, clear water, framed on every side by snow peaks.</p>
+        <p>Reaching Darchula means long days on the road, so we have built the journey around them. On the way in, two days in Bardiya National Park give you a chance to look for tigers, rhinos and wild elephants in one of Nepal's quietest national parks. On the way back, a day in Lumbini lets you walk among the monasteries and the sacred garden where the Buddha was born before the final drive to Pokhara.</p>
+        <p>This is a remote trek and it asks for more patience and preparation than the busy routes around Annapurna or Everest. Facilities are simple, the days are long and plans sometimes have to bend to weather or road conditions. In return you get a part of Nepal that very few trekkers ever see, walked with a team that knows the trail and the families along it.</p>
+      </div>
+
+  <figure class="trek-photo">
+        <img src="/photo/treks/kalidhunga-tal-api-base-camp-trek.jpg" alt="Kalidhunga Lake at 4,160 m, the highest point of the Api Himal Base Camp Trek" loading="lazy">
+        <figcaption>Kalidhunga Lake (4,160 m), the highest point of the trek, explored on Day 8.</figcaption>
+      </figure>
+
+      <!-- At a glance -->
+
+  <HighlightsBox title="Api Himal Base Camp Trek at a Glance" items={[
+    "14 days from Kathmandu, ending in Pokhara",
+    "About 34 km of trekking each way, Makarigad to Api Base Camp",
+    "Moderate to challenging, highest point 4,160 m",
+    "$1,200 to $1,399 per person, minimum 2 people",
+    "Best months: October to November, March to May",
+    "Homestay, simple lodges and tents",
+    "Bardiya National Park and Lumbini included"
+  ]} />
+
+      <!-- Highlights -->
+
+  <HighlightsBox title="Api Himal Base Camp Trek Highlights" items={[
+    "Close views of Api Himal (7,132 m), Nampa and Bobaye",
+    "Kalidhunga Lake and Ringdepani Lake",
+    "The source of the Chameliya River",
+    "Homestay with a family in Siti village",
+    "Wildlife safari in Bardiya National Park",
+    "Lumbini, birthplace of the Buddha"
+  ]} />
+
+      <!-- Right for you -->
+
+  <RightForYou
+    title="Api Himal Base Camp Trek Is Right for You If…"
+    yes={[
+    "You want a truly remote trek where you may not meet another trekker for days",
+    "You have trekked before and are comfortable with 6 to 7 hour days",
+    "You value village life and wild landscapes over comfort",
+    "You would like to combine mountains with wildlife and culture in one trip"
+  ]}
+    no={[
+    "You need hot showers, Wi-Fi and private rooms every night",
+    "You dislike long drives or have less than two weeks"
+  ]}
+  />
+
+      <!-- Plan your trek -->
+
+  <div class="about-text plan-section">
+        <span class="section-label">Plan Your Trek</span>
+        <h2 class="content-title">Best Time, Cost and Getting There</h2>
+        <div class="title-divider"></div>
+        <p><strong>Best time:</strong> October and November bring the clearest skies and the best views of Api. March to May is warmer, with flowering forests on the lower trail. Winter brings snow and freezing nights at base camp, and the monsoon from June to September makes trails slippery and roads unreliable.</p>
+        <p><strong>Cost:</strong> the trek runs with a minimum of two people and costs $1,399 per person for two, $1,240 per person for three to four and $1,200 per person for five or more. See the cost table for what is included.</p>
+        <p><strong>Getting there:</strong> we take a morning flight from Kathmandu to Nepalgunj and drive to Bardiya the same day. If you prefer, you can travel from Kathmandu by road instead. This saves $110 per person but adds one extra day, as the drive is long. The trip ends in Pokhara after a final drive from Lumbini.</p>
+        <p><strong>Looking for something shorter?</strong> Our <a href="/kokhe-danda-trek">Kokhe Danda Trek</a> is a 5-day homestay trek from Pokhara, and the <a href="/multiple-viewpoints-trek">Multiple Viewpoints Trek</a> links six Himalayan viewpoints around the Annapurna foothills. For other dates or routes, plan a <a href="/custom-trek">custom trek</a> with us.</p>
+      </div>
+
+      <!-- Itinerary -->
+
+  <Itinerary days={itinerary} />
+
+  <!-- /itinerary -->
+
+  <figure class="trek-photo">
+        <img src="/photo/treks/siti-village-api-himal-trek.jpg" alt="Siti village homestay stop on the Api Himal Base Camp Trek" loading="lazy">
+        <figcaption>Siti village (2,280 m), where we stay with a host family on Days 5 and 9.</figcaption>
+      </figure>
+
+      <!-- FAQ -->
+
+  <FaqList faqs={faqs} />
+
+  <!-- /faq -->
+
+      <!-- Related -->
+
+  <div class="about-text" style="margin-top:52px">
+        <span class="section-label">More Treks</span>
+        <h2 class="content-title">Explore More with Discover Parbat</h2>
+        <div class="title-divider"></div>
+        <p><a href="/kokhe-danda-trek">Kokhe Danda Trek: 5-day homestay trek to the highest point of Parbat</a><br>
+        <a href="/multiple-viewpoints-trek">Multiple Viewpoints Trek: six Himalayan viewpoints in 14 days</a><br>
+        <a href="/treks">See all our treks</a></p>
+      </div>
+
+</TrekLayout>

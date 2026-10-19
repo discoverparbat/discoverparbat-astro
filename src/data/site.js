@@ -38,7 +38,7 @@ export const BOOKING_TREKS = [
   'Short Multiple Viewpoints Trek',
   'Mardi Himal Trek',
   'Mardi Himal and Poon Hill Trek',
-  'Poon Hill Trek',
+  '4 Days Poon Hill Trek',
   'Khopra Ridge Trek',
   'Api Himal Base Camp Trek',
   'Pikey Peak Trek',

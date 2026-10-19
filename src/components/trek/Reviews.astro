@@ -14,7 +14,7 @@ const { place, reviews } = Astro.props;
     <div class="kd-reviews-divider"></div>
   </div>
 
-  <div class="kd-reviews-grid">
+  <div class={reviews.length === 1 ? "kd-reviews-grid single" : "kd-reviews-grid"}>
     {reviews.map((r) => {
       const stars = r.stars ?? 5;
       return (

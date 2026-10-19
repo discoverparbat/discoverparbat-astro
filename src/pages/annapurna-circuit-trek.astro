@@ -1,0 +1,353 @@
+---
+// ─── ANNAPURNA CIRCUIT TREK ────────────────────────────
+// URL: https://discoverparbat.com/annapurna-circuit-trek
+// The layout builds the hero, stats, gallery, sidebar and schema from the
+// settings on <TrekLayout>. Everything inside it is the left column.
+import TrekLayout from '../layouts/TrekLayout.astro';
+import HighlightsBox from '../components/trek/HighlightsBox.astro';
+import RightForYou from '../components/trek/RightForYou.astro';
+import Itinerary from '../components/trek/Itinerary.astro';
+import FaqList from '../components/trek/FaqList.astro';
+
+// ── Day-by-day itinerary (also used in the schema) ──
+const itinerary = [
+  {
+    "title": "Drive Kathmandu → Besisahar → Chame",
+    "text": [
+      "We start from Kathmandu with a bus ride to Besisahar at around 7 AM, with a couple of breaks for breakfast and lunch. From Besisahar, we take a shared jeep to Chame, which is around 3 to 3.5 hours of driving. It is a scenic drive through the Marsyangdi River Valley with many waterfalls along the road, and we stop near some of them for short breaks. In total, it is around 10–12 hours of driving from Kathmandu to Chame."
+    ],
+    "altitude": "2,670m",
+    "distance": "233 KM",
+    "time": "12 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Chame → Dhikur Pokhari → Upper Pisang",
+    "text": [
+      "From Chame, we can see views of Lamjung Himal. After breakfast, we start our hike to Upper Pisang. The trail follows the river valley and mostly passes along the road today. After a couple of hours, we reach Bhratang, where there is an apple farm. We stop for a short break here and can try fresh apple juice or bakery items.",
+      "After Bhratang, we pass through a road carved into the rocky mountain and cross the river at Swargadwari, where a scenic curved rock face rises on the other side. After 30–40 minutes of hiking from there, we reach Dhikur Pokhari, where we stop for lunch.",
+      "From Dhikur Pokhari, we leave the main road towards Manang and take a right turn. We then cross the river to the other side and follow a trekking trail to Upper Pisang."
+    ],
+    "altitude": "3,300m",
+    "distance": "14 KM",
+    "time": "6–7 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Upper Pisang → Ghyaru → Ngawal",
+    "text": [
+      "From Upper Pisang, we can see stunning views of Annapurna II and IV, along with a human face-like structure on the mountain. After 30 minutes of hiking, we reach Green Lake, where we take a break to enjoy its beauty. From here, we follow the road for a while before reaching a suspension bridge.",
+      "From the bridge, the steep uphill hike to Ghyaru begins and takes around one and a half hours. We stop at Ghyaru for lunch, where we can also visit a small monastery and enjoy even better views of the mountains.",
+      "After lunch, we mostly follow the road to Ngawal. It is a gradual uphill section at first, and later mostly flat or gradual downhill to reach Ngawal."
+    ],
+    "altitude": "3,675m",
+    "distance": "10 KM",
+    "time": "6 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Ngawal → Bhraka → Manang",
+    "text": [
+      "Most people push to Manang in a single day from Upper Pisang. However, we take an extra day to enjoy the beauty of the trail without rushing. This is why today's hike from Ngawal to Manang is relatively short.",
+      "We mostly follow the road to Manang today. We first descend a little and then go mostly flat or gradually uphill to Manang. Depending on our pace, we have lunch either at Bhraka or Manang. We can also take a detour to visit Blue Lake."
+    ],
+    "altitude": "3,550m",
+    "distance": "10 KM",
+    "time": "5 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Acclimatization Day at Manang",
+    "text": [
+      "Today is the acclimatization day before we continue our trek towards Thorong La. We hike to a viewpoint on the other side of the river, passing Gangapurna Glacial Lake and then climbing steeply to the top. From here, we can see the whole of Manang Village and the surrounding mountains. We descend the same way.",
+      "On high altitude treks, it is always a good idea to take rest days so that you can adapt to the higher elevation and also observe your health."
+    ],
+    "altitude": "3,746m",
+    "distance": "4 KM",
+    "time": "4 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Manang → Yak Kharka",
+    "text": [
+      "After the acclimatization day, we start our hike to Yak Kharka. The initial section can feel a bit steep, but later it becomes a gradual and easy hike as we walk above the tree line. Looking backward, we can see stunning views of Annapurna III and Gangapurna. We reach Yak Kharka around lunch time or a slightly late lunch."
+    ],
+    "altitude": "4,111m",
+    "distance": "10 KM",
+    "time": "5 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Yak Kharka → Thorong Phedi → High Camp",
+    "text": [
+      "Today is a relatively short trek, with 8 KM to Thorong High Camp. It is a gradual uphill hike to Thorong Phedi, and we also cross a long suspension bridge before reaching the teahouses at Phedi.",
+      "Depending on when we reach Thorong Phedi, we can either stop here for lunch or a small tea break. From here, it is a steep uphill hike of about an hour to Thorong High Camp. This section is 1.2 KM in distance with 340m of altitude gain.",
+      "We can also do a short acclimatization hike to a nearby hill, which takes around 20 minutes."
+    ],
+    "altitude": "4,875m",
+    "distance": "8 KM",
+    "time": "5 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Thorong High Camp → Thorong La → Muktinath",
+    "text": [
+      "We wake up early at around 4 AM today as we head for the pass early. After breakfast, we start hiking from the teahouse at around 4:30 AM.",
+      "It is around 4 KM to the pass with 540m of elevation gain. The initial section up to the teashop on the trail can feel a bit steep, but later it is mostly a gradual uphill. We take it slow with multiple small breaks in between for sufficient rest and to adapt to the altitude.",
+      "It generally takes 3–4 hours to reach Thorong La. We spend around 10–15 minutes at the pass for a break and pictures, and then start our descent towards Muktinath.",
+      "After a steep descent of around 3 hours, we reach Phedi, the base on the other side, at around 4,100m, where we stop for lunch. From here, it is mostly a gradual downhill to Muktinath.",
+      "After a maximum of an hour's hike down, we reach Muktinath, where a hot shower awaits at the hotel after crossing one of the highest trekking passes in the world. After some rest, we walk to the Muktinath Vishnu Temple. Muktinath means \"the god who grants liberation from the cycle of birth and death.\""
+    ],
+    "altitude": "5,416m → 3,670m",
+    "distance": "13 KM",
+    "time": "7–8 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Muktinath → Kagbeni → Jomsom",
+    "text": [
+      "From Muktinath onwards, we start seeing the Dhaulagiri range. We cross to the other side of the river to avoid the major highway. We still hike mostly along a road, but with almost no vehicles around.",
+      "The deserted mountain landscape with views of Dhaulagiri, Nilgiri, and Tukuche peaks is amazing from the trail.",
+      "We stop for lunch at Kagbeni, another popular religious spot on the trail. From here, we mostly trek along the banks of the Kali Gandaki River to Jomsom."
+    ],
+    "altitude": "2,740m",
+    "distance": "20 KM",
+    "time": "7 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Jomsom → Marpha → Kobang",
+    "text": [
+      "Today, we first go gradually uphill to Dhumba Lake, a small crystal-clear blue lake with reflections of the mountains. We then continue mostly downhill on the road to Kobang via Marpha.",
+      "We stop at Marpha for lunch, a cute little white town with a monastery. It sits by the side of the holy Kali Gandaki River with views of the Dhaulagiri range."
+    ],
+    "altitude": "2,550m",
+    "distance": "19 KM",
+    "time": "7 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Kobang → Titi Lake → Kalopani",
+    "text": [
+      "Today, we trek down to Kalopani, with a detour to Titi Lake, which sits amid pine forests.",
+      "We initially walk parallel to the river and cross it at one point. Before reaching the lake, there is a steep uphill section where we gain around 180m in elevation. After spending some time at the lake, we return and head towards Kalopani.",
+      "We spend the evening reliving the memories of the past 10 days on the trail, as it is our last evening."
+    ],
+    "altitude": "2,730m",
+    "distance": "14 KM",
+    "time": "6 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Drive Kalopani → Beni → Pokhara",
+    "text": [
+      "We take a shared vehicle (jeep or EV micro) back to Pokhara. Except for a few sections, most of the road is blacktopped and the journey is comfortable. It takes around 6–7 hours with a couple of breaks in between for lunch and snacks.",
+      "Our 12 Days Trek then ends here."
+    ],
+    "altitude": "800m",
+    "distance": "126 KM",
+    "time": "6–7 Hrs"
+  }
+];
+
+// ── FAQ (also used in the FAQPage schema) ──
+const faqs = [
+  {
+    "q": "How difficult is the 12-day Annapurna Circuit Trek?",
+    "a": "It is a challenging trek because of the Thorong La Pass (5,416m), but with proper acclimatization at Manang, it is manageable for trekkers with prior hiking experience and good fitness."
+  },
+  {
+    "q": "What is the best time to do the Annapurna Circuit Trek?",
+    "a": "Spring (March–May) and autumn (September–November) offer the clearest skies and best mountain views, though the rain-shadow area beyond Manang is trekkable even in shoulder seasons."
+  },
+  {
+    "q": "Do I need a permit for the Annapurna Circuit Trek?",
+    "a": "Yes, you will need an ACAP (Annapurna Conservation Area Permit), which can be easily arranged in Kathmandu or Pokhara. You can also get the permit online. It is included in your trek cost and arranged by us."
+  },
+  {
+    "q": "Do I need prior trekking experience to do the Annapurna Circuit Trek?",
+    "a": "No technical climbing skills are needed, but basic fitness and some high-altitude trekking experience are recommended for a safer, more comfortable crossing of Thorong La."
+  },
+  {
+    "q": "What type of accommodation is available along the Annapurna Circuit route?",
+    "a": "Teahouses and lodges are available at every overnight stop, offering basic rooms, hot meals, and charging and Wi-Fi facilities (paid, especially at higher altitudes)."
+  },
+  {
+    "q": "Can I do the Annapurna Circuit Trek independently, or do I need a guide?",
+    "a": "While independent trekking is possible, hiring a licensed guide or porter is highly recommended for safety, navigation, and support while crossing Thorong La Pass."
+  }
+];
+
+// ── Photo gallery ──
+const gallery = [
+  {
+    "src": "/act.jpg",
+    "alt": "Annapurna Circuit Trek — photo 1"
+  },
+  {
+    "src": "/act1.jpg",
+    "alt": "Annapurna Circuit Trek — photo 2"
+  },
+  {
+    "src": "/act2.jpg",
+    "alt": "Annapurna Circuit Trek — photo 3"
+  },
+  {
+    "src": "/act3.jpg",
+    "alt": "Annapurna Circuit Trek — photo 4"
+  },
+  {
+    "src": "/act4.jpg",
+    "alt": "Annapurna Circuit Trek — photo 5"
+  },
+  {
+    "src": "/act5.jpg",
+    "alt": "Annapurna Circuit Trek — photo 6"
+  },
+  {
+    "src": "/act6.jpg",
+    "alt": "Annapurna Circuit Trek — photo 7"
+  },
+  {
+    "src": "/act7.jpg",
+    "alt": "Annapurna Circuit Trek — photo 8"
+  },
+  {
+    "src": "/act8.jpg",
+    "alt": "Annapurna Circuit Trek — photo 9"
+  }
+];
+---
+<TrekLayout
+  title="Annapurna Circuit Trek | Discover Parbat"
+  description="Cross Thorong La Pass (5,416m) on a 12-day Annapurna Circuit Trek with Discover Parbat. Manang, Muktinath, Kali Gandaki Valley and Tibetan-influenced villages, locally guided."
+  path="/annapurna-circuit-trek"
+  keywords="Annapurna Circuit Trek, 12 days Annapurna Circuit, Thorong La Pass trek, Annapurna Circuit itinerary, Annapurna Circuit cost, Manang Muktinath trek"
+  image="/act4.jpg"
+  name="Annapurna Circuit Trek"
+  hero={{
+    "image": "/act6.jpg",
+    "alt": "Annapurna Circuit Trek",
+    "eyebrow": "Annapurna Region, Nepal · 12 Days",
+    "title": "Annapurna Circuit <br>Trek",
+    "subtitle": "Cross Thorong La Pass (5,416m) on one of the world's greatest long-distance treks"
+  }}
+  stats={[
+    {
+      "value": "12 Days",
+      "label": "Duration"
+    },
+    {
+      "value": "Challenging",
+      "label": "Difficulty"
+    },
+    {
+      "value": "5,416m",
+      "label": "Max Altitude"
+    },
+    {
+      "value": "Tea House",
+      "label": "Accommodation"
+    }
+  ]}
+  gallery={gallery}
+  pricing={[
+    {
+      "group": "1 Person",
+      "price": "$999"
+    },
+    {
+      "group": "2–3 People",
+      "price": "$899"
+    },
+    {
+      "group": "4–6 People",
+      "price": "$850"
+    },
+    {
+      "group": "7+ People",
+      "price": "$799"
+    }
+  ]}
+  included={[
+    "Permits required for the trek",
+    "Two-way shared transport",
+    "3 meals and drinks during trek",
+    "Accommodation during trek",
+    "Guide salary",
+    "Porter salary (for at least a couple of trekkers)",
+    "Meals and accommodation of Guide and Porter"
+  ]}
+  notIncluded={[
+    "International flights and Nepal visa",
+    "Travel insurance (strongly recommended)",
+    "Personal trekking gear and equipment",
+    "Tips for guide and porter",
+    "Any costs due to early return or emergency evacuation"
+  ]}
+  itinerary={itinerary}
+  faqs={faqs}
+>
+
+      <!-- About -->
+
+      <span class="section-label">Overview</span>
+      <h2 class="content-title">About Annapurna Circuit Trek</h2>
+
+
+  <div class="title-divider"></div>
+
+  <div class="about-text">
+        <p>The 12 Days Annapurna Circuit Trek is one of the most popular long-distance treks in Nepal, offering a unique experience across varied landscapes, high mountain passes, and countless Himalayan villages in the heart of the country.</p>
+        <p>The well-planned journey starts with a scenic drive from Kathmandu to Chame, the district headquarters of Manang, following the Marsyangdi River valley. From there, the trail slowly climbs through pine forests, past fantastic rock formations, and under the massive Paungda Danda cliff before reaching Upper Pisang. In the upper Manang valley, where Tibetan influence becomes stronger, trekkers have their first encounter with the arid, high-altitude landscape.</p>
+        <p>The trail then passes through Ngawal, a traditional village of stone houses and ancient monasteries. It is far less visited than other villages on the Lower Circuit, has a relaxed atmosphere, and offers views of Annapurna II and Pisang Peak.</p>
+        <p>Next comes Manang, an important acclimatization stop and one of the most culturally lively villages on the circuit. Here trekkers can adapt to the altitude while exploring glacial lakes, ice formations, and Tibetan Buddhist monasteries in and around the valley, making the crossing of the high pass ahead safer and more enjoyable.</p>
+        <p>Beyond Manang, the landscape opens into a wide, high alpine terrain at Yak Kharka and Thorong High Camp, surrounded by snow-capped peaks. The crossing of Thorong La Pass (5,416m), one of the highest trekking passes in the world, is what this trek is all about, both as a challenge and as a reward.</p>
+        <p>The early morning climb is strenuous, but the views of the Annapurna and Damodar Himal ranges are unmatched. The descent leads into the sacred pilgrimage site of Muktinath, revered by both Hindus and Buddhists.</p>
+        <p>From here, the route follows the dramatic Kali Gandaki Valley, often described as the deepest gorge in the world, through Kagbeni and Jomsom to the whitewashed stone houses and narrow alleyways of Marpha, a village of apple growers. Along the way, trekkers can enjoy side trips to the tranquil Dhumba Lake and the Green Lake and Blue Lake, hidden gems of the region. The trail continues to Kobang and Kalopani, a serene village with close-up views of Dhaulagiri and Nilgiri, before the trek concludes with a drive back to Pokhara.</p>
+        <p>In the past, the Annapurna Circuit was one of the great classic treks of Nepal, traditionally walked as a full circuit around the Annapurna massif over two to three weeks. Growing road access to Chame and Kalopani in recent years has made this 12-day version far more time-efficient, while the cultural flavor and mountain views remain intact. It is a perfect choice for trekkers with limited time who still want a true high-altitude experience.</p>
+        <p>The trail is at its best in spring (March–May) and autumn (September–November), when skies are clear and the views of Annapurna, Dhaulagiri, and other Himalayan giants are unobstructed. Beyond Manang, the rain-shadow landscape also makes some sections of the route possible outside of the main trekking seasons.</p>
+        <p>Overall, the Annapurna Circuit Trek is ideal for those looking for a full-fledged Himalayan adventure, with high altitudes, rich Tibetan-influenced culture, and some of the most dramatic landscapes in Nepal, from river valleys to the highland desert.</p>
+      </div>
+
+      <!-- Highlights -->
+
+  <HighlightsBox title="Trek Highlights" items={[
+    "Cross the iconic Thorong La Pass (5,416m)",
+    "Diverse landscapes from subtropical forests to alpine deserts",
+    "Spectacular Annapurna, Dhaulagiri and Nilgiri views",
+    "Explore the unique Tibetan-influenced culture of Manang and Mustang",
+    "Visit the sacred Muktinath Temple",
+    "Trek through the Kali Gandaki Valley, the deepest gorge in the world",
+    "One of the world's greatest long-distance trekking routes"
+  ]} />
+
+      <!-- Right for you -->
+
+  <RightForYou
+    title="This Trek Is Right for You If…"
+    yes={[
+    "You are looking for a long trek and have a good level of fitness",
+    "You want to see breathtaking views of the Annapurna Range",
+    "You want a good dose of cultural experience along with the mountain scenery",
+    "You are ready for a high altitude trek, including crossing a pass at 5,416m"
+  ]}
+    no={[
+    "You don't want to trek at high altitude",
+    "You want to do a short trek"
+  ]}
+  />
+
+      <!-- Itinerary -->
+
+  <Itinerary days={itinerary} />
+
+  <!-- /itinerary -->
+
+      <!-- FAQ -->
+
+  <FaqList faqs={faqs} />
+
+  <!-- /faq -->
+
+</TrekLayout>

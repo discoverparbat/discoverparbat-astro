@@ -36,6 +36,19 @@ Everything below is normal HTML for the left column.
 The FAQ and itinerary lists feed both the page **and** the Google schema,
 so you only ever change them in one place.
 
+## Adding a new trek page
+
+1. Copy an existing trek page in `src/pages/` (e.g. `poonhill-trek.astro`) and
+   rename it to the new URL, e.g. `ghandruk-trek.astro` → `/ghandruk-trek`.
+2. Change the settings on `<TrekLayout …>` (title, description, prices…),
+   the `itinerary`, `faqs` and `gallery` lists at the top, and the text.
+3. Add the trek's name to `BOOKING_TREKS` in `src/data/site.js` so it shows
+   in every booking form.
+4. Put its photos in `public/photo/treks/`.
+
+Trek page building blocks (in `src/components/trek/`): `VideoEmbed`,
+`HighlightsBox`, `RightForYou`, `Itinerary`, `RouteMap`, `FaqList`, `Reviews`.
+
 ## Running it on your computer (optional)
 
 ```

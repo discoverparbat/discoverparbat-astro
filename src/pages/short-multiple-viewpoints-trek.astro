@@ -1,0 +1,363 @@
+---
+// ─── SHORT MULTIPLE VIEWPOINTS TREK ────────────────────
+// URL: https://discoverparbat.com/short-multiple-viewpoints-trek
+// The layout builds the hero, stats, gallery, sidebar and schema from the
+// settings on <TrekLayout>. Everything inside it is the left column.
+import TrekLayout from '../layouts/TrekLayout.astro';
+import VideoEmbed from '../components/trek/VideoEmbed.astro';
+import HighlightsBox from '../components/trek/HighlightsBox.astro';
+import RightForYou from '../components/trek/RightForYou.astro';
+import Itinerary from '../components/trek/Itinerary.astro';
+import FaqList from '../components/trek/FaqList.astro';
+
+// ── Day-by-day itinerary (also used in the schema) ──
+const itinerary = [
+  {
+    "title": "Drive Pokhara → Ghandruk → Trek to Tadapani",
+    "text": [
+      "Morning drive from Pokhara to Ghandruk, about two and a half hours (43 km). After a short tea break in Ghandruk, we start our hike to Tadapani. After around two and a half hours we reach Bhaisikharka, where we stop for lunch, then walk another hour on a gradual uphill trail to Tadapani. Today's trail passes through beautiful rhododendron forest."
+    ],
+    "altitude": "2,705m",
+    "distance": "6.5 KM",
+    "time": "3.5 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Tadapani → Isharu → Dobato",
+    "text": [
+      "We wake up early for sunrise. In clear weather, Annapurna South, Hiunchuli and Machhapuchhre (Fishtail) are visible from Tadapani.",
+      "After breakfast, we hike towards Dobato through rhododendron and oak forest. The trail is gradual at first, then steeper from Meshar up to Isharu, where we stop for lunch. Another one and a half hours brings us to Dobato, where we stay at Hotel Dobato ViewTop. If the weather is clear, we can hike up to Muldai for sunset."
+    ],
+    "altitude": "3,500m",
+    "distance": "6.2 KM",
+    "time": "5–6 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Dobato → Muldai → Deurali → Ghorepani",
+    "text": [
+      "We wake up early and hike around 25 minutes to Muldai Viewpoint for sunrise, with views of the Dhaulagiri, Annapurna and Mansiri ranges. We then walk back down to the tea house for breakfast.",
+      "After breakfast, we continue to Ghorepani. We climb back up past Muldai Viewpoint and then trek downhill for a couple of hours to Deurali, where we stop for lunch. From there, a short gradual uphill leads onto the ridgeline that we follow to Ghorepani."
+    ],
+    "altitude": "2,880m",
+    "distance": "7.8 KM",
+    "time": "6 Hrs",
+    "stay": "Community Lodge"
+  },
+  {
+    "title": "Ghorepani → Poon Hill → Kokhe Danda",
+    "text": [
+      "Unlike most trekkers, we don't start early for Poon Hill; we go after breakfast instead. It is an hour's uphill climb on stone steps, and by the time we arrive the viewpoint is almost empty, so we have it nearly to ourselves. We then descend to Phulbari for lunch and climb through rhododendron forest to Kokhe Danda, the highest point of Parbat district."
+    ],
+    "altitude": "3,310m",
+    "distance": "6.7 KM",
+    "time": "5 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Kokhe Danda → Jaljala → Lespar",
+    "text": [
+      "We wake up early for the first sunrays over the Dhaulagiri and Annapurna ranges. On a clear day, the view extends all the way to Langtang Lirung and even Numbur in the lower Everest region.",
+      "After breakfast, we hike to Lespar. The trail is mostly flat or gently downhill to Dhima Danda, then descends to Jaljala and follows stone steps all the way down to Lespar. After lunch, we explore the village, and in the evening we can join a momo-making session with our host at the homestay."
+    ],
+    "altitude": "2,150m",
+    "distance": "9 KM",
+    "time": "5 Hrs",
+    "stay": "Homestay"
+  },
+  {
+    "title": "Lespar → Banau → Drive to Pokhara",
+    "text": [
+      "After a local breakfast, we hike to Banau via Haljure: an hour uphill at first, mostly flat to Haljure, then another hour downhill to Banau. From Banau, we take a taxi or jeep back to Pokhara with a stop at Kushma, a total drive of about two and a half hours."
+    ],
+    "altitude": "2,100m",
+    "distance": "9 KM",
+    "time": "3 Hrs"
+  }
+];
+
+// ── FAQ (also used in the FAQPage schema) ──
+const faqs = [
+  {
+    "q": "Is the Short Multiple Viewpoints Trek suitable for beginners?",
+    "a": "Yes. The trek is rated Moderate and is well within reach for fit beginners. Most days involve 5–6 hours of walking, and Day 3 is the longest, with the sunrise hike to Muldai before the descent to Ghorepani. The trail is clear and the pace is relaxed. If you can walk comfortably for 5–6 hours on consecutive days, you'll handle this route well."
+  },
+  {
+    "q": "How does this trek differ from the standard Poon Hill route?",
+    "a": "The standard Poon Hill circuit follows a busy, well-worn loop. This route reaches Poon Hill from a quieter direction, via Tadapani, Dobato and Muldai, which see a fraction of the foot traffic. After Poon Hill, instead of looping back, the trail continues into Parbat district through Kokhe Danda and Lespar, areas most trekkers never see. Read our <a href=\"/kokhe-danda-trek-alternative-to-poon-hill\">Kokhe Danda vs Poon Hill comparison</a>."
+  },
+  {
+    "q": "What is Dobato and is it worth stopping there overnight?",
+    "a": "Dobato is a ridge viewpoint at about 3,500 m, above the Tadapani forest, with clear views of Annapurna South, Fang and Machhapuchhre. Staying overnight puts you in position for the sunrise walk to Muldai the next morning, just 25 minutes above Dobato. Skipping the overnight would mean missing both viewpoints."
+  },
+  {
+    "q": "What is the Muldai Viewpoint and is it worth the extra hike?",
+    "a": "Muldai, at about 3,536 m, is the highest point of the trek and absolutely worth the 25-minute pre-breakfast climb. On clear mornings the panorama sweeps from Dhaulagiri across the full Annapurna range to Manaslu, with almost no other trekkers around. It is built into the itinerary as the Day 3 sunrise stop."
+  },
+  {
+    "q": "How do we get to the trek start and back to Pokhara?",
+    "a": "We arrange private transport from Pokhara to Ghandruk, about two and a half hours. On the final day, after the walk down to Banau, a taxi or jeep takes you back to Pokhara via Kushma, another two and a half hours. Both transfers are included, so there are no buses or connections to arrange yourself."
+  },
+  {
+    "q": "What are the teahouses and accommodation like?",
+    "a": "Most nights are simple teahouses with private rooms and shared bathrooms. Dobato has one well-placed teahouse, Hotel Dobato ViewTop, and Ghorepani is a community lodge. Kokhe Danda accommodation is basic and remote, which is part of its appeal. The final night in Lespar is a family homestay with home-cooked meals. Hot showers are available at lower stops for a small fee, and a sleeping bag liner is recommended for the higher nights."
+  },
+  {
+    "q": "What is the best time of year for this trek?",
+    "a": "October and November offer the clearest skies, ideal for the sunrises at Muldai and Kokhe Danda. March to May is equally rewarding, with rhododendrons in bloom through the forest between Ghandruk and Dobato. December is quiet and crisp, with very few trekkers. June to September is monsoon season and not recommended for this route."
+  },
+  {
+    "q": "Do I need permits for this trek?",
+    "a": "Yes. An Annapurna Conservation Area Permit (ACAP) and a TIMS card are both required. Both are included in your trek cost and arranged by us in Pokhara before departure, so you don't need to visit any permit offices yourself."
+  },
+  {
+    "q": "How much does the Short Multiple Viewpoints Trek cost?",
+    "a": "The price is $420 to $500 per person depending on group size: $500 for one person, $460 for two, $440 for three to four and $420 for five or more. It includes private transport, meals, accommodation, guide and porter, and the ACAP and TIMS permits."
+  },
+  {
+    "q": "What is the food like on the trek?",
+    "a": "Teahouse menus offer the usual Himalayan range: dal bhat, noodles, pasta, eggs, soups and seasonal vegetables. At the Lespar homestay on Day 5, meals are home-cooked by your host family, and the evening includes a momo-making session. Three meals a day are included. If you have dietary requirements, let us know in advance and we'll inform each stop."
+  },
+  {
+    "q": "Can I do this trek solo or do I need a group?",
+    "a": "Solo trekkers are very welcome. You'll have a private guide for the whole trek, or you can join one of our fixed group departures if you'd prefer company. Pricing for every group size is listed in the cost table."
+  },
+  {
+    "q": "What should I pack for 6 days?",
+    "a": "Key items: sturdy trekking boots, warm layers including a down or fleece jacket (nights at Dobato and Kokhe Danda can drop near freezing), a waterproof shell, trekking poles for the descents, a headlamp for sunrise starts, a reusable water bottle, sunscreen and a 20–25 L daypack. A sleeping bag liner is recommended. See our <a href=\"/what-to-pack-for-khopra-ridge-trek\">layering and gear guide</a>; we'll also send a full packing list after booking."
+  },
+  {
+    "q": "What happens if I need to leave the trek early?",
+    "a": "If you need to return early for any reason, there is no refund on the remaining trek cost. However, we will arrange comfortable accommodation for you in Pokhara for the nights that remain on your itinerary, at no extra charge. Please see our full <a href=\"/cancellation\">Cancellation Policy</a> for details."
+  }
+];
+
+// ── Photo gallery ──
+const gallery = [
+  {
+    "src": "/shortmvp.jpg",
+    "alt": "Himalayan panorama on the Short Multiple Viewpoints Trek"
+  },
+  {
+    "src": "/shortmvp1.jpg",
+    "alt": "Rhododendron forest trail between Ghandruk and Tadapani"
+  },
+  {
+    "src": "/shortmvp2.jpg",
+    "alt": "Annapurna South and Machhapuchhre seen from the Dobato ridge"
+  },
+  {
+    "src": "/shortmvp3.jpg",
+    "alt": "Sunrise over the Dhaulagiri and Annapurna ranges from Muldai Viewpoint"
+  },
+  {
+    "src": "/shortmvp4.jpg",
+    "alt": "Ridge trail above Dobato on the Short Multiple Viewpoints Trek"
+  },
+  {
+    "src": "/shortmvp5.jpg",
+    "alt": "Mountain views near Ghorepani and Poon Hill"
+  },
+  {
+    "src": "/shortmvp6.jpg",
+    "alt": "Trekkers walking through oak and rhododendron forest towards Kokhe Danda"
+  },
+  {
+    "src": "/shortmvp7.jpg",
+    "alt": "View from Kokhe Danda, the highest point of Parbat district"
+  },
+  {
+    "src": "/shortmvp8.jpg",
+    "alt": "Village life and homestay in Lespar, Parbat"
+  },
+  {
+    "src": "/shortmvp9.jpg",
+    "alt": "Terraced hills of Parbat on the final day of the Short Multiple Viewpoints Trek"
+  }
+];
+---
+<TrekLayout
+  title="Short Multiple Viewpoints Trek 6 Days: Itinerary, Cost & Guide | Discover Parbat"
+  description="Short Multiple Viewpoints Trek: 6 days via Dobato, Muldai, Poon Hill and Kokhe Danda. Quiet ridges, Annapurna and Dhaulagiri views. From $420 per person."
+  path="/short-multiple-viewpoints-trek"
+  keywords="Short Multiple Viewpoints Trek, Short Multiple Viewpoints Trek Nepal, Mulde viewpoint trek, Muldai viewpoint trek, Dobato trek, Poon Hill alternative trek, Kokhe Danda trek, 6 day trek Nepal, short trek from Pokhara, offbeat Annapurna trek, best short trek Annapurna, Parbat trekking, local guide Nepal, Discover Parbat"
+  image="/shortmvp.jpg"
+  name="Short Multiple Viewpoints Trek"
+  tripName="Short Multiple Viewpoints Trek – 6 Days"
+  tripDescription="6-day moderate trek from Pokhara linking Dobato, Muldai, Poon Hill and Kokhe Danda viewpoints, with views of Annapurna and Dhaulagiri and a homestay night in Lespar."
+  hero={{
+    "alt": "Annapurna range seen from a viewpoint on the Short Multiple Viewpoints Trek, Nepal",
+    "eyebrow": "Annapurna & Parbat, Nepal · 6 Days",
+    "title": "Short Multiple<br>Viewpoints Trek",
+    "subtitle": "6-day trek linking Dobato, Muldai, Poon Hill and Kokhe Danda, with quiet ridges, Annapurna and Dhaulagiri views and a village homestay finale"
+  }}
+  stats={[
+    {
+      "value": "6 Days",
+      "label": "Duration"
+    },
+    {
+      "value": "Moderate",
+      "label": "Difficulty"
+    },
+    {
+      "value": "3,536m",
+      "label": "Max Altitude"
+    },
+    {
+      "value": "Tea House",
+      "label": "Accommodation"
+    }
+  ]}
+  gallery={gallery}
+  pricing={[
+    {
+      "group": "1 Person",
+      "price": "$500"
+    },
+    {
+      "group": "2 People",
+      "price": "$460"
+    },
+    {
+      "group": "3–4 People",
+      "price": "$440"
+    },
+    {
+      "group": "5+ People",
+      "price": "$420"
+    }
+  ]}
+  included={[
+    "Two-way private transport",
+    "3 meals and drinks during trek",
+    "Accommodation during trek",
+    "Guide and Porter salary",
+    "Meals and accommodation of Guide and Porter",
+    "TIMS card and ACAP permit"
+  ]}
+  notIncluded={[
+    "International flights and Nepal visa",
+    "Travel insurance (strongly recommended)",
+    "Personal trekking gear and equipment",
+    "Tips for guide and porter",
+    "Any costs due to early return or emergency evacuation"
+  ]}
+  itinerary={itinerary}
+  faqs={faqs}
+>
+
+      <!-- Overview -->
+
+      <span class="section-label">Overview</span>
+      <h2 class="content-title">About Short Multiple Viewpoints Trek</h2>
+
+
+  <div class="title-divider"></div>
+
+  <div class="about-text">
+        <p><strong>The Short Multiple Viewpoints Trek is a 6-day, moderate trek from Pokhara that links four Himalayan viewpoints: Dobato, Muldai (3,536 m), Poon Hill and Kokhe Danda.</strong> It starts in the Gurung village of Ghandruk, climbs through rhododendron and oak forest to the quiet ridges above Tadapani, crosses Ghorepani and Poon Hill, then continues into Parbat district and finishes with a homestay night in the Magar village of Lespar.</p>
+        <p>The first day begins with a drive to Ghandruk, one of Nepal's best-known Gurung villages, with slate-roofed stone houses, terraced fields and views of Annapurna South and Machhapuchhre above the Modi Khola valley. From there the trail climbs through forest to Tadapani, a ridge-top settlement where the main trekking crowds start to thin and morning views open onto Annapurna South and Hiunchuli.</p>
+        <p>Above Tadapani the route leaves the busy trails behind. Dobato, at about 3,500 m, sits on an open ridge facing Annapurna South, Fang and Machhapuchhre. A 25-minute walk higher, Muldai Viewpoint is the highest point of the trek, and at sunrise the panorama stretches from Dhaulagiri across the Annapurna range to Manaslu, usually with only a handful of other trekkers. These two nights are the quiet heart of the trek.</p>
+        <p>From Muldai the trail descends to Ghorepani. Most trekkers climb Poon Hill in the dark for sunrise; we go after breakfast instead, when the crowds have gone down and the viewpoint is almost empty. The full Dhaulagiri and Annapurna panorama is still there, without the queue.</p>
+        <p>Where the standard Poon Hill loop turns back, this route keeps going into Parbat. The trail climbs through rhododendron forest to <a href="/kokhe-danda-trek">Kokhe Danda</a>, the highest point of Parbat district, on a trail opened by us at Discover Parbat. It sees very few trekkers, and the sunrise from the ridge reaches from Dhaulagiri and Annapurna as far as Langtang on clear days.</p>
+        <p>The last night is in Lespar, a traditional Magar village of terraced fields and stone-and-mud houses. You can explore the village, chat with locals and join a momo-making session with your host family before dinner. The next morning we walk via Haljure down to Banau and drive back to Pokhara through Kushma, a riverside town above the Kali Gandaki gorge.</p>
+        <p>Our guides are local to Parbat and know the families, villages and trails along the route. The Short Multiple Viewpoints Trek suits trekkers with limited time who want famous viewpoints and quiet, off-the-beaten-path ridges in a single trip.</p>
+      </div>
+
+  <VideoEmbed
+    id="ec_fc5VwA0k"
+    title="Short Multiple Viewpoints Trek | Dobato, Muldai, Poon Hill & Kokhe Danda | Discover Parbat"
+    caption="Watch: Short Multiple Viewpoints Trek – Dobato, Muldai, Poon Hill and Kokhe Danda in 6 days"
+  />
+
+      <!-- At a glance -->
+
+  <HighlightsBox title="Short Multiple Viewpoints Trek at a Glance" items={[
+    "6 days from Pokhara to Pokhara",
+    "Moderate grade, highest point 3,536 m (Muldai)",
+    "$420 to $500 per person, by group size",
+    "Best months: March to May, October to November",
+    "Tea houses, a community lodge and a homestay",
+    "ACAP Permit included"
+  ]} />
+
+      <!-- Highlights -->
+
+  <HighlightsBox title="Trek Highlights" items={[
+    "Four viewpoints in one trek",
+    "Sunrise from Muldai Viewpoint and Kokhe Danda",
+    "Panoramic Annapurna and Dhaulagiri views",
+    "Poon Hill without the sunrise crowds",
+    "Homestay and momo-making in Lespar",
+    "Rhododendron and oak forests"
+  ]} />
+
+      <!-- Right for you -->
+
+  <RightForYou
+    title="This Trek Is Right for You If…"
+    yes={[
+    "You want Dobato, Muldai, Poon Hill and Kokhe Danda in a single connected journey",
+    "You have 6 days and want a varied route of forests, high ridges and traditional villages",
+    "You like combining famous highlights like Ghandruk and Poon Hill with quiet, off-the-beaten-path sections",
+    "You love authentic village life, home-cooked food and local culture"
+  ]}
+    no={[
+    "You only have 3 to 4 days. Try the <a href=\"/short-kokhe-danda-trek\" style=\"color:var(--green-mid);font-weight:600;\">Short Kokhe Danda Trek</a> instead",
+    "You expect well-equipped teahouses with hot showers and Wi-Fi every night"
+  ]}
+  />
+
+      <!-- Plan your trek -->
+
+  <div class="about-text plan-section">
+        <span class="section-label">Plan Your Trek</span>
+        <h2 class="content-title">Best Time, Cost and Getting There</h2>
+        <div class="title-divider"></div>
+        <p><strong>Best time:</strong> October and November give the clearest views for the sunrises at Muldai and Kokhe Danda, and March to May brings rhododendron blooms through the forest sections. June to September is monsoon and not recommended. See our <a href="/best-season-for-kokhe-danda-trek">month-by-month guide to trekking in this region</a>.</p>
+        <p><strong>Cost:</strong> the trek costs $420 to $500 per person depending on group size. It includes private transport, meals, accommodation, guide and porter, and the ACAP and TIMS permits. See the cost table.</p>
+        <p><strong>Getting there:</strong> we drive from Pokhara to Ghandruk in about 2.5 hours and start walking the same day. The trek ends at Banau, with a taxi or jeep back to Pokhara via Kushma in about 2.5 hours.</p>
+        <p><strong>Other options:</strong> want more time on the ridges? See the full <a href="/multiple-viewpoints-trek">Multiple Viewpoints Trek</a>. Prefer a quieter, homestay-only route? Try the 5-day <a href="/kokhe-danda-trek">Kokhe Danda Trek</a>, or read <a href="/kokhe-danda-trek-alternative-to-poon-hill">why Kokhe Danda is a better alternative to Poon Hill</a>.</p>
+      </div>
+
+      <!-- Itinerary -->
+
+  <Itinerary days={itinerary} />
+
+  <!-- /itinerary -->
+
+      <!-- Route map: add when the image is ready
+      <figure style="margin:0 0 32px;text-align:center;">
+        <a href="/short-mvp-trek-map.jpg" target="_blank" rel="noopener">
+          <img src="/short-mvp-trek-map.jpg"
+               alt="Short Multiple Viewpoints Trek route map showing Ghandruk, Tadapani, Dobato, Muldai, Ghorepani, Poon Hill, Kokhe Danda and Lespar"
+               loading="lazy" width="1200" height="800"
+               style="width:100%;max-width:900px;height:auto;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,0.12);">
+        </a>
+        <figcaption style="font-size:14px;color:#1a3d2b;margin-top:10px;">
+          Short Multiple Viewpoints Trek route map. Tap to view full size.
+        </figcaption>
+      </figure>
+      -->
+
+      <!-- FAQ -->
+
+  <FaqList faqs={faqs} />
+
+  <!-- /faq -->
+
+      <!-- Related guides -->
+
+  <div class="about-text" style="margin-top:52px">
+        <span class="section-label">Related Guides</span>
+        <h2 class="content-title">Plan Your Viewpoints Trek</h2>
+        <div class="title-divider"></div>
+        <p><a href="/multiple-viewpoints-trek">Multiple Viewpoints Trek: the full-length version</a><br>
+        <a href="/kokhe-danda-trek">Kokhe Danda Trek: 5-day homestay trek</a><br>
+        <a href="/kokhe-danda-trek-alternative-to-poon-hill">Why Kokhe Danda is a better alternative to Poon Hill</a><br>
+        <a href="/best-season-for-kokhe-danda-trek">Best time to trek: month by month</a><br>
+        <a href="/what-to-pack-for-khopra-ridge-trek">What to pack: layering and gear guide</a></p>
+      </div>
+
+</TrekLayout>

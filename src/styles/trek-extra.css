@@ -677,3 +677,82 @@ body { line-height: 1.7; }
   .booking-field textarea { padding: 10px 10px; }
   .booking-note { font-size: 0.74rem; }
 }
+
+/* ═══════════════════════════════════════════════════════
+   MERGED FROM THE OTHER TREK PAGES (Oct 2026)
+   Each old trek page carried its own copy of these styles with small
+   differences. These are the best versions, now shared by every trek.
+   ═══════════════════════════════════════════════════════ */
+
+/* numbers line up neatly in stats and price tables */
+.stats-bar { gap: 0; }
+.stat-value,
+.acc-day-badge,
+.pricing-table td,
+.pricing-table td:last-child { font-family: 'DM Sans', sans-serif; font-variant-numeric: tabular-nums; }
+
+/* price table never clips inside the narrow sidebar */
+.pricing-card { overflow: hidden; }
+.pricing-table { min-width: 0; }
+.pricing-table th:last-child { text-align: right; }
+.pricing-note { padding: 14px 18px 18px; font-size: 0.8rem; color: var(--text-mid); line-height: 1.6; border-top: 1px solid rgba(0,0,0,0.05); }
+
+/* long FAQ answers are never cut off */
+.faq-item.open .faq-answer { max-height: 1200px; }
+
+/* links in the text: green and bold, underline on hover */
+.about-text a, .rfy-item p a { color: var(--green-mid); font-weight: 600; text-decoration: none; }
+.about-text a:hover, .rfy-item p a:hover { text-decoration: underline; }
+
+/* a single review fills the full width */
+.kd-reviews-grid.single { grid-template-columns: 1fr; }
+
+/* photo with caption inside the text (e.g. Api Himal) */
+.trek-photo { margin: 32px 0 0; }
+.trek-photo img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); display: block; }
+.trek-photo figcaption { font-size: 14px; color: #1a3d2b; margin-top: 10px; text-align: center; }
+
+/* ─── VIDEO (YouTube loads only when play is clicked) ─── */
+.trek-video { margin-top: 40px; }
+.trek-video h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+}
+.video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #0f2535;
+  box-shadow: var(--shadow-md);
+}
+.video-frame iframe,
+.video-frame .video-poster { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-poster { padding: 0; cursor: pointer; background: none; }
+.video-poster img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); }
+.video-poster:hover img { transform: scale(1.04); }
+.video-poster::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,30,20,0.55), rgba(10,30,20,0.1)); }
+.video-play {
+  position: absolute; z-index: 2;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 76px; height: 76px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--green-light), var(--blue-mid));
+  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform var(--transition);
+}
+.video-poster:hover .video-play { transform: translate(-50%, -50%) scale(1.08); }
+.video-play svg { width: 28px; height: 28px; fill: #fff; margin-left: 4px; }
+.video-caption { margin-top: 12px; font-size: 0.85rem; color: #777; line-height: 1.6; }
+
+@media (max-width: 640px) {
+  .highlights-box, .right-for-you { padding: 26px 22px; }
+  .video-play { width: 60px; height: 60px; }
+  .video-play svg { width: 22px; height: 22px; }
+}

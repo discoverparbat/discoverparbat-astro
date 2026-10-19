@@ -1,0 +1,390 @@
+---
+// ─── MARDI HIMAL TREK ──────────────────────────────────
+// URL: https://discoverparbat.com/mardi-himal-trek
+// The layout builds the hero, stats, gallery, sidebar and schema from the
+// settings on <TrekLayout>. Everything inside it is the left column.
+import TrekLayout from '../layouts/TrekLayout.astro';
+import HighlightsBox from '../components/trek/HighlightsBox.astro';
+import RightForYou from '../components/trek/RightForYou.astro';
+import Itinerary from '../components/trek/Itinerary.astro';
+import FaqList from '../components/trek/FaqList.astro';
+import Reviews from '../components/trek/Reviews.astro';
+import { REVIEWS } from '../data/reviews.js';
+
+// ── Day-by-day itinerary (also used in the schema) ──
+const itinerary = [
+  {
+    "title": "Drive Pokhara → Kande → Trek to Suire Danda",
+    "text": [
+      "Morning drive from Pokhara to Kande, about an hour. We start hiking from Kande to Australian Camp and then to Pothana, where we stop for lunch. The first hour is a bit steep uphill and then mostly flat or gradual. After lunch, we cross Pitam Deurali, from where it's another half an hour of steep uphill to reach Suire Danda."
+    ],
+    "altitude": "2,438m",
+    "distance": "7.3 KM",
+    "time": "4 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Suire Danda → Forest Camp → Low Camp",
+    "text": [
+      "We wake up to a beautiful view of Dhaulagiri and Annapurna South. After breakfast, we start hiking through the forest ridge, a mix of flat and gradual uphill until Forest Camp, where we stop for a tea break. From there we gain more elevation and reach Rest Camp at 2,600m for lunch. After lunch, we gain another 400m in elevation to reach Low Camp. We can see beautiful sunset colors on Fishtail from here."
+    ],
+    "altitude": "3,004m",
+    "distance": "9.6 KM",
+    "time": "6 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Low Camp → Badal Danda → High Camp",
+    "text": [
+      "We start our day with an amazing view of golden Fishtail Mountain. We hike to Badal Danda, from where we begin seeing Annapurna South and Hiunchuli. From there we hike along the open, exposed ridge with no trees until we reach High Camp. After lunch we go for an acclimatization hike, gaining around 200m towards the Lower Viewpoint."
+    ],
+    "altitude": "3,550m",
+    "distance": "5 KM",
+    "time": "3 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "High Camp → Viewpoint → Low Camp",
+    "text": [
+      "We wake up at around 4:30 AM and start our hike to the Lower Viewpoint, about 1.5 to 2 hours of uphill, reaching 4,000m. Optionally, you can continue to the Upper Viewpoint or Mardi Himal Base Camp. At the Lower Viewpoint there are tea shops for hot drinks. We enjoy stunning close views of Annapurna South and Fishtail before retracing back to High Camp.",
+      "After a late breakfast at High Camp, we descend to Low Camp via Badal Danda along the ridgeline trail. We have lunch at Low Camp and take some rest."
+    ],
+    "altitude": "3,004m",
+    "distance": "12.5 KM",
+    "time": "7 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Low Camp → Siding → Pokhara",
+    "text": [
+      "On the last day, we hike from Low Camp down to Siding village, following stone steps all the way down through the forest. It takes around 2–3 hours. From Siding, we take a jeep back to Pokhara, a couple of hours' drive."
+    ],
+    "distance": "5 KM",
+    "time": "3 Hrs"
+  }
+];
+
+// ── FAQ (also used in the FAQPage schema) ──
+const faqs = [
+  {
+    "q": "Is Mardi Himal Trek suitable for beginners?",
+    "a": "Mardi Himal is rated Moderate. It's achievable for first-timers with a reasonable level of fitness, but it's a step up from an easy trek. Day 4 starts at 4:30 AM and involves reaching 4,000m, which requires acclimatisation and stamina. If you can handle 5–7 hours of walking on consecutive days, including some steep sections, you'll be fine. We include an acclimatisation hike on Day 3 to help your body adjust."
+  },
+  {
+    "q": "How much does the Mardi Himal Trek cost?",
+    "a": "The price is $360 to $410 per person depending on group size: $410 for one person, $399 for two, $380 for three to four and $360 for five or more. It includes private transport, meals, accommodation, guide and porter, and the TIMS and ACAP permits."
+  },
+  {
+    "q": "How high does the Mardi Himal Trek go?",
+    "a": "The standard plan reaches the Lower Viewpoint at about 4,000m on Day 4. The highest overnight stop is High Camp at 3,550m. If you are strong and well acclimatised, your guide can take you higher to the Upper Viewpoint or towards Mardi Himal Base Camp."
+  },
+  {
+    "q": "How do we get from Pokhara to the trek start?",
+    "a": "We arrange private transport from Pokhara to Kande, which takes around an hour. On the final day, we return from Siding village by jeep, again arranged by us. Both transfers are included in the trek cost, so there's nothing to organise on your end."
+  },
+  {
+    "q": "What are the teahouses like on this trek?",
+    "a": "Teahouses on the Mardi Himal route are simple and functional: basic private rooms, shared bathrooms, and communal dining areas. Higher up (High Camp), facilities are more basic as you'd expect at altitude. Hot showers may be available at lower camps for a small fee. Bring a sleeping bag liner for extra warmth at the higher stops, especially High Camp at 3,550m."
+  },
+  {
+    "q": "What are the altitude risks and how do you manage them?",
+    "a": "The Lower Viewpoint at about 4,000m is high enough to feel the effects of altitude, and headaches, fatigue and shortness of breath are common. We build in an acclimatisation hike on Day 3 before the viewpoint climb on Day 4 to help your body adjust. Our guides are trained to monitor for altitude sickness. If you feel unwell, descending is always the safest option and we'll support that decision fully. Staying hydrated and not rushing the ascent are the most important factors."
+  },
+  {
+    "q": "What is the food like on the trek?",
+    "a": "Teahouse menus on this route are solid: dal bhat, noodles, pasta, eggs, soups, porridge, and seasonal vegetables. Higher up the menu simplifies, but there's always enough to fuel you for the day. Three meals per day are included in your cost. If you have dietary restrictions, let us know in advance and we'll flag it with the teahouses along the route."
+  },
+  {
+    "q": "What is the best time of year for Mardi Himal Trek?",
+    "a": "October and November are the most popular months: post-monsoon air gives the clearest mountain views and the trails are dry and firm. March to May is also excellent, with rhododendrons in bloom through the forest sections. December is surprisingly good with far fewer trekkers and crisp visibility, though nights at High Camp will be cold. June to September brings monsoon rain which makes the high ridges slippery and views less predictable."
+  },
+  {
+    "q": "Do I need a permit for Mardi Himal Trek?",
+    "a": "Yes. An Annapurna Conservation Area Permit (ACAP) and a TIMS card are both required. These are included in your trek cost and arranged by us in Pokhara before departure. You don't need to visit any permit offices yourself."
+  },
+  {
+    "q": "Can I visit the Upper Viewpoint or Mardi Himal Base Camp?",
+    "a": "Yes, this is optional on Day 4. The standard plan reaches the Lower Viewpoint at around 4,000m, which already gives extraordinary views of Fishtail and Annapurna South. If you're feeling strong and acclimatised, your guide can take you higher to the Upper Viewpoint or towards Mardi Himal Base Camp. This adds time and effort, so we assess it on the day based on conditions and how everyone is feeling."
+  },
+  {
+    "q": "What should I pack for this trek?",
+    "a": "Key items: sturdy trekking boots with ankle support, warm layers including a down jacket (High Camp nights are cold), waterproof outer shell, trekking poles (very helpful on the descent), a headlamp for the 4:30 AM viewpoint start, sunscreen, sunglasses, a reusable water bottle, and a daypack. A sleeping bag rated to at least -5°C is recommended for High Camp. We'll send a full packing list after booking."
+  },
+  {
+    "q": "What happens if I need to leave the trek early?",
+    "a": "If you need to descend early for any reason, whether that's altitude sickness, injury, or personal circumstances, there is no refund on the remaining trek cost. However, we will arrange comfortable accommodation for you in Pokhara for the number of nights that remain on your itinerary at no extra charge. Please see our full <a href=\"/cancellation\">Cancellation Policy</a> for details."
+  },
+  {
+    "q": "Mardi Himal or Kokhe Danda: which is better?",
+    "a": "Choose Mardi Himal for close, high-altitude views of Fishtail and Annapurna South on a moderate trek. Choose Kokhe Danda for an easier trek with family-run homestays, village culture and wide Dhaulagiri and Annapurna views. See the <a href=\"/kokhe-danda-trek\">Kokhe Danda Trek</a>."
+  }
+];
+
+// ── Photo gallery ──
+const gallery = [
+  {
+    "src": "/mardi.jpg",
+    "alt": "Machhapuchhre (Fishtail) from the Mardi Himal Trek"
+  },
+  {
+    "src": "/mardi1.jpg",
+    "alt": "Trail through rhododendron and oak forest on the Mardi Himal Trek"
+  },
+  {
+    "src": "/mardi2.jpg",
+    "alt": "Open ridgeline above the tree line on the Mardi Himal Trek"
+  },
+  {
+    "src": "/mardi3.jpg",
+    "alt": "Annapurna South and Hiunchuli seen from the Mardi Himal ridge"
+  },
+  {
+    "src": "/mardi4.jpg",
+    "alt": "Tea house at a camp on the Mardi Himal Trek"
+  },
+  {
+    "src": "/mardi5.jpg",
+    "alt": "Sunrise light on Fishtail Mountain during the Mardi Himal Trek"
+  },
+  {
+    "src": "/mardi6.jpg",
+    "alt": "Trekkers walking the Mardi Himal ridge towards High Camp"
+  },
+  {
+    "src": "/mardi7.jpg",
+    "alt": "View from the Mardi Himal Lower Viewpoint at about 4,000 m"
+  },
+  {
+    "src": "/mardi8.jpg",
+    "alt": "Sunset colours over the Annapurna range from the Mardi Himal Trek"
+  },
+  {
+    "src": "/mardi9.jpg",
+    "alt": "Clouds filling the valleys below the Mardi Himal ridge"
+  },
+  {
+    "src": "/mardi10.jpg",
+    "alt": "Himalayan panorama on the Mardi Himal Trek near Pokhara"
+  }
+];
+
+// ── Extra schema kept from the old page ──
+const extraSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "Mardi Himal Trek with Discover Parbat",
+    "description": "A one-minute look at the Mardi Himal Trek in Nepal's Annapurna region: rhododendron forests, cloud seas and sunrise views of Machhapuchhre, Annapurna South and Hiunchuli, with local guides from Discover Parbat.",
+    "thumbnailUrl": "https://i.ytimg.com/vi/iPD0d3ABM64/maxresdefault.jpg",
+    "uploadDate": "2026-10-09",
+    "duration": "PT1M",
+    "contentUrl": "https://www.youtube.com/watch?v=iPD0d3ABM64",
+    "embedUrl": "https://www.youtube.com/embed/iPD0d3ABM64",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Discover Parbat",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://discoverparbat.com/logo.png"
+      }
+    }
+  }
+];
+---
+<TrekLayout
+  title="Mardi Himal Trek 2026: 5-Day Itinerary, Cost & Guide | Discover Parbat"
+  description="Mardi Himal Trek 2026: a 5-day moderate trek from Pokhara to the 4,000 m viewpoint, with close Fishtail and Annapurna South views. From $360 per person."
+  path="/mardi-himal-trek"
+  keywords="Mardi Himal Trek, Mardi Himal Trek 2026, Mardi Himal Trek Nepal, Mardi Himal Trek cost, Mardi Himal Trek itinerary, Mardi Himal 5 days, Mardi Himal Trek from Pokhara, short trek from Pokhara, best short trek in Nepal, 5 day trek Nepal, Fishtail trek Nepal, Machhapuchhre trek, Mardi Himal viewpoint, Mardi Himal High Camp, Annapurna short trek, Mardi Himal local guide, Discover Parbat Mardi Himal, Best Company for Mardi Himal Trek"
+  image="/mardi.jpg"
+  name="Mardi Himal Trek"
+  tripName="Mardi Himal Trek – 5 Days"
+  tripDescription="5-day moderate tea house trek from Pokhara along the Mardi Himal ridge to the Lower Viewpoint at about 4,000 m, with close views of Machhapuchhre (Fishtail), Annapurna South and Hiunchuli."
+  hero={{
+    "alt": "Machhapuchhre (Fishtail) seen from the Mardi Himal ridge in the Annapurna region, Nepal",
+    "eyebrow": "Annapurna Region · 5 Days",
+    "title": "Mardi Himal<br>Trek",
+    "subtitle": "5-day ridge trek from Pokhara to the 4,000 m viewpoint, face to face with Fishtail and Annapurna South"
+  }}
+  stats={[
+    {
+      "value": "5 Days",
+      "label": "Duration"
+    },
+    {
+      "value": "Moderate",
+      "label": "Difficulty"
+    },
+    {
+      "value": "4,000m",
+      "label": "Max Altitude"
+    },
+    {
+      "value": "Tea House",
+      "label": "Accommodation"
+    }
+  ]}
+  gallery={gallery}
+  pricing={[
+    {
+      "group": "1 Person",
+      "price": "$410"
+    },
+    {
+      "group": "2 People",
+      "price": "$399"
+    },
+    {
+      "group": "3–4 People",
+      "price": "$380"
+    },
+    {
+      "group": "5+ People",
+      "price": "$360"
+    }
+  ]}
+  included={[
+    "Two-way private transport",
+    "3 meals and drinks during trek",
+    "Accommodation during trek",
+    "Guide and Porter salary",
+    "Meals and accommodation of Guide and Porter",
+    "TIMS card and ACAP permit"
+  ]}
+  notIncluded={[
+    "International flights and Nepal visa",
+    "Travel insurance (strongly recommended)",
+    "Personal trekking gear and equipment",
+    "Tips for guide and porter",
+    "Any costs due to early return or emergency evacuation"
+  ]}
+  itinerary={itinerary}
+  faqs={faqs}
+  extraSchema={extraSchema}
+>
+
+      <!-- Overview -->
+
+      <span class="section-label">Overview</span>
+      <h2 class="content-title">About Mardi Himal Trek</h2>
+
+
+  <div class="title-divider"></div>
+
+  <div class="about-text">
+        <p><strong>The Mardi Himal Trek is a 5-day, moderate tea house trek from Pokhara</strong> that follows a forested ridge up to the Lower Viewpoint at about 4,000 m, right beneath Machhapuchhre (Fishtail). It is one of the best short treks in the Annapurna region for close-up Himalayan views, with Annapurna South and Hiunchuli rising directly ahead of the trail.</p>
+        <p>Starting from the hills above Pokhara, the trail gradually ascends through dense rhododendron and oak forests, creating a peaceful and immersive natural experience. As you move higher, the forest begins to thin out, revealing stunning views of Machhapuchhre, Annapurna South, and Hiunchuli. The transition from lush greenery to open ridgelines is one of the defining features of this trek.</p>
+        <p>As the trail continues along the Mardi Himal ridge, trekkers are rewarded with panoramic Himalayan vistas that feel incredibly close and expansive. Walking along these ridges offers a unique perspective, with deep valleys below and towering snow-capped peaks rising directly ahead. The proximity to Machhapuchhre is particularly striking, making this trek one of the best viewpoints for experiencing its iconic beauty.</p>
+        <p>The upper viewpoints of the trek provide unforgettable sunrise experiences, where the first light of the day illuminates the Annapurna range in golden hues. The peaceful atmosphere, combined with uninterrupted mountain views, creates a truly memorable Himalayan moment.</p>
+        <p>Beyond the landscapes, the trek also offers a glimpse into rural life in the Annapurna region, as the trail eventually descends towards traditional villages such as Siding. This adds a cultural dimension to the journey, blending natural beauty with authentic local experiences.</p>
+        <p>The Mardi Himal Trek is rated moderate and suits both first-time trekkers with reasonable fitness and experienced hikers. Its short duration, rich variety of scenery and close-up mountain views make it one of the best options for experiencing the Himalayas within a limited timeframe.</p>
+      </div>
+
+      <!-- ─── MARDI HIMAL VIDEO ─────────────────────────── -->
+
+  <section style="padding:56px 7%;background:#f5f8f6;">
+    <div style="max-width:960px;margin:0 auto;">
+      <span style="display:inline-block;font-size:0.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#2d6a4f;margin-bottom:12px;">Watch the Trek</span>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.4vw,2.6rem);font-weight:700;color:#14231b;line-height:1.15;margin:0;">Mardi Himal in One Minute</h2>
+      <div style="width:48px;height:3px;margin:16px 0 26px;border-radius:3px;background:linear-gradient(90deg,#52b788,#4aa3d8);"></div>
+
+      <div style="position:relative;width:100%;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#1a3d2b;box-shadow:0 16px 40px rgba(10,30,20,0.18);">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/iPD0d3ABM64?rel=0&modestbranding=1"
+          title="Mardi Himal Trek with Discover Parbat"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;">
+        </iframe>
+      </div>
+
+      <p style="margin:16px 0 0;font-size:0.95rem;line-height:1.7;color:#5c6b62;">Forests, cloud seas and sunrise on Machhapuchhre: five days on the Mardi Himal ridge with local guides from Parbat.</p>
+    </div>
+  </section>
+
+      <!-- At a glance -->
+
+  <HighlightsBox title="Mardi Himal Trek at a Glance" items={[
+    "5 days from Pokhara to Pokhara",
+    "Moderate grade, highest point about 4,000 m",
+    "$360 to $410 per person, by group size",
+    "Best months: October to November, March to May",
+    "Tea houses every night",
+    "ACAP Permit included"
+  ]} />
+
+      <!-- Highlights -->
+
+  <HighlightsBox title="Trek Highlights" items={[
+    "Stunning close view of Mount Fishtail",
+    "Trek through the ridge of Mardi Himal",
+    "Close view of Annapurna South and Hiunchuli",
+    "Diverse landscapes",
+    "Short but rewarding trek",
+    "Rhododendron forests"
+  ]} />
+
+      <!-- Right for you -->
+
+  <RightForYou
+    title="This Trek Is Right for You If…"
+    yes={[
+    "You want dramatic, up-close views of Fishtail and the Annapurna range",
+    "You have 5 days and want a complete Himalayan experience with diverse terrain",
+    "You enjoy ridgeline walking with open panoramic views and big sky moments",
+    "You're comfortable with a moderate challenge, including some steep sections and a 4,000m viewpoint"
+  ]}
+    no={[
+    "You're looking for deep cultural immersion and village homestay experiences",
+    "You prefer flat or easy trails with minimal altitude gain each day"
+  ]}
+  />
+
+      <!-- Plan your trek -->
+
+  <div class="about-text plan-section">
+        <span class="section-label">Plan Your Trek</span>
+        <h2 class="content-title">Best Time, Cost and Getting There</h2>
+        <div class="title-divider"></div>
+        <p><strong>Best time:</strong> October and November give the clearest views and dry trails, and March to May brings rhododendron blooms through the forest. December is quiet and clear but cold at High Camp. June to September is monsoon, when the high ridge gets slippery and views are unpredictable.</p>
+        <p><strong>Cost:</strong> the trek costs $360 to $410 per person depending on group size. It includes private transport, meals, tea house accommodation, guide and porter, and the TIMS and ACAP permits. See the cost table.</p>
+        <p><strong>Getting there:</strong> we drive from Pokhara to Kande in about an hour and start walking from there. The trek ends at Siding village, with a jeep back to Pokhara in a couple of hours.</p>
+        <p><strong>Mardi Himal or Kokhe Danda?</strong> If you want an easier trek with family-run homestays and village life instead of high camps, try the <a href="/kokhe-danda-trek">Kokhe Danda Trek</a>, the highest point of Parbat district. Want more viewpoints in one trip? See the <a href="/multiple-viewpoints-trek">Multiple Viewpoints Trek</a>.</p>
+      </div>
+
+      <!-- Itinerary -->
+
+  <Itinerary days={itinerary} />
+
+  <!-- /itinerary -->
+
+      <!-- FAQ -->
+
+  <FaqList faqs={faqs} />
+
+  <!-- /faq -->
+
+       <!-- ═══ MARDI HIMAL REVIEWS ═══════════════════════════════════════════
+       Paste this inside the left column, replacing the old
+       <div class="reviews-cta"> ... </div> block.
+       To add more reviews later, copy one <article class="kd-review-card">
+       block and change the text, initial, name, country and trek tag.
+  ═══════════════════════════════════════════════════════════════════════ -->
+
+  <Reviews place="Mardi Himal Trek" reviews={REVIEWS["mardi-himal-trek"]} />
+
+      <!-- Related guides -->
+
+  <div class="about-text" style="margin-top:52px">
+        <span class="section-label">Related Guides</span>
+        <h2 class="content-title">Plan Your Mardi Himal Trek</h2>
+        <div class="title-divider"></div>
+        <p><a href="/kokhe-danda-trek">Kokhe Danda Trek: an easier 5-day homestay alternative</a><br>
+        <a href="/multiple-viewpoints-trek">Multiple Viewpoints Trek</a><br>
+        <a href="/what-to-pack-for-khopra-ridge-trek">What to pack: layering and gear guide</a><br>
+        <a href="/cancellation">Cancellation policy</a></p>
+      </div>
+
+</TrekLayout>

@@ -1,8 +1,8 @@
 ---
-// "Cost Details" table in the sidebar. rows: { group: "1 Person", price: 410 }
-export interface PriceRow { group: string; price: number }
-interface Props { rows: PriceRow[]; title?: string; note?: string; currency?: string }
-const { rows, title = 'Cost Details', note = 'Per person · All inclusive', currency = '$' } = Astro.props;
+// "Cost Details" table in the sidebar. rows: { group: "1 Person", price: "$410" }
+export interface PriceRow { group: string; price: string }
+interface Props { rows: PriceRow[]; title?: string; note?: string; footnote?: string }
+const { rows, title = 'Cost Details', note = 'Per person · All inclusive', footnote } = Astro.props;
 ---
 <div class="pricing-card">
   <div class="pricing-card-header">
@@ -14,7 +14,8 @@ const { rows, title = 'Cost Details', note = 'Per person · All inclusive', curr
       <tr><th>Group Size</th><th>Per Person</th></tr>
     </thead>
     <tbody>
-      {rows.map((r) => <tr><td>{r.group}</td><td>{currency}{r.price}</td></tr>)}
+      {rows.map((r) => <tr><td>{r.group}</td><td>{r.price}</td></tr>)}
     </tbody>
   </table>
+  {footnote && <p class="pricing-note" set:html={footnote} />}
 </div>

@@ -1,0 +1,340 @@
+---
+// ─── PIKEY PEAK TREK ───────────────────────────────────
+// URL: https://discoverparbat.com/pikey-peak-trek
+// The layout builds the hero, stats, gallery, sidebar and schema from the
+// settings on <TrekLayout>. Everything inside it is the left column.
+import TrekLayout from '../layouts/TrekLayout.astro';
+import HighlightsBox from '../components/trek/HighlightsBox.astro';
+import RightForYou from '../components/trek/RightForYou.astro';
+import Itinerary from '../components/trek/Itinerary.astro';
+import FaqList from '../components/trek/FaqList.astro';
+import Reviews from '../components/trek/Reviews.astro';
+import { REVIEWS } from '../data/reviews.js';
+
+// ── Day-by-day itinerary (also used in the schema) ──
+const itinerary = [
+  {
+    "title": "Drive Kathmandu → Dhap",
+    "text": [
+      "We leave Kathmandu early in the morning for the long drive east to Dhap, around 235 km.The road is mostly paved, except for a section by the side of Roshi Khola. The road winds through terraced hills, river valleys and small bazaar towns, with tea and lunch stops along the way. It is a full day on the road, taking around 10 hours, and we arrive at our teahouse in Dhap in the evening, ready for the trek to begin."
+    ],
+    "distance": "235 KM",
+    "time": "10 Hrs drive",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Dhap → Jhapre",
+    "text": [
+      "From Dhap itself, we can see Mount Everest and Lhotse during clear weather. Our walking begins today. After breakfast, we set off from Dhap on a trail that climbs through forest and open hillsides, passing small farming settlements along the way. The walk today will mostly be on a road, however with very few or no vehicles at all. We stop for lunch on the trail and continue at an easy pace to Jhapre, where we spend the night in a local teahouse."
+    ],
+    "distance": "11 KM",
+    "time": "5 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Jhapre → Boudha → Pikey Base Camp",
+    "text": [
+      "With the clear weather, we can wake up with the views of Everest, Lhotse and Makalu mountain peaks. <br>This is the longest walking day of the trek. From Jhapre, we follow the trail via Boudha, climbing steadily through rhododendron and pine forest. As we gain height, the forest opens up and the first views of the high Himalaya begin to appear. The first half of the hike today, is also mostly on road but from our lunch point at Baudha, we leave the road and get on the trekking trail. We reach Pikey Base Camp in the afternoon and rest for the early start tomorrow."
+    ],
+    "altitude": "3,640m",
+    "distance": "14 KM",
+    "time": "7 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Pikey Base Camp → Pikey Peak → Junbesi",
+    "text": [
+      "We wake before dawn and climb to the summit of Pikey Peak, at 4,065 m, the high point of the trek. On a clear morning, the first light spreads across a long chain of peaks, with Everest, Makalu and Kanchenjunga, Annapurna and Langtang among them. We take our time at the top, surrounded by prayer flags, before returning to base camp for breakfast.",
+      "We then begin the long descent to Junbesi, a beautiful Sherpa village set in a wide, green valley.Initially, we go a bit steep downhill to Mane Bhanjyang, where we stop for lunch. Then we gain a bit of elevation for half an hour before starting the descend again to Junbesi. The last couple of hours would be on the road again. The trail drops through forest and past chortens and mani walls before we reach the village and our teahouse for the next two nights."
+    ],
+    "altitude": "4,065m",
+    "distance": "13 KM",
+    "time": "7 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Day Hike: Junbesi → Thupten Chholing Monastery → Junbesi",
+    "text": [
+      "Today is a gentler day. After breakfast, we walk from Junbesi to Thupten Chholing, a large Tibetan Buddhist monastery that is home to a community of monks and nuns. We spend time exploring the monastery grounds and, where possible, observe the daily rhythm of monastic life before walking back to Junbesi for a relaxed afternoon in the village."
+    ],
+    "distance": "8 KM (round trip)",
+    "time": "4 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Junbesi → Salleri",
+    "text": [
+      "We leave Junbesi after breakfast and walk down towards Salleri, the headquarters of Solukhumbu district. The trail passes through villages and farmland, gradually trading the quiet of the mountains for the bustle of a small hill town. We celebrate the end of the walking part of the trek with our team in Salleri."
+    ],
+    "altitude": "2,390m",
+    "distance": "12 KM",
+    "time": "4 Hrs",
+    "stay": "Tea House"
+  },
+  {
+    "title": "Drive Salleri → Kathmandu",
+    "text": [
+      "On the final day, we set off early for the long drive back to Kathmandu, around 265 km. The road takes around 12 hours with breaks for tea and lunch, and we arrive in Kathmandu in the evening, where the trek ends."
+    ],
+    "distance": "265 KM",
+    "time": "12 Hrs drive"
+  }
+];
+
+// ── FAQ (also used in the FAQPage schema) ──
+const faqs = [
+  {
+    "q": "Do I need prior trekking experience for the Pikey Peak Trek?",
+    "a": "No technical experience is needed, but the trek is rated Moderate. The longest walking day (Day 3) takes around 7 hours, and the summit morning on Day 4 starts before dawn at over 4,000 m. If you can walk comfortably for 5 to 7 hours on consecutive days, you will manage this trek well."
+  },
+  {
+    "q": "Can you really see Everest from Pikey Peak?",
+    "a": "Yes. On a clear morning, the view from the summit of Pikey Peak takes in Everest along with Makalu, Kanchenjunga and many other peaks of eastern Nepal. Visibility is best in autumn and spring, and early morning is almost always clearer than the afternoon, which is why we climb for sunrise."
+  },
+  {
+    "q": "What about altitude sickness?",
+    "a": "The highest point is 4,065 m at the summit, and you sleep at around 3,640 m at Pikey Base Camp. Some trekkers feel mild symptoms such as headache or tiredness at this height. The itinerary gains height gradually, and your guide is trained to watch for signs of altitude sickness. Drink plenty of water, walk at a steady pace and tell your guide if you feel unwell. If symptoms worsen, descending is always the right decision."
+  },
+  {
+    "q": "How long are the drives to and from the trek?",
+    "a": "The drives are long. Day 1 from Kathmandu to Dhap is around 235 km and takes about 10 hours, and Day 7 from Salleri back to Kathmandu is around 265 km and takes about 12 hours. Both journeys are in private transport with regular stops for tea and meals, and both are included in the trek cost."
+  },
+  {
+    "q": "What is Thupten Chholing Monastery?",
+    "a": "Thupten Chholing is a large Tibetan Buddhist monastery near Junbesi, home to a community of monks and nuns. We visit on a relaxed day hike on Day 5, giving you time to explore the monastery and experience the calm of the valley before returning to Junbesi."
+  },
+  {
+    "q": "What are the teahouses like?",
+    "a": "Teahouses on this route are simple and family-run, with basic private or twin rooms and shared bathrooms. Facilities at Pikey Base Camp are more basic than in the villages. Meals are taken in a shared dining room, often around a warm stove, which is one of the nicest parts of the evening."
+  },
+  {
+    "q": "What is the best time of year to do this trek?",
+    "a": "October and November give the clearest mountain views after the monsoon. March to May is also excellent, with rhododendrons in bloom through the forest sections. December and January are possible but cold at the summit and base camp. June to September is the monsoon season, when views are often hidden by cloud and the trails are wet."
+  },
+  {
+    "q": "Do I need a permit for the Pikey Peak Trek?",
+    "a": "No. The Pikey Peak Trek does not require any trekking permits, so there is no paperwork to arrange before you start."
+  },
+  {
+    "q": "How much does the Pikey Peak Trek cost?",
+    "a": "The price is $499 to $600 per person depending on group size: $600 for one person, $530 for two, $510 for three to four and $499 for five or more. It includes private transport, meals, accommodation, guide and porter."
+  },
+  {
+    "q": "Is there mobile network and Wi-Fi on the trail?",
+    "a": "Mobile signal is available in many villages along the route, though it can be patchy at higher points. Wi-Fi is not reliable in the teahouses. We recommend downloading offline maps and letting family know you may be out of contact for parts of the trek."
+  },
+  {
+    "q": "What should I pack for this trek?",
+    "a": "Essentials include sturdy trekking boots, warm layers including a down jacket for the summit morning, a waterproof jacket, a warm hat and gloves, a headlamp for the pre-dawn climb, sunscreen, sunglasses, a reusable water bottle and a daypack. A warm sleeping bag is useful for the night at Pikey Base Camp. We will send you a full packing list after booking."
+  },
+  {
+    "q": "What happens if I need to leave the trek early?",
+    "a": "If you need to return early for any reason, there is no refund on the remaining trek cost. However, we will arrange comfortable accommodation for you for the number of nights that remain on your itinerary, at no extra charge. Please also see our full <a href=\"/cancellation\">Cancellation Policy</a> for details."
+  }
+];
+
+// ── Photo gallery ──
+const gallery = [
+  {
+    "src": "/pikey.jpg",
+    "alt": "Sunrise view from the summit of Pikey Peak in Solukhumbu, Nepal"
+  },
+  {
+    "src": "/pikey1.jpg",
+    "alt": "Prayer flags on Pikey Peak with the Himalaya behind"
+  },
+  {
+    "src": "/pikey2.jpg",
+    "alt": "Everest and neighbouring peaks seen from Pikey Peak"
+  },
+  {
+    "src": "/pikey3.jpg",
+    "alt": "Trail through rhododendron forest on the Pikey Peak Trek"
+  },
+  {
+    "src": "/pikey4.jpg",
+    "alt": "Teahouse at Pikey Base Camp"
+  },
+  {
+    "src": "/pikey5.jpg",
+    "alt": "Junbesi village in the Solukhumbu valley"
+  },
+  {
+    "src": "/pikey6.jpg",
+    "alt": "Thupten Chholing Monastery near Junbesi"
+  },
+  {
+    "src": "/pikey7.jpg",
+    "alt": "Mani wall and chorten along the Pikey Peak trail"
+  },
+  {
+    "src": "/pikey8.jpg",
+    "alt": "Sherpa village life on the Pikey Peak Trek"
+  },
+  {
+    "src": "/pikey9.jpg",
+    "alt": "Trekkers walking towards Pikey Peak"
+  },
+  {
+    "src": "/pikey10.jpg",
+    "alt": "Mountain panorama on the Pikey Peak Trek"
+  }
+];
+---
+<TrekLayout
+  title="Pikey Peak Trek 7 Days: Itinerary, Cost & Guide | Discover Parbat"
+  description="Pikey Peak Trek: a 7-day trek to a 4,065 m viewpoint over Everest, Makalu and Kanchenjunga, through Sherpa villages and Junbesi. From $499 per person."
+  path="/pikey-peak-trek"
+  keywords="Pikey Peak Trek, Pikey Peak Trek Nepal, Pikey Peak trek itinerary, Pikey Peak trek cost, Everest view trek, short Everest view trek, Pikey Peak sunrise, Junbesi trek, Thupten Chholing Monastery, Solukhumbu trek, offbeat trek Nepal, 7 day trek Nepal, Sherpa village trek, Discover Parbat Pikey Peak, local guide Nepal"
+  image="/pikey.jpg"
+  name="Pikey Peak Trek"
+  tripName="Pikey Peak Trek – 7 Days"
+  tripDescription="7-day moderate trek from Kathmandu to Pikey Peak (4,065 m) in Solukhumbu, with sunrise views of Everest, Makalu and Kanchenjunga, Sherpa villages, Junbesi and Thupten Chholing Monastery."
+  hero={{
+    "alt": "Sunrise over the Himalaya from Pikey Peak in Solukhumbu, Nepal",
+    "eyebrow": "Solukhumbu, Nepal · 7 Days",
+    "title": "Pikey Peak<br>Trek",
+    "subtitle": "7-day trek to a 4,065 m summit with sunrise views of Everest, through Sherpa villages and Buddhist monasteries"
+  }}
+  stats={[
+    {
+      "value": "7 Days",
+      "label": "Duration"
+    },
+    {
+      "value": "Moderate",
+      "label": "Difficulty"
+    },
+    {
+      "value": "4,065m",
+      "label": "Max Altitude"
+    },
+    {
+      "value": "Tea House",
+      "label": "Accommodation"
+    }
+  ]}
+  gallery={gallery}
+  pricing={[
+    {
+      "group": "1 Person",
+      "price": "$600"
+    },
+    {
+      "group": "2 People",
+      "price": "$530"
+    },
+    {
+      "group": "3–4 People",
+      "price": "$510"
+    },
+    {
+      "group": "5+ People",
+      "price": "$499"
+    }
+  ]}
+  included={[
+    "Two-way private transport",
+    "3 meals and drinks during trek",
+    "Accommodation during trek",
+    "Guide and Porter salary",
+    "Meals and accommodation of Guide and Porter"
+  ]}
+  notIncluded={[
+    "International flights and Nepal visa",
+    "Travel insurance (strongly recommended)",
+    "Personal trekking gear and equipment",
+    "Tips for guide and porter",
+    "Any costs due to early return or emergency evacuation"
+  ]}
+  itinerary={itinerary}
+  faqs={faqs}
+>
+
+      <!-- Overview -->
+
+      <span class="section-label">Overview</span>
+      <h2 class="content-title">About Pikey Peak Trek</h2>
+
+
+  <div class="title-divider"></div>
+
+  <div class="about-text">
+        <p><strong>Pikey Peak (4,065 m) is one of the finest viewpoints in the lower Solukhumbu</strong>, and the Pikey Peak Trek is a 7-day, moderate trek that reaches it through Sherpa villages, rhododendron forest and quiet teahouse settlements. From the summit at sunrise, the Himalaya stretches across the horizon, with Everest, Makalu and Kanchenjunga in view on clear mornings.</p>
+        <p>Most trekkers who want to see Everest head for the busy trails of the Khumbu. The Pikey Peak Trek takes a quieter line to the south. There are no flights to Lukla and no crowded lodges, just forest paths, stone-walled villages and a small number of fellow walkers. It suits travellers who want big mountain views without two weeks on the trail.</p>
+        <p>The cultural side of this trek is as strong as the views. The route passes through Sherpa settlements where prayer flags, mani walls and chortens line the trail, and where daily life still follows the rhythm of farming and the monastery calendar. Evenings in family-run teahouses give you time to sit by the stove, share a meal and hear about life in the hills.</p>
+        <p>After the summit, the trail drops to Junbesi, a peaceful Sherpa village in a wide valley. Here the itinerary slows down, with a full day to walk to Thupten Chholing, a large Tibetan Buddhist monastery that is home to a community of monks and nuns. It is a calm, unhurried day and one of the most memorable parts of the journey.</p>
+        <p>The trek ends with a walk down to Salleri, the headquarters of Solukhumbu district, and a long scenic drive back to the city. The two driving days are long, but they carry you deep into a part of Nepal that few visitors ever see, and the reward at the top of Pikey Peak makes every hour worthwhile.</p>
+      </div>
+
+      <!-- At a glance -->
+
+  <HighlightsBox title="Pikey Peak Trek at a Glance" items={[
+    "7 days from Kathmandu to Kathmandu",
+    "Moderate grade, highest point 4,065 m",
+    "Sunrise view of Everest from Pikey Peak",
+    "Best months: March to May, October to November",
+    "Teahouse accommodation throughout",
+    "$499 to $600 per person, by group size",
+    "No trekking permits needed"
+  ]} />
+
+      <!-- Highlights -->
+
+  <HighlightsBox title="Trek Highlights" items={[
+    "Sunrise over Everest, Makalu and Kanchenjunga from Pikey Peak",
+    "Quiet trails away from the busy Khumbu routes",
+    "Sherpa villages, mani walls and prayer flags",
+    "Day hike to Thupten Chholing Monastery",
+    "Two nights in peaceful Junbesi village",
+    "Rhododendron and pine forests"
+  ]} />
+
+      <!-- Right for you -->
+
+  <RightForYou
+    title="This Trek Is Right for You If…"
+    yes={[
+    "You want to see Everest without flying to Lukla or joining the crowded Khumbu trails",
+    "You have a week and want a complete trek with a summit sunrise at its high point",
+    "You are curious about Sherpa culture and Tibetan Buddhist monasteries",
+    "You are comfortable with long road journeys at the start and end of the trip"
+  ]}
+    no={[
+    "You want a short drive to the trailhead: both road days are long (10 to 12 hours)",
+    "You prefer well-equipped lodges with hot showers and Wi-Fi every night"
+  ]}
+  />
+
+      <!-- Plan your trek -->
+
+  <div class="about-text plan-section">
+        <span class="section-label">Plan Your Trek</span>
+        <h2 class="content-title">Best Time, Cost and Getting There</h2>
+        <div class="title-divider"></div>
+        <p><strong>Best time:</strong> October and November give the clearest views of Everest and the eastern Himalaya, and March to May brings rhododendron blooms to the forest trails.</p>
+        <p><strong>Cost:</strong> the price depends on group size and runs from $499 to $600 per person. It includes shared transport, meals, accommodation, guide and porter. No trekking permits are needed for this route. See the cost table.</p>
+        <p><strong>Getting there:</strong> we drive from Kathmandu to Dhap in about 10 hours to start the trek. The trek ends at Salleri, with a drive of about 12 hours back to Kathmandu.</p>
+        <p><strong>Looking for more?</strong> Explore our other <a href="/treks">treks in Nepal</a>, or <a href="/custom-trek">plan a custom trek</a> around your dates.</p>
+      </div>
+
+      <!-- Itinerary -->
+
+  <Itinerary days={itinerary} />
+
+  <!-- /itinerary -->
+
+      <!-- FAQ -->
+
+  <FaqList faqs={faqs} />
+
+  <!-- /faq -->
+
+      <!-- ═══ Pikey Peak TREK REVIEWS ═══════════════════════════════
+           To add more reviews, copy one <article class="kd-review-card"> block
+           and change the text, initial, name, country and trek tag.
+      ═══════════════════════════════════════════════════════════════════════ -->
+
+  <Reviews place="Pikey Peak Trek" reviews={REVIEWS["pikey-peak-trek"]} />
+
+</TrekLayout>
