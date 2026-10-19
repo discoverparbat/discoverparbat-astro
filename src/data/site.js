@@ -35,7 +35,7 @@ export const BOOKING_TREKS = [
   'Kokhe Danda Trek',
   'Short Kokhe Danda Trek',
   'Multiple Viewpoints Trek',
-  'Short Multiple Viewpoints Trek',
+  'Muldai Viewpoint Poon Hill Trek',
   'Mardi Himal Trek',
   'Mardi Himal and Poon Hill Trek',
   '4 Days Poon Hill Trek',
