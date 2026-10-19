@@ -45,6 +45,9 @@ RewriteRule ^article/kimrong-khola-bridge-swept-away-abc-trail-update/?$ https:/
 RewriteRule ^article/article-is-monsoon-really-a-bad-time-to-trek-in-nepal/?$ https://discoverparbat.com/article/nepal-monsoon-officially-exits-2026 [R=301,L,NC]
 RewriteRule ^article/article-best-season-to-trek-in-nepal/?$ https://discoverparbat.com/article/nepal-monsoon-officially-exits-2026 [R=301,L,NC]
 
+# ── Admin shortcut: /admin → the Pages CMS editor for this site (temporary redirect, not indexed)
+RewriteRule ^admin/?$ https://app.pagescms.org/discoverparbat/discoverparbat-astro/main [R=302,L,NC]
+
 # ── 4. Legacy mixed-case .html URLs → lowercase clean URLs ──
 RewriteRule ^Shop\.html$ https://discoverparbat.com/shop [R=301,L,NC]
 RewriteRule ^Kokhe-Danda-Trek\.html$ https://discoverparbat.com/kokhe-danda-trek [R=301,L,NC]
