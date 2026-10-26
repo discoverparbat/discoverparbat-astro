@@ -1,0 +1,67 @@
+# Copies new article photos from the current site's repo
+# (Aseemsubedi/discover-parbat, folder article/) into public/article/ here.
+#
+# - Runs every hour, and can be run by hand: Actions → Sync article photos → Run workflow.
+# - Only ADDS photos that are missing here. It never overwrites or deletes anything,
+#   so photos you replace or edit in this repo are safe.
+# - If it added photos, it starts the "Build deploy branch" and "Preview" workflows,
+#   so the photos go live (commits made by Actions don't start them on their own).
+name: Sync article photos
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: sync-photos
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch the article/ folder from the current site
+        run: |
+          git clone -q --depth 1 --filter=blob:none --sparse \
+            https://github.com/Aseemsubedi/discover-parbat.git "$RUNNER_TEMP/old"
+          git -C "$RUNNER_TEMP/old" sparse-checkout set article
+
+      - name: Copy photos that are missing here
+        id: copy
+        run: |
+          mkdir -p public/article
+          added=0
+          shopt -s nullglob nocaseglob
+          for f in "$RUNNER_TEMP"/old/article/*.{jpg,jpeg,png,webp,gif,avif,svg}; do
+            name="$(basename "$f")"
+            if [ ! -e "public/article/$name" ]; then
+              cp "$f" "public/article/$name"
+              echo "Added $name"
+              added=$((added+1))
+            fi
+          done
+          echo "added=$added" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push
+        if: steps.copy.outputs.added != '0'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add public/article
+          git commit -q -m "Sync ${{ steps.copy.outputs.added }} article photo(s) from discover-parbat"
+          git push
+
+      - name: Rebuild the live site and preview
+        if: steps.copy.outputs.added != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run deploy-branch.yml --ref main
+          gh workflow run preview.yml --ref main
