@@ -11,6 +11,7 @@ export const SITE = {
   defaultImage: '/kokhe.jpg',
   facebook: 'https://www.facebook.com/discoverparbat',
   google: 'https://maps.app.goo.gl/wJ8wzmghg8FJQt8T8',
+  tripadvisor: 'https://www.tripadvisor.com/Attraction_Review-g293891-d27141838-Reviews-Discover_Parbat-Pokhara_Gandaki_Zone_Western_Region.html',
 };
 
 // Main menu (header, mobile menu and footer "Explore" column)
