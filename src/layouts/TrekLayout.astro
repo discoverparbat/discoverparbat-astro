@@ -33,6 +33,7 @@ interface Props {
   name: string;              // e.g. "Kokhe Danda Trek" (booking form + breadcrumb)
   tripName?: string;         // schema TouristTrip name, e.g. "Kokhe Danda Trek – 5 Days"
   tripDescription?: string;  // schema TouristTrip description
+  updated?: string;          // YYYY-MM-DD: shown under the hero title and as dateModified
   hero: { image?: string; alt: string; eyebrow: string; title: string; subtitle: string }; // hero.image defaults to image
   stats: { value: string; label: string }[];
   gallery: { src: string; alt: string }[];
@@ -65,6 +66,7 @@ const schema = {
       url,
       name: pageName,
       primaryImageOfPage: { '@type': 'ImageObject', url: imageUrl, ...(imgSize ?? {}) },
+      ...(p.updated ? { dateModified: p.updated } : {}),
       thumbnailUrl: imageUrl,
     },
     {
@@ -129,7 +131,7 @@ const schema = {
 >
   <script slot="head" src="/trek-page.js" defer is:inline></script>
 
-  <TrekHero {...p.hero} image={p.hero.image ?? p.image} />
+  <TrekHero {...p.hero} image={p.hero.image ?? p.image} updated={p.updated} />
   <StatsBar stats={p.stats} />
   <Gallery photos={p.gallery} />
 

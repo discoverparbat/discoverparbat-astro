@@ -6,8 +6,10 @@ interface Props {
   eyebrow: string;    // small line above the title, e.g. "Parbat, Nepal · 5 Days"
   title: string;      // H1 — may contain <br>
   subtitle: string;
+  updated?: string;   // YYYY-MM-DD, shown as "Updated November 2026"
 }
-const { image, alt, eyebrow, title, subtitle } = Astro.props;
+const { image, alt, eyebrow, title, subtitle, updated } = Astro.props;
+const updatedLabel = updated ? new Date(updated + 'T00:00:00Z').toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }) : null;
 ---
 <section class="hero">
   <img src={image} alt={alt} fetchpriority="high">
@@ -15,5 +17,6 @@ const { image, alt, eyebrow, title, subtitle } = Astro.props;
     <div class="hero-eyebrow">{eyebrow}</div>
     <h1 set:html={title} />
     <p>{subtitle}</p>
+    {updatedLabel && <p class="hero-updated"><time datetime={updated}>Updated {updatedLabel}</time> · by Sameer Regmi, founder &amp; local guide</p>}
   </div>
 </section>

@@ -88,6 +88,7 @@ content:
 
       - { name: tripName, label: "Schema trip name (e.g. Kokhe Danda Trek – 5 Days)", type: string }
       - { name: tripDescription, label: Schema trip description, type: text }
+      - { name: updated, label: "Last updated (shown under the title and sent to Google). Change it whenever you update prices, itinerary or FAQs", type: date }
 
       - name: hero
         label: Top banner

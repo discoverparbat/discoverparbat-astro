@@ -38,6 +38,7 @@ if (t.extraSchema && t.extraSchema.trim()) {
   name={t.name}
   tripName={t.tripName}
   tripDescription={t.tripDescription}
+  updated={t.updated ? (t.updated instanceof Date ? t.updated.toISOString().slice(0, 10) : String(t.updated)) : undefined}
   hero={t.hero}
   stats={t.stats}
   gallery={t.gallery}

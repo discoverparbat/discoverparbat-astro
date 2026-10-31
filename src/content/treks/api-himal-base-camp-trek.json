@@ -405,7 +405,7 @@
     },
     {
       "type": "html",
-      "html": "<div class=\"about-text\" style=\"margin-top:52px\">\n      <span class=\"section-label\">More Treks</span>\n      <h2 class=\"content-title\">Explore More with Discover Parbat</h2>\n      <div class=\"title-divider\"></div>\n      <p><a href=\"/kokhe-danda-trek\">Kokhe Danda Trek: 5-day homestay trek to the highest point of Parbat</a><br>\n      <a href=\"/multiple-viewpoints-trek\">Multiple Viewpoints Trek: six Himalayan viewpoints in 14 days</a><br>\n      <a href=\"/treks\">See all our treks</a></p>\n    </div>"
+      "html": "<div class=\"about-text\" style=\"margin-top:52px\">\n      <span class=\"section-label\">More Treks</span>\n      <h2 class=\"content-title\">Explore More with Discover Parbat</h2>\n      <div class=\"title-divider\"></div>\n      <p><a href=\"/kokhe-danda-trek\">Kokhe Danda Trek: 5-day homestay trek to the highest point of Parbat</a><br>\n       <a href=\"/khopra-ridge-trek\">Khopra Ridge Trek: 8-day ridge trek in the Annapurna region</a><br>\n      <a href=\"/multiple-viewpoints-trek\">Multiple Viewpoints Trek: six Himalayan viewpoints in 14 days</a><br>\n      <a href=\"/treks\">See all our treks</a></p>\n    </div>"
     }
   ],
   "listing": {

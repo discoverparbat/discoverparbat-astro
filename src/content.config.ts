@@ -26,6 +26,7 @@ const treks = defineCollection({
   schema: z.preprocess(stripEmpty, z.object({
     name: text,
     draft: z.boolean().optional(),
+    updated: z.union([z.string(), z.date()]).optional(),  // last content update, shown on the page + dateModified
     seo: z.object({
       title: text,
       description: text,

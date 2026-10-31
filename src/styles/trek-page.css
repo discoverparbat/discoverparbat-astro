@@ -843,3 +843,6 @@ body { line-height: 1.7; }
   object-fit: cover;
   object-position: center;
 }
+
+/* "Updated … by …" line under the trek title */
+.hero-content .hero-updated { font-size: 0.85rem; opacity: 0.85; margin-top: 10px; letter-spacing: 0.01em; }
