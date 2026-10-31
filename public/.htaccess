@@ -13,6 +13,12 @@ RewriteBase /
 RewriteCond %{HTTP_HOST} ^www\.discoverparbat\.com$ [NC]
 RewriteRule ^(.*)$ https://discoverparbat.com/$1 [R=301,L,NE]
 
+# Any other host name that reaches this site (e.g. the automatic Hostinger
+# alias discoverparbat.com.grnca.org, which Google had indexed) → the real domain.
+RewriteCond %{HTTP_HOST} !^discoverparbat\.com$ [NC]
+RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:\d+)?$ [NC]
+RewriteRule ^(.*)$ https://discoverparbat.com/$1 [R=301,L,NE]
+
 RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP:X-Forwarded-Proto} !=https
 RewriteRule ^(.*)$ https://discoverparbat.com/$1 [R=301,L,NE]
