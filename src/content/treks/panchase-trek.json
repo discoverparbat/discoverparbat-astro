@@ -1,0 +1,245 @@
+{
+  "name": "Panchase Trek",
+  "updated": "2026-10-31",
+  "seo": {
+    "title": "Panchase Trek 3 Days: Homestay Trek, Itinerary & Cost | Discover Parbat",
+    "description": "Panchase Trek: 3 easy days from Pokhara via Kushma. Gurung homestay in Arthar, orchid forest trails and sunrise over Annapurna and Dhaulagiri. From $230.",
+    "keywords": "Panchase Trek, Panchase trek itinerary, Panchase trek cost, Panchase trek 3 days, Panchase homestay trek, short trek from Pokhara, Panchase sunrise, Panchase Pokhara, Arthar village, Dandakharka Gurung village, Panchakoshi pond, easy trek Nepal, family trek Nepal, Poon Hill alternative, Parbat trekking, Discover Parbat Panchase",
+    "image": "/photo/treks/panchase.jpg",
+    "imageAlt": "Panchase signboard with Annapurna South and Machhapuchhre behind, on the Panchase Trek near Pokhara, Nepal"
+  },
+  "tripName": "Panchase Trek – 3 Days",
+  "tripDescription": "3-day easy trek from Pokhara via Kushma to the Gurung villages of Dandakharka and Arthar, an orchid-filled oak and rhododendron forest past the Panchakoshi pond, and sunrise over Dhaulagiri, the Annapurna range, Machhapuchhre and Manaslu from Panchase (about 2,500 m), descending to Ghatichhina.",
+  "hero": {
+    "image": "/photo/treks/aerial-view-annapurna-dhaulagiri-range-panchase.jpg",
+    "alt": "Annapurna and Dhaulagiri ranges above a sea of clouds, seen from Panchase near Pokhara",
+    "eyebrow": "Kaski · Parbat · Syangja, Nepal · 3 Days",
+    "title": "Panchase<br>Trek",
+    "subtitle": "3-day homestay trek from Pokhara: Gurung villages, orchid forest and sunrise over Annapurna and Dhaulagiri"
+  },
+  "stats": [
+    {
+      "value": "3 Days",
+      "label": "Duration"
+    },
+    {
+      "value": "Easy",
+      "label": "Difficulty"
+    },
+    {
+      "value": "≈2,500m",
+      "label": "Max Altitude"
+    },
+    {
+      "value": "Homestay & lodge",
+      "label": "Accommodation"
+    }
+  ],
+  "gallery": [
+    {
+      "src": "/photo/treks/aerial-view-annapurna-dhaulagiri-range-panchase.jpg",
+      "alt": "Annapurna and Dhaulagiri ranges above a sea of clouds from Panchase"
+    },
+    {
+      "src": "/photo/treks/panchase.jpg",
+      "alt": "Panchase signboard with Annapurna South and Machhapuchhre in the background"
+    },
+    {
+      "src": "/photo/treks/fishtail-view-from-panchase.jpg",
+      "alt": "Machhapuchhre (Fishtail) and the Annapurna range seen from Panchase"
+    },
+    {
+      "src": "/photo/treks/gurung-village-of-dandakharka.jpg",
+      "alt": "Terraced fields and slate-roofed houses of Dandakharka, a Gurung village on day 1 of the Panchase Trek"
+    },
+    {
+      "src": "/photo/treks/traditional-homes-at-arthar-village.jpg",
+      "alt": "Traditional Gurung homes with slate roofs at Arthar village, Panchase Trek homestay"
+    },
+    {
+      "src": "/photo/treks/traditional-home-at-arthar-village.jpg",
+      "alt": "Flagstone lane and whitewashed Gurung house with red trim in Arthar village"
+    },
+    {
+      "src": "/photo/treks/pond-at-panchase.jpg",
+      "alt": "Stone paths around the pond at Panchase in the forest near the top"
+    },
+    {
+      "src": "/photo/treks/temple-at-panchase.jpg",
+      "alt": "Small Hindu temple at Panchase with marigolds and stone steps"
+    },
+    {
+      "src": "/photo/treks/aerial-view-annapurna-range-panchase.jpg",
+      "alt": "Annapurna range above the clouds at sunrise from Panchase"
+    },
+    {
+      "src": "/photo/treks/layers-of-hills-from-panchase.jpg",
+      "alt": "Layers of hills glowing at sunrise on the southern side of Panchase"
+    },
+    {
+      "src": "/photo/treks/village-at-ramja-panchase-trail.jpg",
+      "alt": "Ramja village below the Annapurna range on the Panchase trail"
+    }
+  ],
+  "pricing": [
+    {
+      "group": "2 People",
+      "price": "$260"
+    },
+    {
+      "group": "3–4 People",
+      "price": "$249"
+    },
+    {
+      "group": "5+ People",
+      "price": "$230"
+    }
+  ],
+  "pricingNote": "Per person · Minimum 2 people",
+  "included": [
+    "Two-way private transport from Pokhara",
+    "3 meals a day during the trek",
+    "Homestay and lodge accommodation",
+    "Local guide salary",
+    "Meals and accommodation of the guide"
+  ],
+  "notIncluded": [
+    "International flights and Nepal visa",
+    "Travel insurance (strongly recommended)",
+    "Personal trekking gear and equipment",
+    "Drinks and snacks beyond meals",
+    "Tips for your guide",
+    "Any costs due to early return or emergency evacuation"
+  ],
+  "itinerary": [
+    {
+      "title": "Drive Pokhara → Kushma → Dandakharka, trek to Arthar",
+      "text": [
+        "We leave Pokhara in the morning and drive about three hours into Parbat district, with a tea stop in Kushma, the district headquarters perched above the Kali Gandaki and Modi rivers. The road climbs through terraced hills to Dandakharka, a Gurung village of slate-roofed houses and golden terraces.",
+        "Before we start walking, we take time to explore Dandakharka and its small gumba (monastery). Then it is a slow, easy hour on foot to Arthar Badagaun, an old Gurung village where half-abandoned stone houses stand beside family homes that are still lived in. Wander the flagstone lanes, look at the carved windows and red-earth trims, and spend the evening with your host family in an authentic local homestay."
+      ],
+      "time": "3 Hrs drive · 1 Hr hike",
+      "stay": "Homestay"
+    },
+    {
+      "title": "Arthar → Panchakoshi Pond → Panchase",
+      "text": [
+        "Today is the most beautiful walk of the trek. The trail climbs gently through oak and rhododendron forest, where many of the old oak trees are covered in orchids and moss, with village views opening up between the trees. It is a quiet, shaded and peaceful path.",
+        "We pass the Panchakoshi pond on the way and continue up to Panchase, arriving in time to watch the afternoon light on the mountains. Tonight we stay in a simple local lodge on the top: basic, but warm and perfectly placed for sunrise."
+      ],
+      "time": "4–5 Hrs",
+      "stay": "Basic lodge"
+    },
+    {
+      "title": "Sunrise at Panchase → Bhanjyang → Ghatichhina → Drive to Pokhara",
+      "text": [
+        "We wake early for sunrise from Panchase. As the sky brightens, Dhaulagiri, the Annapurna range, Machhapuchhre and, on clear days, Manaslu light up across the north, with the Pokhara valley below and layer after layer of hills stretching away to the south.",
+        "After breakfast we hike down through Bhanjyang to Ghatichhina, mostly downhill through forest and farmland. From Ghatichhina it is about an hour's drive back to Pokhara, arriving in the afternoon."
+      ],
+      "time": "3–4 Hrs hike · 1 Hr drive"
+    }
+  ],
+  "faqs": [
+    {
+      "q": "How difficult is the Panchase Trek?",
+      "a": "The Panchase Trek is rated Easy. Walking days are short: about an hour on day 1, four to five hours on day 2 and three to four hours on day 3, mostly on forest and village trails. The highest point is around 2,500 m, so altitude sickness is not a concern for most people. If you can walk comfortably for a few hours, you can do this trek."
+    },
+    {
+      "q": "Do I need trekking experience?",
+      "a": "No. Panchase is a good first trek in Nepal. A basic level of fitness helps on the climb through the forest on day 2, but there are no steep high passes or long days."
+    },
+    {
+      "q": "Where do we stay on the Panchase Trek?",
+      "a": "The first night is in a family homestay in Arthar Badagaun, a traditional Gurung village. The second night is in a simple local lodge at Panchase, right where you watch the sunrise. Both are basic and clean; expect shared bathrooms and home-cooked meals."
+    },
+    {
+      "q": "Which mountains can you see from Panchase?",
+      "a": "On a clear morning you can see Dhaulagiri, the Annapurna range including Annapurna South, Machhapuchhre (Fishtail) and Manaslu, with the Pokhara valley below and layers of hills to the south. October to December gives the clearest views."
+    },
+    {
+      "q": "When is the best time for the Panchase Trek?",
+      "a": "October to December for the clearest skies and mountain views, and March to May when the rhododendrons bloom. The trek is possible in winter (bring warm layers for the night on top) and in the monsoon, though views are often hidden by cloud from June to September."
+    },
+    {
+      "q": "How do we get from Pokhara to the start of the trek?",
+      "a": "We drive you by private vehicle from Pokhara to Dandakharka, about three hours with a stop in Kushma. At the end, we pick you up at Ghatichhina for the one-hour drive back to Pokhara. Transport both ways is included in the price."
+    },
+    {
+      "q": "Is the Panchase Trek good for families with children?",
+      "a": "Yes. The short walking days, low altitude and homestay make it a good choice for families. Talk to us about your children's ages and we can adjust the pace or the walking time each day."
+    },
+    {
+      "q": "Can I do the Panchase Trek alone?",
+      "a": "Our trips run for a minimum of two people. If you are travelling solo, contact us and we will suggest the best option for your dates, including joining other travellers where possible."
+    },
+    {
+      "q": "Why is Panchase called the meeting point of three districts?",
+      "a": "Panchase lies where Kaski, Parbat and Syangja districts meet. Our route approaches from the Parbat side through Dandakharka and Arthar, and descends on the Kaski side to Ghatichhina."
+    }
+  ],
+  "sections": [
+    {
+      "type": "html",
+      "html": "<span class=\"section-label\">Overview</span>\n    <h2 class=\"content-title\">About Panchase Trek</h2>\n\n\n<div class=\"title-divider\"></div>\n\n<div class=\"about-text\">\n      <p>The Panchase Trek is a three-day walk to one of the finest viewpoints near Pokhara, built around a night with a Gurung family and a sunrise few trekkers ever see. Panchase sits where Kaski, Parbat and Syangja districts meet, and from its top the Himalaya spreads across the whole northern sky: Dhaulagiri, the Annapurna range, Machhapuchhre and, on clear mornings, Manaslu far to the east, with the Pokhara valley and rolling layers of hills falling away to the south.</p>\n\n      <p>We start on the Parbat side, the way we know best. After a scenic drive from Pokhara with a stop in Kushma, the trek begins at Dandakharka, a Gurung village of slate-roofed houses and terraced fields with a small gumba at its heart. From there it is a slow, easy hour on foot to Arthar Badagaun, an old Gurung settlement where half-abandoned stone houses stand beside the homes that are still lived in. The flagstone lanes, carved windows and whitewashed walls with red-earth trim are some of the best-kept traditional Gurung architecture in the region, and you spend the night here in a family homestay, eating what the family eats.</p>\n\n      <p>The second day is the heart of the trek: four to five hours through oak and rhododendron forest, where the old oaks are hung with orchids and moss, past the Panchakoshi pond and quiet village viewpoints, up to Panchase itself. The trail is peaceful and shaded, and you are more likely to meet a herder or a pilgrim than another trekking group. Accommodation on the top is a simple local lodge, basic but warm, and perfectly placed for the morning.</p>\n\n      <p>Sunrise from Panchase is the reason people come back. The snow peaks light up one by one while the valleys below are often still full of cloud, and on the southern side the hills stack up in layer after layer of blue. After breakfast we walk down through Bhanjyang to Ghatichhina, and an hour's drive brings you back to Pokhara by the afternoon.</p>\n\n      <p>With short walking days, a maximum altitude of around 2,500 m and no long climbs, the Panchase Trek suits first-time trekkers, families and anyone with only a few days, and it is one of the best short treks from Pokhara outside the busy Poon Hill trail. Want more time in Parbat? Our <a href=\"/kokhe-danda-trek\">Kokhe Danda Trek</a> takes five days to the highest point of the district, with Magar homestays in Haljure and Lespar.</p>\n    </div>"
+    },
+    {
+      "type": "highlights",
+      "title": "Trek Highlights",
+      "items": [
+        "Sunrise over Dhaulagiri, Annapurna, Machhapuchhre and Manaslu",
+        "Traditional Gurung architecture in Arthar Badagaun",
+        "Night in an authentic family homestay",
+        "Oak and rhododendron forest hung with orchids",
+        "Panchakoshi pond and quiet village viewpoints",
+        "Views over the Pokhara valley and layers of hills"
+      ]
+    },
+    {
+      "type": "rightForYou",
+      "title": "This Trek Is Right for You If…",
+      "yes": [
+        "You have only three days but want real Himalayan views and village life",
+        "You are a first-time trekker, a family or simply prefer short walking days",
+        "You enjoy traditional architecture, home-cooked food and quiet forest trails",
+        "You want a short trek from Pokhara away from the busy Poon Hill trail (have 5 days? Choose the <a href=\"/kokhe-danda-trek\">Kokhe Danda Trek</a>)"
+      ],
+      "no": [
+        "You want high-altitude trekking above 3,000 m",
+        "You expect hot showers and Wi-Fi every night"
+      ]
+    },
+    {
+      "type": "html",
+      "html": "<div class=\"about-text\" style=\"margin-top:52px\">\n      <span class=\"section-label\">Plan Your Trek</span>\n      <h2 class=\"content-title\">Best Time, Cost and Getting There</h2>\n      <div class=\"title-divider\"></div>\n      <p><strong>Best time:</strong> October to December brings the clearest mountain views and dry trails, and is the best season for the Panchase sunrise. March to May is the other great window, when the rhododendron forest on day two is in bloom, although afternoons can be hazier. Winter nights on the top are cold, so bring a warm layer. In the June to September monsoon the forest is lush but views are often hidden by cloud and the trails can be slippery and leechy.</p>\n      <p><strong>Cost:</strong> the trek runs for a minimum of two people: US$260 per person for 2, US$249 per person for 3 to 4, and US$230 per person for groups of 5 or more. The price includes private transport both ways, your guide, meals and accommodation on the trek. Private departures can start on any date.</p>\n      <p><strong>Getting there:</strong> we pick you up in Pokhara and drive about three hours to Dandakharka, with a stop in Kushma, the headquarters of Parbat district. The trek ends at Ghatichhina, about an hour's drive from Pokhara, so there is no need to walk back the way you came.</p>\n    </div>"
+    },
+    {
+      "type": "itinerary"
+    },
+    {
+      "type": "faq"
+    },
+    {
+      "type": "html",
+      "html": "<div class=\"about-text\" style=\"margin-top:52px\">\n      <span class=\"section-label\">Related Guides</span>\n      <h2 class=\"content-title\">More Short Treks from Pokhara</h2>\n      <div class=\"title-divider\"></div>\n      <p><a href=\"/kokhe-danda-trek\">Kokhe Danda Trek: 5-day homestay trek to the highest point of Parbat</a><br>\n      <a href=\"/short-kokhe-danda-trek\">Short Kokhe Danda Trek: 3 days from Pokhara</a><br>\n      <a href=\"/poonhill-trek\">Poon Hill Trek: 4-day short route with a quiet Parbat finish</a><br>\n      <a href=\"/article/parbat-district-travel-guide\">Parbat district: a local's travel guide</a><br>\n      <a href=\"/article/family-trekking-nepal-with-kids\">Trekking in Nepal with kids: quiet village trails for families</a></p>\n    </div>"
+    }
+  ],
+  "listing": {
+    "showOnTreks": true,
+    "group": "parbat",
+    "order": 4,
+    "region": "Kaski · Parbat",
+    "days": 3,
+    "difficulty": "easy",
+    "maxAlt": "≈2,500 m",
+    "blurb": "Gurung homestay and Himalayan sunrise",
+    "cardImage": "/photo/treks/panchase.jpg",
+    "cardImageAlt": "Panchase Trek near Pokhara"
+  },
+  "home": {
+    "show": false,
+    "order": 9,
+    "blurb": "Gurung homestay and Himalayan sunrise",
+    "image": "/photo/treks/panchase.jpg",
+    "imageAlt": "Panchase Trek"
+  }
+}
