@@ -184,7 +184,19 @@
     },
     {
       "type": "highlights",
-      "title": "Trek Highlights",
+      "title": "Panchase Trek at a Glance",
+      "items": [
+        "3 days from Pokhara to Pokhara",
+        "Easy grade, highest point around 2,500 m",
+        "$230 to $260 per person, minimum 2 people",
+        "Best months: October to December, March to May",
+        "Gurung homestay and a local lodge",
+        "Short walking days, ideal for families"
+      ]
+    },
+    {
+      "type": "highlights",
+      "title": "Panchase Trek Highlights",
       "items": [
         "Sunrise over Dhaulagiri, Annapurna, Machhapuchhre and Manaslu",
         "Traditional Gurung architecture in Arthar Badagaun",
@@ -196,7 +208,7 @@
     },
     {
       "type": "rightForYou",
-      "title": "This Trek Is Right for You If…",
+      "title": "Panchase Trek Is Right for You If…",
       "yes": [
         "You have only three days but want real Himalayan views and village life",
         "You are a first-time trekker, a family or simply prefer short walking days",

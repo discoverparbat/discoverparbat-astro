@@ -9,7 +9,19 @@ export interface TrekCard {
   slug: string; url: string; name: string; image: string; imageAlt: string;
   region: string; days: number; difficulty: 'easy' | 'moderate' | 'hard'; maxAlt: string;
   blurb?: string; group: string; order: number; bookingName: string;
-  home?: { show: boolean; order: number; blurb?: string; badge?: string; image?: string; imageAlt?: string };
+  fromPrice?: string; peak?: string; // lowest group price ("$350") and highest point ("3,309 m") for cards
+  home?: { show: boolean; order: number; name?: string; blurb?: string; badge?: string; image?: string; imageAlt?: string };
+}
+
+/** "$350" from a pricing table's lowest per-person price. */
+function lowestPrice(pricing: { price: string }[] = []) {
+  const n = pricing.map((p) => Number(String(p.price).replace(/[^0-9.]/g, ''))).filter((x) => x > 0);
+  return n.length ? '$' + Math.min(...n).toLocaleString('en-US') : undefined;
+}
+/** "3,309 m" from the page's Max Altitude stat (falls back to nothing). */
+function peakOf(stats: { value: string; label: string }[] = []) {
+  const s = stats.find((x) => /alt/i.test(x.label));
+  return s ? s.value.replace(/\s*m$/i, '').replace(/~|≈/g, '').trim() + ' m' : undefined;
 }
 
 /** All published treks with listing info, in /treks order (featured, Parbat, classic). */
@@ -32,6 +44,8 @@ export async function getTrekCards(): Promise<TrekCard[]> {
         group: l.group,
         order: l.order,
         bookingName: l.bookingName ?? t.data.name,
+        fromPrice: lowestPrice(t.data.pricing),
+        peak: peakOf(t.data.stats),
         home: t.data.home,
         showOnTreks: l.showOnTreks,
       } as TrekCard & { showOnTreks: boolean };

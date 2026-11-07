@@ -250,9 +250,9 @@
   },
   "home": {
     "show": true,
-    "order": 5,
+    "order": 7,
     "blurb": "Short and scenic trek",
     "image": "/kokhe.jpg",
-    "imageAlt": "Short Kokhe Danda Trek"
+    "imageAlt": "Short Kokhe Danda Trek near Pokhara"
   }
 }

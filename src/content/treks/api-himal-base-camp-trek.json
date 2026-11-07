@@ -421,7 +421,10 @@
     "cardImageAlt": "Api Himal seen from Api Base Camp in Darchula, far-western Nepal"
   },
   "home": {
-    "show": false,
-    "order": 99
+    "show": true,
+    "order": 3,
+    "blurb": "Remote wilderness trek in Far-West Nepal",
+    "image": "/photo/treks/api-base-camp-trek.jpg",
+    "imageAlt": "Api Himal Base Camp in Far-West Nepal"
   }
 }

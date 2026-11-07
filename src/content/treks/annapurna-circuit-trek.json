@@ -321,9 +321,9 @@
   },
   "home": {
     "show": true,
-    "order": 8,
+    "order": 10,
     "blurb": "Classic Himalayan circuit over Thorong La",
     "image": "/act2.jpg",
-    "imageAlt": "Annapurna Circuit Trek"
+    "imageAlt": "Annapurna Circuit Trek over Thorong La"
   }
 }

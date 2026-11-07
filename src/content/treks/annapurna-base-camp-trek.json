@@ -311,9 +311,9 @@
   },
   "home": {
     "show": true,
-    "order": 4,
+    "order": 9,
     "blurb": "Classic Himalayan journey",
     "image": "/abc.jpg",
-    "imageAlt": "Annapurna Base Camp"
+    "imageAlt": "Annapurna Base Camp Trek"
   }
 }

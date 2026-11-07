@@ -69,6 +69,7 @@ content:
         fields:
           - { name: show, label: Show in "Featured Treks" on the homepage, type: boolean }
           - { name: order, label: Order on the homepage (1 = first), type: number }
+          - { name: name, label: "Card title (optional — default: the trek's card name)", type: string }
           - { name: blurb, label: Line under the name, type: string }
           - { name: image, label: Homepage card photo, type: image, options: { path: photo/treks } }
           - { name: imageAlt, label: Photo description, type: string }
@@ -239,7 +240,7 @@ content:
       - { name: trek, label: Trek name, type: string }
       - { name: date, label: Start date, type: date }
       - { name: duration, label: "Duration (e.g. 8 Days)", type: string }
-      - { name: seats, label: Seats left, type: number }
+      - { name: seats, label: "Seats left (leave empty to show \"Seats Available\")", type: number }
 
   # ────────────────────────────── SHOP ─────────────────────────────
   - name: shop

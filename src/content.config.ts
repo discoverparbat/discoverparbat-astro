@@ -81,6 +81,7 @@ const treks = defineCollection({
     home: z.object({
       show: z.boolean().default(false),
       order: z.number().default(99),
+      name: text.optional(),
       blurb: text.optional(),
       badge: text.optional(),
       image: text.optional(),
