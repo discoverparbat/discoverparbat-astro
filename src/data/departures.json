@@ -1,17 +1,17 @@
 [
   {
-    "trek": "Kokhe Danda Trek",
-    "date": "2026-11-03",
-    "duration": "5 Days"
-  },
-  {
-    "trek": "Mardi Himal Trek",
-    "date": "2026-11-06",
-    "duration": "5 Days"
-  },
-  {
     "trek": "Khopra Ridge Trek",
-    "date": "2026-11-10",
+    "date": "2026-11-12",
     "duration": "8 Days"
+  },
+  {
+    "trek": "Kokhe Danda Trek",
+    "date": "2026-11-14",
+    "duration": "5 Days"
+  },
+  {
+    "trek": "Muldai Viewpoint Trek",
+    "date": "2026-11-18",
+    "duration": "6 Days"
   }
 ]
