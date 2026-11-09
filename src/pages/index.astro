@@ -81,6 +81,18 @@ const schema = [
         ]
       }
     ]
+  },
+  // Featured treks list (same treks and order as the "Featured Treks" cards)
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Featured treks by Discover Parbat",
+    "itemListElement": homeTreks.map((t, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": t.name,
+      "url": `https://discoverparbat.com${t.url}`
+    }))
   }
 ];
 ---
