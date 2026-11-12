@@ -55,16 +55,19 @@ RewriteRule ^article/article-best-season-to-trek-in-nepal/?$ https://discoverpar
 RewriteRule ^admin/?$ https://app.pagescms.org/discoverparbat/discoverparbat-astro/main [R=302,L,NC]
 
 # ── 4. Legacy mixed-case .html URLs → lowercase clean URLs ──
-RewriteRule ^Shop\.html$ https://discoverparbat.com/shop [R=301,L,NC]
-RewriteRule ^Kokhe-Danda-Trek\.html$ https://discoverparbat.com/kokhe-danda-trek [R=301,L,NC]
-RewriteRule ^Short-Kokhe-Danda-Trek\.html$ https://discoverparbat.com/short-kokhe-danda-trek [R=301,L,NC]
-RewriteRule ^Mardi-Himal-Trek\.html$ https://discoverparbat.com/mardi-himal-trek [R=301,L,NC]
-RewriteRule ^Khopra-Danda-Trek\.html$ https://discoverparbat.com/khopra-ridge-trek [R=301,L,NC]
-RewriteRule ^Annapurna-Base-Camp-Trek\.html$ https://discoverparbat.com/annapurna-base-camp-trek [R=301,L,NC]
-RewriteRule ^Multiple-Viewpoints-Trek\.html$ https://discoverparbat.com/multiple-viewpoints-trek [R=301,L,NC]
-RewriteRule ^Short-Multiple-Viewpoints-Trek\.html$ https://discoverparbat.com/muldai-viewpoint-trek [R=301,L,NC]
-RewriteRule ^Why-Discover-Parbat-For-Kokhe-Danda-Trek\.html$ https://discoverparbat.com/article/why-kokhe-danda-trek [R=301,L,NC]
-RewriteRule ^why-kokhe-danda-trek\.html$ https://discoverparbat.com/article/why-kokhe-danda-trek [R=301,L,NC]
+# Case-sensitive on purpose (no NC): section 5 turns /shop into shop.html
+# internally, and an NC rule would match that and redirect in a loop.
+# Lowercase .html URLs are handled by the general .html rule below.
+RewriteRule ^Shop\.html$ https://discoverparbat.com/shop [R=301,L]
+RewriteRule ^Kokhe-Danda-Trek\.html$ https://discoverparbat.com/kokhe-danda-trek [R=301,L]
+RewriteRule ^Short-Kokhe-Danda-Trek\.html$ https://discoverparbat.com/short-kokhe-danda-trek [R=301,L]
+RewriteRule ^Mardi-Himal-Trek\.html$ https://discoverparbat.com/mardi-himal-trek [R=301,L]
+RewriteRule ^Khopra-Danda-Trek\.html$ https://discoverparbat.com/khopra-ridge-trek [R=301,L]
+RewriteRule ^Annapurna-Base-Camp-Trek\.html$ https://discoverparbat.com/annapurna-base-camp-trek [R=301,L]
+RewriteRule ^Multiple-Viewpoints-Trek\.html$ https://discoverparbat.com/multiple-viewpoints-trek [R=301,L]
+RewriteRule ^Short-Multiple-Viewpoints-Trek\.html$ https://discoverparbat.com/muldai-viewpoint-trek [R=301,L]
+RewriteRule ^Why-Discover-Parbat-For-Kokhe-Danda-Trek\.html$ https://discoverparbat.com/article/why-kokhe-danda-trek [R=301,L]
+RewriteRule ^why-kokhe-danda-trek\.html$ https://discoverparbat.com/article/why-kokhe-danda-trek [R=301,L]
 
 # index.html → homepage (must come before the general .html rule)
 RewriteCond %{THE_REQUEST} \s/+index\.(html|php)[\s?] [NC]
@@ -77,14 +80,21 @@ RewriteRule ^ https://discoverparbat.com/%1 [R=301,L,NE]
 
 # ── 5. Static site routing (no redirects) ──
 DirectoryIndex index.html
+# Don't let Apache add a slash to folder names (/about → /about/) before
+# these rules run; pages are files, and real folders hold only assets.
+DirectorySlash Off
+
+# A leftover folder on the server with the same name as a page (e.g. an old
+# about/ folder, Nov 2026) must never block that page, so these rules check
+# for the page's .html file instead of skipping every folder.
 
 # Trailing slash on a page URL → no slash (one URL per page)
-RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-d [OR]
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
 RewriteRule ^(.+)/$ https://discoverparbat.com/$1 [R=301,L]
 
 # Clean URL → the built .html file: /kokhe-danda-trek → kokhe-danda-trek.html,
 # /article/khayer-lake-guide → article/khayer-lake-guide.html
-RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.+)$ $1.html [L]
 
