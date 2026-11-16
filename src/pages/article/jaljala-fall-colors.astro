@@ -1,11 +1,9 @@
 ---
 // URL: https://discoverparbat.com/article/jaljala-fall-colors
-// Nepali article (नेपाली लेख): Jaljala autumn colours, Oct 2026.
+// Ported from the current site (Aseemsubedi/discover-parbat, article/jaljala-fall-colors.html).
 // This article keeps its own design: its styles are in the <style> block
 // below and the article HTML follows. The layout adds the head, header
 // and footer. Its card on /articles is in src/data/articles.json.
-// Photos: public/article/jaljala-fall.jpg, jaljala-fall1.jpg, jaljala-fall2.jpg,
-//         jaljala-fall-aerial.jpg, jaljala-fall-aerial1.jpg, jaljala-fall-aerial2.jpg
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
 const schema = [
@@ -23,8 +21,33 @@ const schema = [
         },
         "email": "info@discoverparbat.com",
         "sameAs": [
-          "https://www.facebook.com/discoverparbat"
+          "https://www.facebook.com/discoverparbat",
+          "https://www.instagram.com/discoverparbat",
+          "https://www.youtube.com/@discoverparbat9765",
+          "https://maps.app.goo.gl/wJ8wzmghg8FJQt8T8",
+          "https://www.tripadvisor.com/Attraction_Review-g293891-d27141838-Reviews-Discover_Parbat-Pokhara_Gandaki_Zone_Western_Region.html"
         ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://discoverparbat.com/#sameer-regmi",
+        "name": "Sameer Regmi",
+        "jobTitle": "Founder & Lead Guide",
+        "url": "https://discoverparbat.com/about#sameer-regmi",
+        "image": "https://discoverparbat.com/photo/sameer-regmi.jpg",
+        "worksFor": {
+          "@type": "Organization",
+          "@id": "https://discoverparbat.com/#organization",
+          "name": "Discover Parbat",
+          "url": "https://discoverparbat.com/",
+          "sameAs": [
+            "https://www.facebook.com/discoverparbat",
+            "https://www.instagram.com/discoverparbat",
+            "https://www.youtube.com/@discoverparbat9765",
+            "https://maps.app.goo.gl/wJ8wzmghg8FJQt8T8",
+            "https://www.tripadvisor.com/Attraction_Review-g293891-d27141838-Reviews-Discover_Parbat-Pokhara_Gandaki_Zone_Western_Region.html"
+          ]
+        }
       },
       {
         "@type": "WebSite",
@@ -86,7 +109,7 @@ const schema = [
         "keywords": "जलजला, Jaljala, शरद्, पहेँला पात, हम्पाल भ्युपोइन्ट, माटे लेक, लेस्पार, बनाउ, कोखे डाँडा, पर्वत",
         "inLanguage": "ne",
         "author": {
-          "@id": "https://discoverparbat.com/#organization"
+          "@id": "https://discoverparbat.com/#sameer-regmi"
         },
         "publisher": {
           "@id": "https://discoverparbat.com/#organization"
@@ -180,7 +203,7 @@ const schema = [
         "name": "जलजलामा पहेँला र राता पात कहिलेसम्म देखिन्छन्?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "यो वर्ष कात्तिकको यो हप्ता र आगामी करिब १० दिन (नोभेम्बर ५ आसपाससम्म) रङ हेर्ने उत्तम समय हो। पातको यो रङ धेरैमा १० देखि १२ दिन मात्र टिक्छ, त्यसपछि पात झर्न थाल्छन्।"
+          "text": "यो वर्ष कात्तिकको यो हप्ता र आगामी करिब १० दिन (कात्तिक १९ आसपाससम्म) रङ हेर्ने उत्तम समय हो। पातको यो रङ धेरैमा १० देखि १२ दिन मात्र टिक्छ, त्यसपछि पात झर्न थाल्छन्।"
         }
       },
       {
@@ -188,7 +211,7 @@ const schema = [
         "name": "यस पटक जलजला कहिले जाँदा राम्रो हुन्छ?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "बुधबार (अक्टोबर २८) सम्म फर्किन सकिने गरी जानुहोस्, नभए आइतबार (नोभेम्बर १) पछि जानुहोस्। बिहीबारदेखि शनिबारसम्म मौसम त्यति राम्रो नरहने देखिन्छ।"
+          "text": "बुधबार (कात्तिक ११) सम्म फर्किन सकिने गरी जानुहोस्, नभए आइतबार (कात्तिक १५) पछि जानुहोस्। बिहीबारदेखि शनिबारसम्म मौसम त्यति राम्रो नरहने देखिन्छ।"
         }
       },
       {
@@ -212,13 +235,12 @@ const schema = [
 ];
 ---
 <ArticleLayout
-  title="जलजलामा शरद्‌का रङ: पहेँला र राता पात हेर्ने उत्तम समय | Discover Parbat"
+  title="जलजलामा शरद्‌का रङ: पहेँला र राता पात हेर्ने उत्तम समय"
   description="पर्वतको जलजला लेक अहिले पहेँला र राता पातले रङ्गिएको छ। यो रङ धेरैमा १०–१२ दिन मात्र टिक्छ। कहिले जाने, मौसम, हम्पाल र माटे लेक भ्युपोइन्ट, लेस्पार र बनाउबाट पुग्ने बाटो र बस्ने ठाउँबारे पूरा जानकारी।"
   path="/article/jaljala-fall-colors"
   keywords="जलजला, Jaljala, Jaljala Parbat, जलजला पर्वत, जलजलामा शरद्, जलजला पहेँला पात, Jaljala fall colors, autumn colors Nepal, हम्पाल भ्युपोइन्ट, Hampal viewpoint, माटे लेक, Maate Lek, जलजला गाउँपालिका, मोदी गाउँपालिका, लेस्पार, Lespar, बनाउ, कोखे डाँडा, Kokhe Danda, अन्नपूर्ण दक्षिण, वराह शिखर, पार्वती तपस्या, कात्तिक घुमघाम, पर्वत घुम्ने ठाउँ, Discover Parbat"
   image="/article/jaljala-fall.jpg"
   imageAlt="जलजला लेकमा पहेँला र राता पात भएका रूख, पृष्ठभूमिमा हिमाल"
-  ogTitle="जलजलामा शरद्‌का रङ: पहेँला र राता पात हेर्ने उत्तम समय"
   ogDescription="२,९०० मिटरको जलजला लेक अहिले सुनौलो पहेँलो र गाढा रातो रङमा छ। यो दृश्य धेरैमा १०–१२ दिन मात्र रहन्छ। कहिले जाने र कसरी पुग्ने, यहाँ पढ्नुहोस्।"
   published="2026-10-26T21:00:00+05:45"
   modified="2026-10-26T21:00:00+05:45"
@@ -229,7 +251,7 @@ const schema = [
   schema={schema}
 >
 <Fragment slot="head">
-  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,600&family=Mukta:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600;700&display=swap" rel="stylesheet" />
 </Fragment>
 
 <style is:global>
@@ -391,7 +413,18 @@ const schema = [
   .jjx-main h2{margin-top:64px}
 }
 </style>
-
+<!-- ═══════════════════════════════════════════════════════════════
+     JALJALA FALL COLORS · NEPALI ARTICLE BODY (Discover Parbat)
+     URL: /article/jaljala-fall-colors
+     Self-contained: scoped styles (.jjx), schema, article, CTA, script.
+     Photos (upload to /article/):
+       jaljala-fall.jpg            (hero)
+       jaljala-fall1.jpg
+       jaljala-fall2.jpg
+       jaljala-fall-aerial.jpg
+       jaljala-fall-aerial1.jpg
+       jaljala-fall-aerial2.jpg
+     ═══════════════════════════════════════════════════════════════ -->
 <div class="jjx">
 <div class="jjx-progress" aria-hidden="true"><span id="jjxBar"></span></div>
 
@@ -406,8 +439,8 @@ const schema = [
     <h1>जलजलामा शरद्‌का रङ: पहेँला र राता पात हेर्ने उत्तम समय यही हो</h1>
     <p class="jjx-hero-sub">२,९०० मिटरको जलजला लेक अहिले सुनौलो पहेँलो र गाढा रातो रङले ढाकिएको छ। प्रकृतिको यो रङमहोत्सव धेरैमा १०–१२ दिन मात्र रहन्छ। यही हप्ता र आगामी करिब १० दिन जलजला पुग्ने उत्तम अवसर हो।</p>
     <div class="jjx-byline">
-      <span><strong>Discover Parbat</strong></span>
-      <span>प्रकाशित <strong>अक्टोबर २६, २०२६</strong></span>
+      <span><a href="/about#sameer-regmi" style="color:inherit;text-decoration:none"><strong>समीर रेग्मी</strong></a></span>
+      <span>प्रकाशित <strong>९ कात्तिक २०८३</strong></span>
       <span>पढ्न ७ मिनेट</span>
     </div>
   </div>
@@ -440,7 +473,7 @@ const schema = [
       <div class="jjx-glance">
         <div><small>उचाइ</small><strong>करिब २,९०० मिटर</strong></div>
         <div><small>जिल्ला</small><strong>पर्वत, गण्डकी प्रदेश</strong></div>
-        <div><small>रङ हेर्ने समय</small><strong>अहिलेदेखि नोभेम्बर ५ आसपाससम्म</strong></div>
+        <div><small>रङ हेर्ने समय</small><strong>अहिलेदेखि कात्तिक १९ आसपाससम्म</strong></div>
         <div><small>रङ टिक्ने अवधि</small><strong>धेरैमा १०–१२ दिन</strong></div>
         <div><small>देखिने हिमाल</small><strong>अन्नपूर्ण दक्षिण, वराह शिखर</strong></div>
       </div>
@@ -472,14 +505,14 @@ const schema = [
 
       <!-- WHEN -->
       <h2 id="jjx-when"><span class="jjx-num">समय र मौसम</span>यस पटक कहिले जाने?</h2>
-      <p>यो वर्ष जलजलामा रङ अहिले नै चरम अवस्थामा पुगेको छ। <strong>यो हप्ता र आगामी करिब १० दिन</strong>, अर्थात् नोभेम्बर ५ आसपाससम्म, पहेँला र राता पात हेर्ने उत्तम समय हो। तर यही अवधिभित्र पनि बीचका केही दिन मौसम त्यति राम्रो नरहने देखिन्छ, त्यसैले यात्रा योजना यसरी बनाउनुहोस्:</p>
+      <p>यो वर्ष जलजलामा रङ अहिले नै चरम अवस्थामा पुगेको छ। <strong>यो हप्ता र आगामी करिब १० दिन</strong>, अर्थात् कात्तिक १९ आसपाससम्म, पहेँला र राता पात हेर्ने उत्तम समय हो। तर यही अवधिभित्र पनि बीचका केही दिन मौसम त्यति राम्रो नरहने देखिन्छ, त्यसैले यात्रा योजना यसरी बनाउनुहोस्:</p>
 
       <div class="jjx-alert" role="note">
         <div class="jjx-alert-head">मौसम हेरेर यात्रा मिलाउनुहोस्</div>
         <div class="jjx-alert-body">
-          <div class="jjx-ok"><b>✓ उपयुक्त</b><strong>बुधबार (अक्टोबर २८) सम्म फर्किने गरी</strong><p>आज वा भोलि हिँड्ने हो भने बुधबारसम्म घर फर्किने योजना बनाउनुहोस्।</p></div>
-          <div class="jjx-bad"><b>✕ नजानुहोस्</b><strong>बिहीबारदेखि शनिबारसम्म (अक्टोबर २९–३१)</strong><p>यी दिन मौसम त्यति राम्रो नरहने देखिन्छ। बादल लाग्दा हिमाल र रङ दुवै राम्ररी देखिँदैनन्।</p></div>
-          <div class="jjx-ok"><b>✓ उपयुक्त</b><strong>आइतबार (नोभेम्बर १) पछि</strong><p>मौसम खुलेपछि जानुहोस्। पात झर्नुअघि, नोभेम्बरको पहिलो हप्ताभित्रै पुग्नुहोस्।</p></div>
+          <div class="jjx-ok"><b>✓ उपयुक्त</b><strong>बुधबार (कात्तिक ११) सम्म फर्किने गरी</strong><p>आज वा भोलि हिँड्ने हो भने बुधबारसम्म घर फर्किने योजना बनाउनुहोस्।</p></div>
+          <div class="jjx-bad"><b>✕ नजानुहोस्</b><strong>बिहीबारदेखि शनिबारसम्म (कात्तिक १२–१४)</strong><p>यी दिन मौसम त्यति राम्रो नरहने देखिन्छ। बादल लाग्दा हिमाल र रङ दुवै राम्ररी देखिँदैनन्।</p></div>
+          <div class="jjx-ok"><b>✓ उपयुक्त</b><strong>आइतबार (कात्तिक १५) पछि</strong><p>मौसम खुलेपछि जानुहोस्। पात झर्नुअघि, कात्तिक १९ गतेभित्रै पुग्नुहोस्।</p></div>
         </div>
       </div>
 
@@ -568,11 +601,11 @@ const schema = [
         </details>
         <details>
           <summary>जलजलामा पहेँला र राता पात कहिलेसम्म देखिन्छन्?</summary>
-          <p>यो वर्ष कात्तिकको यो हप्ता र आगामी करिब १० दिन (नोभेम्बर ५ आसपाससम्म) रङ हेर्ने उत्तम समय हो। पातको यो रङ धेरैमा १० देखि १२ दिन मात्र टिक्छ, त्यसपछि पात झर्न थाल्छन्।</p>
+          <p>यो वर्ष कात्तिकको यो हप्ता र आगामी करिब १० दिन (कात्तिक १९ आसपाससम्म) रङ हेर्ने उत्तम समय हो। पातको यो रङ धेरैमा १० देखि १२ दिन मात्र टिक्छ, त्यसपछि पात झर्न थाल्छन्।</p>
         </details>
         <details>
           <summary>यस पटक जलजला कहिले जाँदा राम्रो हुन्छ?</summary>
-          <p>बुधबार (अक्टोबर २८) सम्म फर्किन सकिने गरी जानुहोस्, नभए आइतबार (नोभेम्बर १) पछि जानुहोस्। बिहीबारदेखि शनिबारसम्म मौसम त्यति राम्रो नरहने देखिन्छ।</p>
+          <p>बुधबार (कात्तिक ११) सम्म फर्किन सकिने गरी जानुहोस्, नभए आइतबार (कात्तिक १५) पछि जानुहोस्। बिहीबारदेखि शनिबारसम्म मौसम त्यति राम्रो नरहने देखिन्छ।</p>
         </details>
         <details>
           <summary>जलजला कसरी पुगिन्छ?</summary>
@@ -607,6 +640,7 @@ const schema = [
 </div>
 </div>
 
+<!-- ═══════════════ END JALJALA ARTICLE ═══════════════ -->
 
 <script is:inline>
 (function () {
