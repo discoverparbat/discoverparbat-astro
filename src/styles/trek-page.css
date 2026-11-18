@@ -846,3 +846,6 @@ body { line-height: 1.7; }
 
 /* "Updated … by …" line under the trek title */
 .hero-content .hero-updated { font-size: 0.85rem; opacity: 0.85; margin-top: 10px; letter-spacing: 0.01em; }
+
+/* Smaller second name under a trek title, e.g. "(Khopra Danda)" */
+.hero h1 .h1-alt { display: block; font-size: 0.42em; font-weight: 500; letter-spacing: 0.02em; opacity: 0.92; margin-top: 0.35em; }

@@ -1,7 +1,8 @@
 // Turns the built site (dist/) into a GitHub Pages PREVIEW.
 // GitHub Pages serves the site under /discoverparbat-astro/, so this script
 // prefixes every root link ("/kokhe.jpg") with that folder, and marks every
-// page noindex so Google never indexes the preview (only the real site).
+// page noindex so Google never indexes the preview (only the real site), and removes
+// the Google Analytics tag so preview visits don't count as real traffic.
 // Used only by .github/workflows/preview.yml — never touches the real site.
 import { readdirSync, readFileSync, writeFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
@@ -21,6 +22,10 @@ function fixHtml(p) {
   let s = readFileSync(p, 'utf8');
   s = s.replace(/(src|href|action)="\/(?!\/)/g, `$1="${base}/`);
   s = s.replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex, nofollow">');
+  // No Analytics on the preview, so its visits never mix with the live site's figures.
+  s = s.replace(/<!-- Google tag \(gtag\.js\) -->\s*/g, '');
+  s = s.replace(/<script[^>]*googletagmanager\.com\/gtag\/js[^>]*><\/script>\s*/g, '');
+  s = s.replace(/<script[^>]*>\s*window\.dataLayer[\s\S]*?<\/script>\s*/g, '');
   s = s.replace('</body>', `<div style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#b45309;color:#fff;font:600 13px/1.4 sans-serif;text-align:center;padding:6px">PREVIEW — not the live site</div>\n</body>`);
   writeFileSync(p, s);
 }
